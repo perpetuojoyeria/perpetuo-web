@@ -1,3 +1,7 @@
-Pon aquí los archivos originales del logo. Nombres que la página busca:
-  perpetuo-horizontal.svg  (o .png)  -> logo horizontal del encabezado
-Si el archivo existe, la página lo usa automáticamente. Si no, muestra un espacio marcado.
+Archivos del logo que usa la página (nombres exactos):
+  perpetuo-horizontal.svg/.png -> logo horizontal (monograma + nombre en una línea). Si existe, el encabezado lo usa primero.
+  perpetuo-monograma.png       -> monograma PC con estrella, sin fondo. Se usa mientras no haya horizontal.
+
+La carpeta "originales" guarda los archivos tal como llegaron, sin tocar.
+perpetuo-monograma.png se sacó de originales/logo-completo-fondo-perla.png:
+solo se recortó y se quitó el fondo; el trazo y los colores son los originales.

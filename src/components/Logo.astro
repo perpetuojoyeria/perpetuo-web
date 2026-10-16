@@ -1,38 +1,42 @@
 ---
 // Logo de Perpetuo. NUNCA se redibuja: usa el archivo original de /public/logos.
-// Si el archivo todavía no está, muestra un espacio marcado del mismo tamaño.
+// Busca las variantes en el orden indicado y usa la primera que exista.
+// Si no hay ninguna, muestra un espacio marcado.
 import fs from 'node:fs';
 import path from 'node:path';
 
-interface Props { variante?: 'horizontal'; alto?: number }
-const { variante = 'horizontal', alto = 36 } = Astro.props;
+type Variante = 'horizontal' | 'monograma';
+interface Props { variantes?: Variante[]; clase?: string }
+const { variantes = ['horizontal', 'monograma'], clase = '' } = Astro.props;
 
-const nombreBase = `perpetuo-${variante}`;
 const extensiones = ['svg', 'png', 'webp'];
-const encontrado = extensiones.find((ext) =>
-  fs.existsSync(path.join(process.cwd(), 'public', 'logos', `${nombreBase}.${ext}`)),
-);
-const ruta = encontrado ? `/logos/${nombreBase}.${encontrado}` : null;
+let ruta: string | null = null;
+let usada: Variante = variantes[0];
+for (const v of variantes) {
+  const ext = extensiones.find((e) =>
+    fs.existsSync(path.join(process.cwd(), 'public', 'logos', `perpetuo-${v}.${e}`)),
+  );
+  if (ext) { ruta = `/logos/perpetuo-${v}.${ext}`; usada = v; break; }
+}
 ---
 {ruta ? (
-  <img class="logo" src={ruta} alt="Perpetuo Joyería" style={`height:${alto}px`} />
+  <img class:list={['logo', `logo--${usada}`, clase]} src={ruta} alt="Perpetuo Joyería" />
 ) : (
-  <span class="logo logo--espacio" style={`--alto:${alto}px`} role="img" aria-label="Perpetuo Joyería">
-    <span>Logo {variante}</span>
-    <small>/logos/{nombreBase}.svg</small>
+  <span class:list={['logo', 'logo--espacio', clase]} role="img" aria-label="Perpetuo Joyería">
+    <span>Logo {variantes[0]}</span>
+    <small>/logos/perpetuo-{variantes[0]}.svg</small>
   </span>
 )}
 
 <style>
-  /* Si el logo es muy ancho, se encoge para no empujar los íconos en celulares pequeños */
-  .logo { width: auto; max-width: min(180px, 44vw); object-fit: contain; }
-  @media (min-width: 1024px) { .logo { max-width: 260px; } }
+  /* El alto lo decide cada sección con --alto-logo; el ancho se ajusta solo */
+  .logo { height: var(--alto-logo, 36px); width: auto; }
+  .logo--horizontal { max-width: min(180px, 44vw); object-fit: contain; }
   .logo--espacio {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: var(--alto);
     aspect-ratio: 4.5 / 1;
     max-width: 100%;
     border: 1px dashed var(--noche);
@@ -51,4 +55,5 @@ const ruta = encontrado ? `/logos/${nombreBase}.${encontrado}` : null;
     text-transform: none;
     opacity: 0.7;
   }
+  @media (min-width: 1024px) { .logo--horizontal { max-width: 260px; } }
 </style>

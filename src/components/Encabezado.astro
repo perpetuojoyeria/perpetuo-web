@@ -21,7 +21,7 @@ const rutaActual = Astro.url.pathname;
 
     <!-- Centro: logo -->
     <a class="encabezado__logo" href="/" aria-label="Perpetuo Joyería, ir al inicio">
-      <Logo alto={34} />
+      <Logo />
     </a>
 
     <!-- Derecha: cuenta + carrito -->
@@ -113,7 +113,14 @@ const rutaActual = Astro.url.pathname;
   }
   .encabezado__lado { display: flex; align-items: center; gap: var(--e-1); }
   .encabezado__lado--der { justify-content: flex-end; }
-  .encabezado__logo { display: flex; justify-content: center; text-decoration: none; }
+  .encabezado__logo {
+    --alto-logo: 44px;
+    display: flex;
+    justify-content: center;
+    padding-block: var(--e-2);
+    text-decoration: none;
+  }
+  .encabezado__logo :global(.logo) { transition: height 0.3s var(--suave); }
 
   /* Íconos: área táctil de 44px aunque el dibujo sea pequeño */
   .icono {
@@ -285,6 +292,8 @@ const rutaActual = Astro.url.pathname;
     .solo-escritorio { display: block; }
     .encabezado__fila { min-height: 84px; }
     .encabezado.compacto .encabezado__fila { min-height: 64px; }
+    .encabezado__logo { --alto-logo: 60px; }
+    .encabezado.compacto .encabezado__logo { --alto-logo: 44px; }
     .icono--buscar { padding-inline: var(--e-3); }
     .icono__texto {
       display: inline;
