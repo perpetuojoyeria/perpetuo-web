@@ -67,4 +67,5 @@ Luz natural, fondos lisos en la paleta, la mitad de las fotos con la joya puesta
 - Si algo no está claro, preguntar antes de suponer.
 
 ## ESTADO
-- [ ] Paso 1: Barra de anuncio + encabezado (en revisión)
+- [x] Paso 1: Barra de anuncio + encabezado (aprobado). Logo: monograma sin fondo en public/logos/perpetuo-monograma.png; falta versión horizontal y versión clara para el footer.
+- [ ] Paso 2: Hero
