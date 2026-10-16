@@ -136,6 +136,12 @@ button { font: inherit; color: inherit; }
 .boton:hover { background: var(--profundo); }
 .boton--borde { background: transparent; color: var(--noche); }
 .boton--borde:hover { background: var(--noche); color: var(--hueso); }
+/* Versiones para fondos oscuros (video, bloques Azul Noche/Profundo, footer) */
+.boton--claro { background: var(--hueso); border-color: var(--hueso); color: var(--noche); }
+.boton--claro:hover { background: var(--perla); border-color: var(--perla); }
+.boton--borde-claro { background: transparent; border-color: var(--hueso); color: var(--hueso); }
+.boton--borde-claro:hover { background: var(--hueso); color: var(--noche); }
+.sobre-oscuro :focus-visible { outline-color: var(--perla); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

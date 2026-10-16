@@ -68,4 +68,4 @@ Luz natural, fondos lisos en la paleta, la mitad de las fotos con la joya puesta
 
 ## ESTADO
 - [x] Paso 1: Barra de anuncio + encabezado (aprobado). Logo: monograma sin fondo en public/logos/perpetuo-monograma.png; falta versión horizontal y versión clara para el footer.
-- [ ] Paso 2: Hero
+- [ ] Paso 2: Hero con video (en revisión). Video en public/videos (ver LEEME.txt), textos en src/data/hero.json. Notita Caveat de precio reservada para Looks (regla de 3 familias).

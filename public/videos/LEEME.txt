@@ -1,0 +1,5 @@
+Video del Hero. Nombres exactos:
+  hero.mp4         -> obligatorio. Formato vertical 4:5 (ej. 1080 x 1350), 6-8 segundos, SIN sonido, máximo 3 MB.
+  hero.webm        -> opcional, versión más liviana del mismo video.
+  hero-poster.jpg  -> obligatorio. Una foto fija (el primer cuadro del video), 1080 x 1350, máximo 200 KB.
+                      Se ve mientras el video carga y en celulares con "ahorro de datos".

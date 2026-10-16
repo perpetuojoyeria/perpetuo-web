@@ -3,14 +3,16 @@
 import Base from '../layouts/Base.astro';
 import BarraAnuncio from '../components/BarraAnuncio.astro';
 import Encabezado from '../components/Encabezado.astro';
+import Hero from '../components/Hero.astro';
 ---
 <Base>
   <BarraAnuncio />
   <Encabezado />
   <main>
-    <!-- Paso 2: Hero (pendiente de aprobación del paso 1) -->
+    <Hero />
+    <!-- Paso 3: Looks Perpetuo (pendiente de aprobación del paso 2) -->
     <section class="pendiente contenedor" aria-label="Próximas secciones">
-      <p>Aquí irá el Hero (paso 2).</p>
+      <p>Aquí irán los Looks Perpetuo (paso 3).</p>
     </section>
   </main>
 </Base>
@@ -19,7 +21,7 @@ import Encabezado from '../components/Encabezado.astro';
   .pendiente {
     display: grid;
     place-items: center;
-    min-height: 160vh;   /* alto temporal para poder probar el encabezado al hacer scroll */
+    min-height: 60vh;   /* alto temporal */
     font-size: var(--t-sm);
     letter-spacing: 0.1em;
     text-transform: uppercase;
