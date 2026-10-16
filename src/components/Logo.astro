@@ -1,0 +1,54 @@
+---
+// Logo de Perpetuo. NUNCA se redibuja: usa el archivo original de /public/logos.
+// Si el archivo todavía no está, muestra un espacio marcado del mismo tamaño.
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props { variante?: 'horizontal'; alto?: number }
+const { variante = 'horizontal', alto = 36 } = Astro.props;
+
+const nombreBase = `perpetuo-${variante}`;
+const extensiones = ['svg', 'png', 'webp'];
+const encontrado = extensiones.find((ext) =>
+  fs.existsSync(path.join(process.cwd(), 'public', 'logos', `${nombreBase}.${ext}`)),
+);
+const ruta = encontrado ? `/logos/${nombreBase}.${encontrado}` : null;
+---
+{ruta ? (
+  <img class="logo" src={ruta} alt="Perpetuo Joyería" style={`height:${alto}px`} />
+) : (
+  <span class="logo logo--espacio" style={`--alto:${alto}px`} role="img" aria-label="Perpetuo Joyería">
+    <span>Logo {variante}</span>
+    <small>/logos/{nombreBase}.svg</small>
+  </span>
+)}
+
+<style>
+  /* Si el logo es muy ancho, se encoge para no empujar los íconos en celulares pequeños */
+  .logo { width: auto; max-width: min(180px, 44vw); object-fit: contain; }
+  @media (min-width: 1024px) { .logo { max-width: 260px; } }
+  .logo--espacio {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: var(--alto);
+    aspect-ratio: 4.5 / 1;
+    max-width: 100%;
+    border: 1px dashed var(--noche);
+    border-radius: 6px;
+    font-family: var(--f-texto);
+    font-size: 0.6rem;
+    line-height: 1.15;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--noche);
+    background: repeating-linear-gradient(135deg, transparent 0 6px, var(--linea-suave) 6px 7px);
+  }
+  .logo--espacio small {
+    font-size: 0.5rem;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    opacity: 0.7;
+  }
+</style>

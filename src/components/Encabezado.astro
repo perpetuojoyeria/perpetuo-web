@@ -1,0 +1,336 @@
+---
+// PASO 1b · Encabezado
+// Logo, menú, buscador, cuenta y carrito. En celular el menú se vuelve hamburguesa.
+// Las opciones del menú se editan en src/data/navegacion.json.
+import Logo from './Logo.astro';
+import nav from '../data/navegacion.json';
+const rutaActual = Astro.url.pathname;
+---
+<header class="encabezado" data-encabezado>
+  <div class="encabezado__fila contenedor">
+    <!-- Izquierda: menú (solo celular) + buscar -->
+    <div class="encabezado__lado encabezado__lado--izq">
+      <button class="icono solo-movil" type="button" aria-label="Abrir menú" aria-haspopup="dialog" data-abrir-menu>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 8h18M3 16h12" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icono icono--buscar" type="button" aria-label="Buscar" aria-expanded="false" aria-controls="panel-busqueda" data-abrir-busqueda>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5" stroke-linecap="round"/></svg>
+        <span class="icono__texto">Buscar</span>
+      </button>
+    </div>
+
+    <!-- Centro: logo -->
+    <a class="encabezado__logo" href="/" aria-label="Perpetuo Joyería, ir al inicio">
+      <Logo alto={34} />
+    </a>
+
+    <!-- Derecha: cuenta + carrito -->
+    <div class="encabezado__lado encabezado__lado--der">
+      <a class="icono" href={nav.cuenta} aria-label="Mi cuenta">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4 20.5c1.3-3.6 4.4-5.5 8-5.5s6.7 1.9 8 5.5" stroke-linecap="round"/></svg>
+      </a>
+      <a class="icono" href={nav.carrito} aria-label="Bolsa de compras">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 8h14l-1 12.5H6L5 8Z" stroke-linejoin="round"/><path d="M9 10.5V7a3 3 0 0 1 6 0v3.5" stroke-linecap="round"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Menú de escritorio -->
+  <nav class="menu solo-escritorio contenedor" aria-label="Principal">
+    <ul role="list">
+      {nav.menu.map((item) => (
+        <li>
+          <a
+            href={item.enlace}
+            class:list={['menu__enlace', { 'menu__enlace--destacado': item.destacado }]}
+            aria-current={rutaActual === item.enlace ? 'page' : undefined}
+          >{item.etiqueta}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <!-- Panel de búsqueda (se despliega) -->
+  <div class="busqueda" id="panel-busqueda" hidden>
+    <form class="busqueda__form contenedor" action={nav.buscar} method="get" role="search">
+      <label class="solo-lector" for="campo-busqueda">¿Qué brillo buscas?</label>
+      <input id="campo-busqueda" name="q" type="search" placeholder="Argollas, cadenas, ear cuffs…" autocomplete="off" />
+      <button class="boton" type="submit">Buscar</button>
+    </form>
+  </div>
+</header>
+
+<!-- Menú de celular (cajón lateral) -->
+<dialog class="cajon" aria-label="Menú" data-cajon>
+  <div class="cajon__interior">
+    <div class="cajon__cabeza">
+      <span class="cajon__rotulo">Menú</span>
+      <button class="icono" type="button" aria-label="Cerrar menú" data-cerrar-menu>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <nav aria-label="Principal (celular)">
+      <ul class="cajon__lista" role="list">
+        {nav.menu.map((item) => (
+          <li>
+            <a href={item.enlace} class:list={['cajon__enlace', { 'cajon__enlace--destacado': item.destacado }]}>
+              <span class="cajon__nombre">{item.etiqueta}</span>
+              <em class="cajon__nota">{item.nota}</em>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="cajon__pie">
+      <a class="boton boton--borde" href={nav.cuenta}>Mi cuenta</a>
+      <p class="cajon__tagline">Brillo que se queda.</p>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  /* ——— Encabezado ——— */
+  .encabezado {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 50;
+    background: var(--hueso);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s var(--suave), box-shadow 0.3s var(--suave);
+  }
+  .encabezado.con-sombra {
+    border-bottom-color: var(--linea);
+    box-shadow: 0 8px 24px -18px var(--velo);
+  }
+  .encabezado__fila {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;   /* el logo siempre queda exactamente al centro */
+    align-items: center;
+    min-height: 60px;
+    transition: min-height 0.3s var(--suave);
+  }
+  .encabezado__lado { display: flex; align-items: center; gap: var(--e-1); }
+  .encabezado__lado--der { justify-content: flex-end; }
+  .encabezado__logo { display: flex; justify-content: center; text-decoration: none; }
+
+  /* Íconos: área táctil de 44px aunque el dibujo sea pequeño */
+  .icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--e-2);
+    min-width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--r-pildora);
+    background: transparent;
+    color: var(--noche);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s var(--suave);
+  }
+  .icono:hover { background: var(--linea-suave); }
+  .icono__texto { display: none; }
+
+  /* ——— Menú escritorio ——— */
+  .menu ul {
+    display: flex;
+    justify-content: center;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    margin: 0;
+    padding: 0 0 var(--e-3);
+    list-style: none;
+  }
+  .menu__enlace {
+    position: relative;
+    display: inline-block;
+    padding: var(--e-1) 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: var(--espaciado-menu);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .menu__enlace::after {          /* subrayado fino que crece desde el centro */
+    content: '';
+    position: absolute;
+    left: 50%; right: 50%; bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transition: left 0.35s var(--suave), right 0.35s var(--suave);
+  }
+  .menu__enlace:hover::after,
+  .menu__enlace[aria-current='page']::after { left: 0; right: 0; }
+  .menu__enlace--destacado {
+    padding: var(--e-1) var(--e-4);
+    border-radius: var(--r-pildora);
+    background: var(--perla);
+    box-shadow: inset 0 0 0 1px var(--linea);
+  }
+  .menu__enlace--destacado::after { display: none; }
+  .menu__enlace--destacado:hover { background: var(--noche); color: var(--perla); }
+
+  /* ——— Búsqueda ——— */
+  .busqueda {
+    border-top: 1px solid var(--linea-suave);
+    background: var(--hueso);
+    padding-block: var(--e-4);
+  }
+  .busqueda__form { display: flex; gap: var(--e-2); }
+  .busqueda input {
+    flex: 1;
+    min-width: 0;
+    height: 48px;
+    padding: 0 var(--e-5);
+    border: 1px solid var(--linea);
+    border-radius: var(--r-pildora);
+    background: var(--hueso);
+    color: var(--noche);
+    font-family: var(--f-texto);
+    font-size: var(--t-base);   /* 16px: evita que el iPhone haga zoom */
+  }
+  .busqueda input::placeholder { color: var(--noche); opacity: 0.5; }
+  .busqueda input:focus { outline: none; border-color: var(--noche); }
+  .busqueda .boton { padding-inline: var(--e-5); }
+
+  /* ——— Cajón (menú celular) ——— */
+  .cajon {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: min(88vw, 400px);
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--hueso);
+    color: var(--noche);
+    transform: translateX(-100%);
+    transition: transform 0.45s var(--suave), overlay 0.45s allow-discrete, display 0.45s allow-discrete;
+  }
+  .cajon[open] { transform: none; }
+  @starting-style { .cajon[open] { transform: translateX(-100%); } }
+  .cajon::backdrop {
+    background: var(--velo);
+    opacity: 0;
+    transition: opacity 0.45s var(--suave), overlay 0.45s allow-discrete, display 0.45s allow-discrete;
+  }
+  .cajon[open]::backdrop { opacity: 1; }
+  @starting-style { .cajon[open]::backdrop { opacity: 0; } }
+
+  .cajon__interior {
+    display: flex;
+    flex-direction: column;
+    gap: var(--e-6);
+    min-height: 100%;
+    padding: calc(var(--e-3) + env(safe-area-inset-top, 0px)) var(--e-5) calc(var(--e-6) + env(safe-area-inset-bottom, 0px)) max(var(--e-5), env(safe-area-inset-left, 0px));
+  }
+  .cajon__cabeza { display: flex; align-items: center; justify-content: space-between; }
+  .cajon__rotulo {
+    font-size: var(--t-xs);
+    font-weight: 500;
+    letter-spacing: var(--espaciado-titulo);
+    text-transform: uppercase;
+  }
+  .cajon__lista { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--linea); }
+  .cajon__lista li { border-bottom: 1px solid var(--linea); }
+  .cajon__enlace {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--e-4);
+    padding: var(--e-5) var(--e-2);
+    text-decoration: none;
+  }
+  .cajon__nombre {
+    font-family: var(--f-titulo);
+    font-size: clamp(1.3rem, 5.6vw, 1.6rem);
+    line-height: 1.1;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .cajon__nota {
+    font-family: var(--f-coqueta);
+    margin-left: auto;
+    font-size: 1rem;
+    white-space: nowrap;
+    opacity: 0.85;
+  }
+  .cajon__enlace--destacado {
+    margin-block: var(--e-2);
+    padding-inline: var(--e-4);
+    border-radius: var(--r-tarjeta);
+    background: var(--perla);
+  }
+  .cajon__lista li:has(.cajon__enlace--destacado) { border-bottom: 0; }
+  .cajon__pie { margin-top: auto; display: grid; gap: var(--e-4); justify-items: start; }
+  .cajon__tagline {
+    margin: 0;
+    font-family: var(--f-coqueta);
+    font-style: italic;
+    font-size: var(--t-lg);
+  }
+
+  /* ——— Visibilidad por tamaño de pantalla ——— */
+  .solo-escritorio { display: none; }
+
+  @media (min-width: 1024px) {
+    .solo-movil { display: none; }
+    .solo-escritorio { display: block; }
+    .encabezado__fila { min-height: 84px; }
+    .encabezado.compacto .encabezado__fila { min-height: 64px; }
+    .icono--buscar { padding-inline: var(--e-3); }
+    .icono__texto {
+      display: inline;
+      font-size: 0.75rem;
+      letter-spacing: var(--espaciado-menu);
+      text-transform: uppercase;
+    }
+  }
+</style>
+
+<script>
+  const encabezado = document.querySelector<HTMLElement>('[data-encabezado]');
+  const cajon = document.querySelector<HTMLDialogElement>('[data-cajon]');
+  const botonBuscar = document.querySelector<HTMLButtonElement>('[data-abrir-busqueda]');
+  const panelBusqueda = document.getElementById('panel-busqueda');
+
+  // Sombra y versión compacta al bajar
+  if (encabezado) {
+    const alBajar = () => {
+      const abajo = window.scrollY > 8;
+      encabezado.classList.toggle('con-sombra', abajo);
+      encabezado.classList.toggle('compacto', window.scrollY > 120);
+    };
+    window.addEventListener('scroll', alBajar, { passive: true });
+    alBajar();
+  }
+
+  // Menú de celular
+  document.querySelector('[data-abrir-menu]')?.addEventListener('click', () => cajon?.showModal());
+  document.querySelector('[data-cerrar-menu]')?.addEventListener('click', () => cajon?.close());
+  cajon?.addEventListener('click', (e) => { if (e.target === cajon) cajon.close(); }); // toque fuera = cerrar
+
+  // Buscador
+  const cerrarBusqueda = () => {
+    if (!panelBusqueda || !botonBuscar) return;
+    panelBusqueda.hidden = true;
+    botonBuscar.setAttribute('aria-expanded', 'false');
+  };
+  botonBuscar?.addEventListener('click', () => {
+    if (!panelBusqueda) return;
+    const abrir = panelBusqueda.hidden;
+    panelBusqueda.hidden = !abrir;
+    botonBuscar.setAttribute('aria-expanded', String(abrir));
+    if (abrir) panelBusqueda.querySelector('input')?.focus();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && panelBusqueda && !panelBusqueda.hidden) { cerrarBusqueda(); botonBuscar?.focus(); }
+  });
+</script>

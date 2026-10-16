@@ -1,0 +1,15 @@
+{
+  "_instrucciones": "Frases de la barra amarilla de arriba. Rotan solas cada pocos segundos. Puedes agregar, quitar o cambiar frases. 'guino' es opcional (sale en letra cursiva). 'enlace' y 'textoEnlace' son opcionales.",
+  "segundosPorFrase": 4.5,
+  "frases": [
+    {
+      "texto": "Envíos a [COBERTURA DE ENVÍOS] · gratis desde [MONTO]"
+    },
+    {
+      "texto": "La mystery box de [MES] ya salió.",
+      "guino": "Tú no sabes qué trae. Nosotras sí.",
+      "enlace": "/mystery-box",
+      "textoEnlace": "Destápala"
+    }
+  ]
+}

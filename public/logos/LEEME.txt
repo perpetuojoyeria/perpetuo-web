@@ -1,0 +1,3 @@
+Pon aquí los archivos originales del logo. Nombres que la página busca:
+  perpetuo-horizontal.svg  (o .png)  -> logo horizontal del encabezado
+Si el archivo existe, la página lo usa automáticamente. Si no, muestra un espacio marcado.
