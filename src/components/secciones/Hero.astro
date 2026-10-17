@@ -9,6 +9,7 @@ const anilloReal = existe(anillo.src);
 const anilloSrc = anilloReal ? anillo.src : existe(anillo.prueba) ? anillo.prueba : null;
 const hayVideo = existe(video.mp4);
 const hayWebm = existe(video.webm);
+const hayEscritorio = existe(video.mp4Escritorio);
 const hayPoster = existe(video.poster);
 ---
 <section class="hero sobre-oscuro" aria-labelledby="hero-titulo">
@@ -16,6 +17,7 @@ const hayPoster = existe(video.poster);
     {hayVideo ? (
       <video class="hero__video" muted loop playsinline preload="metadata"
         poster={hayPoster ? video.poster : undefined} aria-label={video.descripcionAccesible} data-hero-video>
+        {hayEscritorio && <source src={video.mp4Escritorio} type="video/mp4" media="(min-width: 900px)" />}
         {hayWebm && <source src={video.webm} type="video/webm" />}
         <source src={video.mp4} type="video/mp4" />
       </video>
