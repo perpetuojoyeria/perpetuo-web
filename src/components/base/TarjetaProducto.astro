@@ -7,17 +7,25 @@ import Precio from './Precio.astro';
 import PuntosMetal from './PuntosMetal.astro';
 import { precioDe, nombreMetal, type Producto } from '../../lib/productos';
 
-interface Props { producto: Producto; prioridad?: boolean }
-const { producto: p, prioridad = false } = Astro.props;
-const metal = p.metales[0];
+interface Props { producto: Producto; prioridad?: boolean; metal?: string }
+const { producto: p, prioridad = false, metal: metalPedido } = Astro.props;
+// Si piden un metal que la pieza tiene, se muestra ese; si no, el primero
+const metal = (metalPedido && (p.metales as string[]).includes(metalPedido) ? metalPedido : p.metales[0]) as Producto['metales'][number];
 const precio = precioDe(p, metal);
 const foto = p.fotos[0];
 const fotoPuesta = p.fotos[1];
-const url = `/producto/${p.slug}`;
+const url = metal === p.metales[0] ? `/producto/${p.slug}` : `/producto/${p.slug}?metal=${metal}`;
 ---
-<article class="tarjeta">
+<article
+  class="tarjeta"
+  data-tarjeta
+  data-slug={p.slug}
+  data-sub={p.subcategoria}
+  data-metales={p.metales.join(' ')}
+  data-precios={JSON.stringify(p.precios)}
+>
   <div class="tarjeta__foto">
-    <a href={url} tabindex="-1" aria-hidden="true">
+    <a href={url} tabindex="-1" aria-hidden="true" data-enlace-tarjeta>
       <Foto src={foto?.src} alt="" nota={foto?.nota} proporcion="1 / 1" prioridad={prioridad} />
       {fotoPuesta && (
         <span class="tarjeta__foto-puesta">
@@ -42,7 +50,7 @@ const url = `/producto/${p.slug}`;
   </div>
 
   <div class="tarjeta__info">
-    <h3 class="tarjeta__nombre"><a href={url}>{p.nombre}</a></h3>
+    <h3 class="tarjeta__nombre"><a href={url} data-enlace-tarjeta>{p.nombre}</a></h3>
     <div class="tarjeta__fila">
       <Precio valor={precio} />
       <PuntosMetal metales={p.metales} />

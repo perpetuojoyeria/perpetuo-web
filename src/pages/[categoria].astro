@@ -1,0 +1,208 @@
+---
+// Catálogo por categoría: /aretes, /collares, /anillos, /pulseras, /sets
+// Chips con foto (subcategorías) + filtro por metal + grilla de productos de borde a borde.
+// Todo sale de src/data/categorias.json y src/data/productos.json.
+import Base from '../layouts/Base.astro';
+import BarraAnuncio from '../components/layout/BarraAnuncio.astro';
+import Encabezado from '../components/layout/Encabezado.astro';
+import Pie from '../components/layout/Pie.astro';
+import ChipFoto from '../components/base/ChipFoto.astro';
+import TarjetaProducto from '../components/base/TarjetaProducto.astro';
+import FranjaConfianza from '../components/base/FranjaConfianza.astro';
+import Marquesina from '../components/secciones/Marquesina.astro';
+import categorias from '../data/categorias.json';
+import metales from '../data/metales.json';
+import { porCategoria } from '../lib/productos';
+
+export function getStaticPaths() {
+  return categorias.categorias.map((c) => ({ params: { categoria: c.slug }, props: { categoria: c } }));
+}
+const { categoria } = Astro.props;
+const lista = porCategoria(categoria.slug);
+// solo mostramos los metales que de verdad existen en esta categoría
+const metalesDisponibles = (['plata', 'oro', 'rodio'] as const).filter((m) => lista.some((p) => (p.metales as string[]).includes(m)));
+---
+<Base titulo={categoria.nombre} descripcion={`${categoria.nombre} en plata 925, oro laminado y rodio. ${categoria.frase} Envío gratis desde $250.000.`}>
+  <BarraAnuncio />
+  <Encabezado />
+  <main class="catalogo" data-catalogo>
+    <header class="catalogo__cabeza relleno">
+      <nav class="migas" aria-label="Estás aquí">
+        <a href="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">{categoria.nombre}</span>
+      </nav>
+      <div class="catalogo__titulo">
+        <h1>{categoria.nombre}</h1>
+        <p class="catalogo__frase">{categoria.frase} <span class="catalogo__conteo" aria-live="polite"><span data-conteo>{lista.length}</span> piezas</span></p>
+      </div>
+    </header>
+
+    <!-- Subcategorías: chips con foto -->
+    <div class="catalogo__chips" role="group" aria-label="Tipo de pieza">
+      <ChipFoto texto="Todo" valor="todo" activo nota={`Todos los ${categoria.nombre.toLowerCase()}`} />
+      {categoria.subcategorias.map((s) => <ChipFoto texto={s.nombre} valor={s.slug} nota={s.nota} />)}
+    </div>
+
+    <!-- Barra de filtros -->
+    <div class="catalogo__barra relleno">
+      <div class="filtro-metal" role="group" aria-label="Filtrar por metal">
+        <button type="button" class="filtro-metal__op" data-metal="todos" aria-pressed="true">Todos</button>
+        {metalesDisponibles.map((m) => (
+          <button type="button" class="filtro-metal__op" data-metal={m} aria-pressed="false">
+            <span class={`punto punto--${m}`} aria-hidden="true"></span>{metales[m].nombre}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <ul class="catalogo__grilla" role="list">
+      {lista.map((p, i) => <li data-item><TarjetaProducto producto={p} prioridad={i < 4} /></li>)}
+    </ul>
+    <div class="catalogo__vacio relleno" data-vacio hidden>
+      <p class="catalogo__vacio-titulo">Nada por aquí… todavía.</p>
+      <p>No tenemos esa combinación ahora mismo. Prueba con otro metal o escríbenos y te contamos qué viene.</p>
+      <button type="button" class="boton boton--borde" data-limpiar>Ver todo</button>
+    </div>
+
+    <section class="catalogo__confianza" aria-label="Compra tranquila"><FranjaConfianza /></section>
+  </main>
+  <Marquesina />
+  <Pie />
+</Base>
+
+<style>
+  .catalogo__cabeza { display: grid; gap: var(--e-4); padding-top: var(--e-5); padding-bottom: var(--e-5); }
+  .migas { display: flex; flex-wrap: wrap; gap: var(--e-2); font-size: var(--t-xs); color: var(--texto-suave); }
+  .migas a { text-decoration: none; }
+  .migas a:hover { text-decoration: underline; }
+  .catalogo__titulo h1 { font-size: var(--t-3xl); }
+  .catalogo__frase { margin-top: var(--e-2); font-size: var(--t-md); font-weight: var(--peso-medio); }
+
+  .catalogo__chips {
+    display: flex;
+    gap: var(--e-3);
+    padding: 0 var(--margen-der) var(--e-4) var(--margen);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .catalogo__chips::-webkit-scrollbar { display: none; }
+  .catalogo__chips :global(.chip) { flex: none; }
+
+  .catalogo__barra {
+    position: sticky;
+    top: calc(env(safe-area-inset-top, 0px) + 60px);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e-3);
+    padding-block: var(--e-3);
+    background: var(--hueso);
+    border-block: var(--borde);
+  }
+  .filtro-metal { display: flex; gap: var(--e-2); overflow-x: auto; scrollbar-width: none; min-width: 0; }
+  .filtro-metal::-webkit-scrollbar { display: none; }
+  .filtro-metal__op {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+    min-height: 40px;
+    padding: 0 var(--e-4);
+    border: var(--borde-fuerte);
+    border-radius: var(--r-pildora);
+    background: var(--hueso);
+    color: var(--noche);
+    font-size: var(--t-sm);
+    font-weight: var(--peso-boton);
+    cursor: pointer;
+  }
+  .filtro-metal__op[aria-pressed='true'] { background: var(--noche); color: var(--hueso); }
+  .filtro-metal__op[aria-pressed='true'] .punto { border-color: var(--hueso); }
+  .punto { width: 12px; height: 12px; border-radius: var(--r-circulo); border: 1px solid var(--noche); }
+  .punto--oro { background: var(--metal-oro); }
+  .punto--plata { background: var(--metal-plata); }
+  .punto--rodio { background: var(--metal-rodio); }
+  .catalogo__conteo { margin-left: var(--e-2); font-size: var(--t-sm); font-weight: var(--peso-texto); color: var(--texto-suave); white-space: nowrap; }
+
+  .catalogo__grilla {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-bottom: 1px solid var(--linea);
+  }
+  /* las líneas entre fotos se dibujan alrededor de cada pieza: si sobra un hueco, queda limpio */
+  .catalogo__grilla > li { min-width: 0; background: var(--hueso); box-shadow: 0 0 0 1px var(--linea); }
+  .catalogo__vacio { display: grid; gap: var(--e-3); justify-items: start; padding-block: var(--e-8); max-width: 34rem; }
+  .catalogo__vacio-titulo { font-family: var(--f-display); font-stretch: var(--ancho-display); font-weight: var(--peso-display); font-size: var(--t-xl); line-height: 1; text-transform: uppercase; }
+  .catalogo__confianza { padding-top: var(--seccion); }
+
+  @media (min-width: 900px) {
+    .catalogo__cabeza { grid-template-columns: 1fr; padding-top: var(--e-7); }
+    .catalogo__titulo { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--e-5); }
+    .catalogo__chips { gap: var(--e-5); }
+    .catalogo__barra { top: calc(env(safe-area-inset-top, 0px) + 64px); }
+    .catalogo__grilla { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+</style>
+
+<script>
+  // Filtros del catálogo: subcategoría (chips) + metal. Al elegir un metal,
+  // cada tarjeta muestra el precio de ese metal y su enlace abre la ficha en ese metal.
+  const formato = (n: number) => '$' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const nombres: Record<string, string> = { plata: 'Plata 925', oro: 'Oro laminado', rodio: 'Rodio' };
+
+  const raiz = document.querySelector<HTMLElement>('[data-catalogo]');
+  if (raiz) {
+    const chips = Array.from(raiz.querySelectorAll<HTMLButtonElement>('[data-chip]'));
+    const opsMetal = Array.from(raiz.querySelectorAll<HTMLButtonElement>('[data-metal]'));
+    const items = Array.from(raiz.querySelectorAll<HTMLElement>('[data-item]'));
+    const conteo = raiz.querySelector('[data-conteo]');
+    const vacio = raiz.querySelector<HTMLElement>('[data-vacio]');
+    const params = new URLSearchParams(location.search);
+    let sub = params.get('tipo') || 'todo';
+    let metal = params.get('metal') || 'todos';
+
+    const aplicar = () => {
+      let visibles = 0;
+      items.forEach((li) => {
+        const t = li.querySelector<HTMLElement>('[data-tarjeta]')!;
+        const metalesT = (t.dataset.metales || '').split(' ');
+        const ok = (sub === 'todo' || t.dataset.sub === sub) && (metal === 'todos' || metalesT.includes(metal));
+        li.hidden = !ok;
+        if (!ok) return;
+        visibles++;
+        // precio, enlace y botón según el metal elegido
+        const m = metal === 'todos' ? metalesT[0] : metal;
+        const precios = JSON.parse(t.dataset.precios || '{}');
+        const precio = t.querySelector('.precio__actual');
+        if (precio && precios[m]) precio.textContent = formato(precios[m]);
+        t.querySelectorAll<HTMLAnchorElement>('[data-enlace-tarjeta]').forEach((a) => {
+          a.href = `/producto/${t.dataset.slug}` + (m !== metalesT[0] ? `?metal=${m}` : '');
+        });
+        const boton = t.querySelector<HTMLButtonElement>('[data-agregar]');
+        if (boton) {
+          boton.dataset.metal = m;
+          boton.dataset.precio = String(precios[m]);
+          boton.setAttribute('aria-label', `Agregar ${boton.dataset.nombre} en ${nombres[m]} a la bolsa`);
+        }
+      });
+      if (conteo) conteo.textContent = String(visibles);
+      if (vacio) vacio.hidden = visibles > 0;
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.chip === sub)));
+      opsMetal.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.metal === metal)));
+      // guarda el filtro en la dirección para poder compartirlo por WhatsApp
+      const p = new URLSearchParams();
+      if (sub !== 'todo') p.set('tipo', sub);
+      if (metal !== 'todos') p.set('metal', metal);
+      history.replaceState(null, '', location.pathname + (p.toString() ? `?${p}` : ''));
+    };
+
+    chips.forEach((c) => c.addEventListener('click', () => { sub = c.dataset.chip || 'todo'; aplicar(); }));
+    opsMetal.forEach((b) => b.addEventListener('click', () => { metal = b.dataset.metal || 'todos'; aplicar(); }));
+    raiz.querySelector('[data-limpiar]')?.addEventListener('click', () => { sub = 'todo'; metal = 'todos'; aplicar(); });
+    aplicar();
+  }
+</script>

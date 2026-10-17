@@ -91,4 +91,5 @@ Fotos con personalidad, luz natural, fondos lisos en la paleta, la mitad con la 
 
 ## ESTADO
 - [x] Etapa 1: tokens y componentes base (aprobada). Muestrario interno en /componentes (no sale en Google). Dominio confirmado: perpetuojoyeria.com.
-- [ ] Etapa 2: Home. Primera versión RECHAZADA ("se ve hecha por Claude"). Rediseño v3 estilo Studs en revisión. Datos: home.json, looks.json, mystery-box.json (valores de ejemplo).
+- [x] Etapa 2: Home (aprobada, v3 estilo Studs). Primera versión fue rechazada ("se ve hecha por Claude"). Datos: home.json, looks.json, mystery-box.json (valores de ejemplo). La usuaria tiene fotos reales de un anillo (solitario con circones laterales y uno con esmeralda); no sirvieron para el Hero (anillo metido en terciopelo, pequeño) — posible uso en catálogo.
+- [ ] Etapa 3: Catálogo y Ficha (en revisión). Rutas: /aretes, /collares, /anillos, /pulseras, /sets y /producto/[slug]. Textos de envío/cambios/garantía/cuidados en src/data/politicas.json.

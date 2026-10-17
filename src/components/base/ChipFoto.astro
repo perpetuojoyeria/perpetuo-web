@@ -1,13 +1,22 @@
 ---
 // Chip de subcategoría con foto en círculo (como Mejuri).
+// Con "enlace" es un link; con "valor" es un botón de filtro (el catálogo lo usa así).
 import Foto from './Foto.astro';
-interface Props { texto: string; enlace: string; foto?: string; nota?: string; activo?: boolean }
-const { texto, enlace, foto, nota, activo = false } = Astro.props;
+interface Props { texto: string; enlace?: string; valor?: string; foto?: string; nota?: string; activo?: boolean }
+const { texto, enlace, valor, foto, nota, activo = false } = Astro.props;
+const Etiqueta = enlace ? 'a' : 'button';
 ---
-<a class:list={['chip', { 'chip--activo': activo }]} href={enlace} aria-current={activo ? 'true' : undefined}>
+<Etiqueta
+  class:list={['chip', { 'chip--activo': activo }]}
+  href={enlace}
+  type={enlace ? undefined : 'button'}
+  data-chip={valor}
+  aria-current={enlace && activo ? 'true' : undefined}
+  aria-pressed={!enlace ? String(activo) : undefined}
+>
   <span class="chip__foto"><Foto src={foto} alt="" nota={nota} proporcion="1 / 1" redonda /></span>
   <span class="chip__texto">{texto}</span>
-</a>
+</Etiqueta>
 
 <style>
   .chip {
@@ -15,19 +24,27 @@ const { texto, enlace, foto, nota, activo = false } = Astro.props;
     justify-items: center;
     gap: var(--e-2);
     width: 84px;
-    text-decoration: none;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
     font-size: var(--t-sm);
     font-weight: var(--peso-medio);
     text-align: center;
+    text-decoration: none;
+    cursor: pointer;
   }
   .chip__foto {
     width: 72px;
     padding: 3px;
     border: var(--borde);
     border-radius: var(--r-circulo);
-    transition: border-color var(--rapido);
+    transition: border-color var(--rapido), box-shadow var(--rapido);
   }
   .chip:hover .chip__foto,
-  .chip--activo .chip__foto { border-color: var(--noche); box-shadow: inset 0 0 0 1px var(--noche); }
-  .chip--activo .chip__texto { text-decoration: underline; text-underline-offset: 4px; }
+  .chip--activo .chip__foto,
+  .chip[aria-pressed='true'] .chip__foto { border-color: var(--noche); box-shadow: inset 0 0 0 1.5px var(--noche); }
+  .chip--activo .chip__texto,
+  .chip[aria-pressed='true'] .chip__texto { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
 </style>

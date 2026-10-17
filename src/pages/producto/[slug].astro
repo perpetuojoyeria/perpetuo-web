@@ -1,0 +1,260 @@
+---
+// Ficha de producto: /producto/[nombre-de-la-pieza]
+// Galería, selector de metal, precio, "Agregar a la bolsa", confianza, "Por qué lo amamos",
+// acordeones de envío/cambios/garantía y "Combínalo con".
+import Base from '../../layouts/Base.astro';
+import BarraAnuncio from '../../components/layout/BarraAnuncio.astro';
+import Encabezado from '../../components/layout/Encabezado.astro';
+import Pie from '../../components/layout/Pie.astro';
+import Foto from '../../components/base/Foto.astro';
+import Etiqueta from '../../components/base/Etiqueta.astro';
+import Precio from '../../components/base/Precio.astro';
+import SelectorMetal from '../../components/base/SelectorMetal.astro';
+import FranjaConfianza from '../../components/base/FranjaConfianza.astro';
+import Acordeon from '../../components/base/Acordeon.astro';
+import TarjetaProducto from '../../components/base/TarjetaProducto.astro';
+import Estrella from '../../components/base/Estrella.astro';
+import categorias from '../../data/categorias.json';
+import metales from '../../data/metales.json';
+import politicas from '../../data/politicas.json';
+import sitio from '../../data/sitio.json';
+import { productos, precioDe, type Producto, type Metal } from '../../lib/productos';
+
+export function getStaticPaths() {
+  return productos.map((p) => ({ params: { slug: p.slug }, props: { producto: p } }));
+}
+const { producto: p } = Astro.props as { producto: Producto };
+const categoria = categorias.categorias.find((c) => c.slug === p.categoria)!;
+const sub = categoria.subcategorias.find((s) => s.slug === p.subcategoria);
+const metal: Metal = p.metales[0];
+const precio = precioDe(p, metal);
+
+// Datos de "Por qué lo amamos", por metal (se actualizan al cambiar el metal)
+const datosMetal = Object.fromEntries(p.metales.map((m) => [m, {
+  material: metales[m].nombre,
+  bano: m === 'plata' ? 'No lleva baño: es plata 925 de principio a fin' : `Baño de ${(p.micras as Record<string, string>)[m] ?? '[N] micras'}`,
+}]));
+
+// "Combínalo con": piezas de otras categorías que vienen en el mismo metal
+const combinan = productos
+  .filter((x) => x.categoria !== p.categoria && (x.metales as string[]).includes(metal))
+  .slice(0, 4);
+
+const mensajeWhatsApp = encodeURIComponent(`¡Hola Perpetuo! Tengo una pregunta sobre ${p.nombre}.`);
+---
+<Base titulo={p.nombre} descripcion={`${p.nombre} en ${p.metales.map((m) => metales[m].nombre).join(', ')}. ${p.descripcion}`} imagen={p.fotos[0]?.src}>
+  <BarraAnuncio />
+  <Encabezado />
+  <main class="ficha" data-ficha data-slug={p.slug} data-nombre={p.nombre} data-precios={JSON.stringify(p.precios)} data-datos-metal={JSON.stringify(datosMetal)}>
+    <!-- Galería: carril deslizable en celular, fotos apiladas en computador -->
+    <div class="ficha__galeria" aria-label={`Fotos de ${p.nombre}`}>
+      <ul class="galeria" role="list" data-galeria>
+        {p.fotos.map((f, i) => (
+          <li class="galeria__item"><Foto src={f.src} alt={f.alt} nota={f.nota} proporcion="4 / 5" prioridad={i === 0} /></li>
+        ))}
+      </ul>
+      {p.fotos.length > 1 && (
+        <div class="galeria__puntos" aria-hidden="true">
+          {p.fotos.map((_, i) => <span class:list={['galeria__punto', { 'es-activo': i === 0 }]}></span>)}
+        </div>
+      )}
+    </div>
+
+    <div class="ficha__info">
+      <div class="ficha__info-interior">
+        <nav class="migas" aria-label="Estás aquí">
+          <a href="/">Inicio</a><span aria-hidden="true">/</span>
+          <a href={`/${categoria.slug}`}>{categoria.nombre}</a>
+          {sub && <><span aria-hidden="true">/</span><a href={`/${categoria.slug}?tipo=${sub.slug}`}>{sub.nombre}</a></>}
+        </nav>
+
+        {(p.etiquetas.length > 0 || p.placeholder) && (
+          <p class="ficha__sellos">
+            {p.etiquetas.map((t) => <Etiqueta texto={t} />)}
+            {p.placeholder && <Etiqueta texto="Ejemplo" variante="suave" />}
+          </p>
+        )}
+
+        <h1 class="ficha__nombre">{p.nombre}</h1>
+        <p class="ficha__precio"><Precio valor={precio} grande /></p>
+        <p class="ficha__descripcion">{p.descripcion}</p>
+
+        <SelectorMetal nombre="metal" metales={p.metales} seleccionado={metal} precios={p.precios} />
+
+        <div class="ficha__acciones">
+          <button class="boton boton--oscuro boton--ancho" type="button"
+            data-agregar data-slug={p.slug} data-nombre={p.nombre} data-metal={metal} data-precio={precio}>
+            Agregar a la bolsa
+          </button>
+          <a class="enlace ficha__whatsapp" href={`https://wa.me/${sitio.whatsapp}?text=${mensajeWhatsApp}`} target="_blank" rel="noopener">¿Dudas? Pregúntanos por WhatsApp</a>
+        </div>
+
+        <FranjaConfianza compacta />
+
+        <!-- Por qué lo amamos -->
+        <section class="amamos" aria-labelledby="amamos-titulo">
+          <h2 class="amamos__titulo" id="amamos-titulo"><Estrella tamano="0.9rem" /> Por qué lo amamos</h2>
+          <dl class="amamos__datos">
+            <div><dt>Material</dt><dd data-dato="material">{datosMetal[metal].material}</dd></div>
+            <div><dt>Baño</dt><dd data-dato="bano">{datosMetal[metal].bano}</dd></div>
+            <div class="amamos__ancho"><dt>Hipoalergénico</dt><dd>{p.hipoalergenico ? 'Sí, apto para piel sensible' : 'No'}</dd></div>
+            <div class="amamos__ancho"><dt>Cuidados</dt><dd>{politicas.cuidados} <a class="enlace" href="/cuidados">Ver la guía completa</a></dd></div>
+          </dl>
+        </section>
+
+        <div class="ficha__acordeones">
+          <Acordeon titulo="Envío">{politicas.envio}</Acordeon>
+          <Acordeon titulo="Cambios">{politicas.cambios}</Acordeon>
+          <Acordeon titulo="Garantía">{politicas.garantia}</Acordeon>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {combinan.length > 0 && (
+    <section class="combina seccion" aria-labelledby="combina-titulo">
+      <div class="relleno cabeza-seccion">
+        <div>
+          <h2 class="titulo-seccion" id="combina-titulo">Combínalo con</h2>
+          <p>Para armar las capas: piezas que se ven divinas juntas.</p>
+        </div>
+      </div>
+      <ul class="combina__grilla" role="list">
+        {combinan.map((x) => <li><TarjetaProducto producto={x} metal={metal} /></li>)}
+      </ul>
+    </section>
+  )}
+  <Pie />
+</Base>
+
+<style>
+  .ficha { display: grid; }
+  /* Galería */
+  .ficha__galeria { position: relative; min-width: 0; }
+  .galeria {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .galeria::-webkit-scrollbar { display: none; }
+  .galeria__item { scroll-snap-align: start; min-width: 0; }
+  .galeria__puntos { position: absolute; left: 0; right: 0; bottom: var(--e-3); display: flex; justify-content: center; gap: var(--e-2); }
+  .galeria__punto { width: 8px; height: 8px; border-radius: var(--r-circulo); background: var(--hueso); border: 1px solid var(--noche); }
+  .galeria__punto.es-activo { background: var(--noche); }
+
+  /* Información */
+  .ficha__info-interior { display: grid; gap: var(--e-4); padding: var(--e-5) var(--margen-der) var(--e-7) var(--margen); }
+  .migas { display: flex; flex-wrap: wrap; gap: var(--e-2); font-size: var(--t-xs); color: var(--texto-suave); }
+  .migas a { text-decoration: none; }
+  .migas a:hover { text-decoration: underline; }
+  .ficha__sellos { display: flex; flex-wrap: wrap; gap: var(--e-1); }
+  /* El nombre del producto va en Jost, minúscula normal (regla de marca) */
+  .ficha__nombre {
+    font-family: var(--f-texto);
+    font-stretch: 100%;
+    font-weight: var(--peso-boton);
+    font-size: var(--t-xl);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-transform: none;
+  }
+  .ficha__precio { font-size: var(--t-lg); }
+  .ficha__descripcion { color: var(--texto-suave); max-width: var(--ancho-texto); }
+  .ficha__acciones { display: grid; gap: var(--e-3); justify-items: center; }
+  .ficha__acciones .boton { min-height: 56px; font-size: var(--t-md); }
+  .ficha__whatsapp { font-size: var(--t-sm); }
+
+  .amamos { display: grid; gap: var(--e-3); margin-top: var(--e-3); }
+  .amamos__titulo {
+    display: flex;
+    align-items: center;
+    gap: var(--e-2);
+    font-family: var(--f-display);
+    font-stretch: var(--ancho-display);
+    font-weight: var(--peso-display);
+    font-size: var(--t-lg);
+    text-transform: uppercase;
+  }
+  .amamos__datos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0;
+    border-top: var(--borde-fuerte);
+  }
+  .amamos__datos > div { padding: var(--e-3) var(--e-2) var(--e-3) 0; border-bottom: var(--borde); min-width: 0; }
+  .amamos__datos .amamos__ancho { grid-column: 1 / -1; }
+  .amamos__datos dt { font-size: 0.6875rem; font-weight: var(--peso-boton); letter-spacing: var(--espaciado-etiqueta); text-transform: uppercase; color: var(--texto-suave); }
+  .amamos__datos dd { margin: var(--e-1) 0 0; font-weight: var(--peso-medio); }
+  .amamos__datos > div:last-child dd { font-weight: var(--peso-texto); color: var(--texto-suave); }
+  .ficha__acordeones { border-top: var(--borde); }
+
+  /* Combínalo con */
+  .combina__grilla {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-block: 1px solid var(--linea);
+  }
+  .combina__grilla > li { min-width: 0; background: var(--hueso); box-shadow: 0 0 0 1px var(--linea); }
+
+  @media (min-width: 900px) {
+    .ficha { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); border-bottom: var(--borde); }
+    /* fotos apiladas a la izquierda; la información se queda quieta a la derecha */
+    .galeria { grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: 1fr 1fr; gap: var(--junta); overflow: visible; }
+    /* la primera foto va grande; si la última queda sola, también ocupa todo el ancho */
+    .galeria__item:first-child,
+    .galeria__item:nth-child(even):last-child { grid-column: 1 / -1; }
+    .galeria__puntos { display: none; }
+    .ficha__info { border-left: var(--borde); }
+    .ficha__info-interior { position: sticky; top: 84px; padding: var(--e-7) clamp(1.5rem, 3vw, 3rem); }
+    .combina__grilla { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+</style>
+
+<script>
+  const formato = (n: number) => '$' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const nombres: Record<string, string> = { plata: 'Plata 925', oro: 'Oro laminado', rodio: 'Rodio' };
+  const ficha = document.querySelector<HTMLElement>('[data-ficha]');
+  if (ficha) {
+    const precios = JSON.parse(ficha.dataset.precios || '{}');
+    const datos = JSON.parse(ficha.dataset.datosMetal || '{}');
+    const precio = ficha.querySelector('.ficha__precio [data-precio]');
+    const boton = ficha.querySelector<HTMLButtonElement>('[data-agregar]');
+
+    const elegir = (m: string) => {
+      if (!precios[m]) return;
+      if (precio) precio.textContent = formato(precios[m]);
+      if (boton) { boton.dataset.metal = m; boton.dataset.precio = String(precios[m]); }
+      ficha.querySelectorAll<HTMLElement>('[data-dato]').forEach((el) => { el.textContent = datos[m]?.[el.dataset.dato!] ?? ''; });
+      const url = new URL(location.href);
+      url.searchParams.set('metal', m);
+      history.replaceState(null, '', url.pathname + url.search);
+    };
+    ficha.addEventListener('metal:cambio', (e) => elegir((e as CustomEvent).detail.metal));
+
+    // Si llega con ?metal=oro (desde un look o el catálogo), se abre en ese metal
+    const pedido = new URLSearchParams(location.search).get('metal');
+    if (pedido && precios[pedido]) {
+      const radio = ficha.querySelector<HTMLInputElement>(`input[name="metal"][value="${pedido}"]`);
+      if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change', { bubbles: true })); }
+    }
+
+    // Puntos de la galería en celular
+    const galeria = ficha.querySelector<HTMLElement>('[data-galeria]');
+    const puntos = Array.from(ficha.querySelectorAll('.galeria__punto'));
+    galeria?.addEventListener('scroll', () => {
+      const i = Math.round(galeria.scrollLeft / galeria.clientWidth);
+      puntos.forEach((p, j) => p.classList.toggle('es-activo', i === j));
+    }, { passive: true });
+    void nombres;
+  }
+</script>
