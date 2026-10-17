@@ -176,8 +176,9 @@ const hayPoster = existe(video.poster);
      el video vertical completo a la derecha (sin recortes ni zoom). */
   @media (min-width: 900px) {
     .hero { grid-template-columns: minmax(0, 1fr) auto; background: var(--noche); }
-    .hero__texto { grid-area: 1 / 1; align-self: center; padding: var(--e-8) var(--e-7); gap: var(--e-4); }
-    .hero__medio { grid-area: 1 / 2; aspect-ratio: 9 / 16; height: min(88vh, 860px); width: auto; max-height: none; }
+    .hero__texto { grid-area: 1 / 1; align-self: center; padding: var(--e-6) var(--e-7); gap: var(--e-4); }
+    /* El Hero completo cabe justo en la pantalla: alto de la ventana menos la barra de anuncio y el encabezado */
+    .hero__medio { grid-area: 1 / 2; aspect-ratio: 9 / 16; height: max(520px, calc(100svh - var(--alto-arriba, 164px))); width: auto; max-height: none; }
     .hero__medio::after { display: none; }
     .hero__titulo { font-size: clamp(3rem, 1rem + 5.6vw, 7.5rem); }
     .anillo { left: 66%; top: 34%; width: 50%; --giro: -12deg; }
@@ -189,6 +190,16 @@ const hayPoster = existe(video.poster);
 <script>
   // Reproduce el video solo si conviene (sin "reducir movimiento" ni ahorro de datos)
   // y lo pausa cuando sale de la pantalla.
+  // Mide lo que hay encima del Hero (barra de anuncio + encabezado) para que el Hero quepa justo en la pantalla
+  const heroSeccion = document.querySelector<HTMLElement>('.hero');
+  const medirArriba = () => {
+    if (!heroSeccion) return;
+    const arriba = heroSeccion.getBoundingClientRect().top + window.scrollY;
+    heroSeccion.style.setProperty('--alto-arriba', `${Math.round(arriba)}px`);
+  };
+  medirArriba();
+  window.addEventListener('resize', medirArriba, { passive: true });
+
   // El anillo se mueve un poquito siguiendo el mouse (solo en computador)
   const titulo = document.querySelector<HTMLElement>('[data-titulo-anillo]');
   if (titulo && window.matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
