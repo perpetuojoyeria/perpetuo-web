@@ -1,15 +1,100 @@
 {
-  "_instrucciones": "Mystery Box del mes. Estos precios, valores y número de piezas son EJEMPLOS (placeholder: true): reemplázalos por los reales. Precios en pesos sin puntos.",
+  "_instrucciones": "Mystery Box del mes. Precios, valores, número de piezas y fechas son EJEMPLOS o [MARCADORES] (placeholder: true): reemplázalos por los reales. Precios en pesos sin puntos. Las versiones aparecen en el Home y en /mystery-box.",
   "placeholder": true,
   "mes": "[MES]",
   "titulo": "El secreto del mes",
   "frase": "Nosotras la armamos. Tú solo la destapas.",
   "foto": "/fotos/mystery-box/caja-del-mes.jpg",
   "nota": "Caja Perpetuo entreabierta con papel de seda y un destello de joyas adentro, sin mostrar las piezas. Fondo Azul Profundo, luz lateral. Vertical 4:5.",
-  "modalidades": ["Una vez", "Cada mes"],
+  "modalidades": [
+    "Una vez",
+    "Cada mes"
+  ],
   "versiones": [
-    { "metal": "plata", "nombre": "La Platica", "precio": 149900, "valorGarantizado": 220000, "piezas": 3 },
-    { "metal": "oro", "nombre": "Hora Dorada", "precio": 189900, "valorGarantizado": 280000, "piezas": 3 },
-    { "metal": "rodio", "nombre": "Rodiamante", "precio": 89900, "valorGarantizado": 130000, "piezas": 3 }
+    {
+      "metal": "plata",
+      "nombre": "La Platica",
+      "precio": 149900,
+      "valorGarantizado": 220000,
+      "piezas": 3,
+      "frase": "Plata 925 sorpresa para tu ritual de todos los días."
+    },
+    {
+      "metal": "oro",
+      "nombre": "Hora Dorada",
+      "precio": 189900,
+      "valorGarantizado": 280000,
+      "piezas": 3,
+      "frase": "Oro laminado para cuando quieres darte el capricho."
+    },
+    {
+      "metal": "rodio",
+      "nombre": "Rodiamante",
+      "precio": 89900,
+      "valorGarantizado": 130000,
+      "piezas": 3,
+      "frase": "Brillo en rodio para empezar tu colección sin pensarlo dos veces."
+    }
+  ],
+  "fechas": [
+    {
+      "titulo": "Pide hasta el",
+      "valor": "[DÍA DE CORTE]",
+      "texto": "de cada mes. Después de esa fecha, tu caja entra en la edición siguiente."
+    },
+    {
+      "titulo": "Cobramos el",
+      "valor": "[DÍA DE COBRO]",
+      "texto": "de cada mes, solo si estás suscrita. Si la pides una vez, pagas al hacer el pedido."
+    },
+    {
+      "titulo": "Te llega entre el",
+      "valor": "[DÍA] y el [DÍA]",
+      "texto": "del mes, a [COBERTURA DE ENVÍOS]. Te mandamos la guía por WhatsApp."
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Elige tu metal",
+      "texto": "Plata 925, oro laminado o rodio. Y si la quieres una vez o cada mes."
+    },
+    {
+      "titulo": "Nosotras la armamos",
+      "texto": "Escogemos piezas de la edición del mes. Siempre valen más de lo que pagas."
+    },
+    {
+      "titulo": "La destapas",
+      "texto": "Te llega a la casa. El resto es emoción (y fotos para tus historias)."
+    }
+  ],
+  "sinCambio": {
+    "titulo": "Lo que no tiene cambio",
+    "texto": "Las piezas de la Mystery Box no se cambian por gusto: son sorpresa y de eso se trata. Si alguna llega con un defecto de fabricación, la garantía sí aplica: [CONDICIONES DE GARANTÍA DE LA MYSTERY BOX]."
+  },
+  "faq": [
+    {
+      "pregunta": "¿Me puedo salir cuando quiera?",
+      "respuesta": "Sí. Sin letra pequeña, sin llamadas incómodas y sin hacerte sentir culpable. Cancela desde Mi cuenta o escríbenos por WhatsApp antes del [DÍA DE CORTE] y listo."
+    },
+    {
+      "pregunta": "¿Qué trae la caja?",
+      "respuesta": "[N] piezas sorpresa del metal que elijas, con un valor garantizado mayor a lo que pagas. Cuáles exactamente… ese es el secreto."
+    },
+    {
+      "pregunta": "¿Me puede llegar algo repetido?",
+      "respuesta": "[CÓMO EVITAN QUE LLEGUEN PIEZAS REPETIDAS]."
+    },
+    {
+      "pregunta": "¿Puedo cambiar de metal o saltarme un mes?",
+      "respuesta": "Claro. Hay meses de más y meses de menos. Cambia el metal, pausa o sáltate un mes desde Mi cuenta antes del [DÍA DE CORTE]."
+    },
+    {
+      "pregunta": "¿La puedo regalar?",
+      "respuesta": "¡Obvio! Es el regalo perfecto para la amiga que tiene de todo. Al hacer el pedido nos dices la dirección de la persona."
+    },
+    {
+      "pregunta": "¿Y si no me gusta lo que me llegó?",
+      "respuesta": "Te entendemos, pero la sorpresa no tiene cambio. Eso sí: si una pieza llega con un defecto, la garantía aplica."
+    }
   ]
 }

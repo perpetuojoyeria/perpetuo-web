@@ -1,0 +1,232 @@
+---
+// Mystery Box: las 3 versiones (plata, oro laminado, rodio), fechas, cómo funciona,
+// lo que no tiene cambio y preguntas frecuentes. Todo sale de src/data/mystery-box.json.
+import Base from '../layouts/Base.astro';
+import BarraAnuncio from '../components/layout/BarraAnuncio.astro';
+import Encabezado from '../components/layout/Encabezado.astro';
+import Pie from '../components/layout/Pie.astro';
+import Foto from '../components/base/Foto.astro';
+import Etiqueta from '../components/base/Etiqueta.astro';
+import SelloPrecio from '../components/base/SelloPrecio.astro';
+import Precio from '../components/base/Precio.astro';
+import Acordeon from '../components/base/Acordeon.astro';
+import Estrella from '../components/base/Estrella.astro';
+import FranjaConfianza from '../components/base/FranjaConfianza.astro';
+import Marquesina from '../components/secciones/Marquesina.astro';
+import metales from '../data/metales.json';
+import box from '../data/mystery-box.json';
+import { formatoCOP } from '../lib/precio';
+
+type Metal = 'plata' | 'oro' | 'rodio';
+const fotoNota: Record<string, string> = {
+  plata: 'Caja Perpetuo abierta con papel de seda y destellos plateados adentro, sin mostrar las piezas. Fondo Blanco Hueso.',
+  oro: 'Caja Perpetuo abierta con papel de seda y destellos dorados adentro, sin mostrar las piezas. Fondo Amarillo Perla.',
+  rodio: 'Caja Perpetuo cerrada con lazo, una mano a punto de abrirla. Fondo Azul Noche.',
+};
+---
+<Base titulo="Mystery Box" descripcion={`${box.frase} Mystery Box del mes en plata 925, oro laminado o rodio, una vez o cada mes. Cancela cuando quieras.`}>
+  <BarraAnuncio />
+  <Encabezado />
+  <main>
+    <!-- Portada -->
+    <section class="mb-portada" aria-labelledby="mb-titulo">
+      <div class="mb-portada__texto relleno">
+        <p class="mb-portada__sellos">
+          <Etiqueta texto={`Edición de ${box.mes}`} variante="oscura" />
+          {box.placeholder && <Etiqueta texto="Ejemplo" variante="suave" />}
+        </p>
+        <h1 class="mb-portada__titulo" id="mb-titulo">Mystery Box</h1>
+        <p class="mb-portada__frase">{box.frase}</p>
+        <ul class="mb-portada__datos" role="list">
+          <li><Estrella tamano="0.8rem" /> Siempre vale más de lo que pagas</li>
+          <li><Estrella tamano="0.8rem" /> Una vez o cada mes</li>
+          <li><Estrella tamano="0.8rem" /> Cancela cuando quieras</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Las 3 cajas -->
+    <section class="mb-cajas" aria-label="Elige tu caja">
+      <ul class="mb-cajas__lista" role="list">
+        {box.versiones.map((v) => (
+          <li class="caja" id={v.metal} data-caja data-metal={v.metal} data-nombre={v.nombre} data-precio={v.precio}>
+            <div class="caja__foto">
+              <Foto src={`/fotos/mystery-box/caja-${v.metal}.jpg`} alt={`Mystery Box ${v.nombre}`} nota={fotoNota[v.metal]} proporcion="4 / 5" />
+              <SelloPrecio valor={v.precio} texto="por" clase="caja__sello" />
+            </div>
+            <div class="caja__info">
+              <p class="caja__metal"><span class={`punto punto--${v.metal}`} aria-hidden="true"></span>{metales[v.metal as Metal].nombre}</p>
+              <h2 class="caja__nombre">{v.nombre}</h2>
+              <p class="caja__frase">{v.frase}</p>
+
+              <dl class="caja__datos">
+                <div><dt>Pagas</dt><dd><Precio valor={v.precio} antes={v.valorGarantizado} grande /></dd></div>
+                <div><dt>Valor garantizado</dt><dd>Más de {formatoCOP(v.valorGarantizado)}</dd></div>
+                <div><dt>Trae</dt><dd>{v.piezas} piezas sorpresa</dd></div>
+              </dl>
+
+              <fieldset class="caja__modo">
+                <legend class="solo-lector">¿Cómo la quieres?</legend>
+                {box.modalidades.map((m, i) => (
+                  <label class="caja__modo-op">
+                    <input type="radio" name={`modo-${v.metal}`} value={m} checked={i === 1} />
+                    <span>{m}</span>
+                  </label>
+                ))}
+              </fieldset>
+              <p class="caja__nota" data-nota-modo>Se cobra el [DÍA DE COBRO] de cada mes. Cancela cuando quieras.</p>
+
+              <button class="boton boton--oscuro boton--ancho" type="button"
+                data-agregar data-tipo="mystery-box" data-slug={`mystery-box-${v.metal}`} data-nombre={`Mystery Box ${v.nombre}`} data-metal={v.metal} data-precio={v.precio} data-modo={box.modalidades[1]}>
+                Quiero {v.nombre}
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Fechas -->
+    <section class="mb-fechas sobre-oscuro" aria-labelledby="mb-fechas-titulo">
+      <div class="relleno">
+        <h2 class="titulo-seccion" id="mb-fechas-titulo">Las fechas, claritas</h2>
+      </div>
+      <ul class="mb-fechas__lista" role="list">
+        {box.fechas.map((f) => (
+          <li class="fecha">
+            <p class="fecha__titulo">{f.titulo}</p>
+            <p class="fecha__valor">{f.valor}</p>
+            <p class="fecha__texto">{f.texto}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Cómo funciona -->
+    <section class="mb-pasos seccion" id="como-funciona" aria-labelledby="mb-pasos-titulo">
+      <div class="relleno cabeza-seccion">
+        <h2 class="titulo-seccion" id="mb-pasos-titulo">Cómo funciona</h2>
+      </div>
+      <ol class="mb-pasos__lista" role="list">
+        {box.pasos.map((p, i) => (
+          <li class="paso">
+            <span class="paso__numero" aria-hidden="true">{i + 1}</span>
+            <h3 class="paso__titulo">{p.titulo}</h3>
+            <p class="paso__texto">{p.texto}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- Lo que no tiene cambio -->
+    <section class="mb-cambio relleno" aria-labelledby="mb-cambio-titulo">
+      <div class="mb-cambio__caja">
+        <h2 class="mb-cambio__titulo" id="mb-cambio-titulo">{box.sinCambio.titulo}</h2>
+        <p>{box.sinCambio.texto}</p>
+      </div>
+    </section>
+
+    <!-- Preguntas -->
+    <section class="mb-faq seccion relleno" aria-labelledby="mb-faq-titulo">
+      <h2 class="titulo-seccion" id="mb-faq-titulo">Preguntas que nos hacen</h2>
+      <div class="mb-faq__lista">
+        {box.faq.map((q, i) => <Acordeon titulo={q.pregunta} abierto={i === 0}>{q.respuesta}</Acordeon>)}
+      </div>
+    </section>
+
+    <section aria-label="Compra tranquila"><FranjaConfianza /></section>
+  </main>
+  <Marquesina />
+  <Pie />
+</Base>
+
+<style>
+  /* Portada amarilla */
+  .mb-portada { background: var(--perla); border-bottom: var(--borde-fuerte); }
+  .mb-portada__texto { display: grid; gap: var(--e-4); justify-items: start; padding-block: var(--e-7) var(--e-6); }
+  .mb-portada__sellos { display: flex; flex-wrap: wrap; gap: var(--e-2); }
+  .mb-portada__titulo { font-size: var(--t-3xl); }
+  .mb-portada__frase { font-size: var(--t-lg); font-weight: var(--peso-medio); }
+  .mb-portada__datos { display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-5); margin: 0; padding: 0; list-style: none; font-weight: var(--peso-boton); font-size: var(--t-sm); }
+  .mb-portada__datos li { display: inline-flex; align-items: center; gap: var(--e-2); }
+
+  /* Cajas */
+  .mb-cajas__lista { display: grid; gap: var(--junta); margin: 0; padding: 0; list-style: none; background: var(--noche); }
+  .caja { display: grid; grid-template-columns: minmax(0, 1fr); background: var(--hueso); min-width: 0; scroll-margin-top: 120px; }
+  .caja__foto { position: relative; }
+  .caja__foto :global(.caja__sello) { position: absolute; right: var(--e-4); bottom: var(--e-4); }
+  .caja__info { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--e-3); align-content: start; padding: var(--e-5) var(--margen-der) var(--e-6) var(--margen); }
+  .caja__metal { display: inline-flex; align-items: center; gap: var(--e-2); font-size: var(--t-sm); font-weight: var(--peso-boton); }
+  .punto { width: 14px; height: 14px; border-radius: var(--r-circulo); border: 1px solid var(--noche); }
+  .punto--oro { background: var(--metal-oro); }
+  .punto--plata { background: var(--metal-plata); }
+  .punto--rodio { background: var(--metal-rodio); }
+  .caja__nombre { font-size: var(--t-2xl); }
+  .caja__frase { color: var(--texto-suave); }
+  .caja__datos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: var(--e-2) 0 0; border-top: var(--borde-fuerte); }
+  .caja__datos > div { padding: var(--e-3) var(--e-2) var(--e-3) 0; border-bottom: var(--borde); min-width: 0; }
+  .caja__datos > div:first-child { grid-column: 1 / -1; }
+  .caja__datos dt { font-size: 0.6875rem; font-weight: var(--peso-boton); letter-spacing: var(--espaciado-etiqueta); text-transform: uppercase; color: var(--texto-suave); }
+  .caja__datos dd { margin: var(--e-1) 0 0; font-weight: var(--peso-boton); }
+
+  /* Una vez / Cada mes */
+  .caja__modo { display: grid; grid-template-columns: 1fr 1fr; margin: var(--e-2) 0 0; padding: 4px; border: var(--borde-fuerte); border-radius: var(--r-pildora); min-width: 0; }
+  .caja__modo-op { position: relative; display: grid; place-items: center; min-height: 40px; border-radius: var(--r-pildora); font-size: var(--t-sm); font-weight: var(--peso-boton); cursor: pointer; }
+  .caja__modo-op input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+  .caja__modo-op:has(input:checked) { background: var(--perla); box-shadow: inset 0 0 0 1.5px var(--noche); }
+  .caja__modo-op:has(input:focus-visible) { outline: 2px solid var(--noche); outline-offset: 2px; }
+  .caja__nota { font-size: var(--t-xs); color: var(--texto-suave); min-height: 2.6em; }
+
+  /* Fechas */
+  .mb-fechas { background: var(--profundo); color: var(--hueso); padding-top: var(--seccion); }
+  .mb-fechas .titulo-seccion { margin-bottom: var(--e-5); }
+  .mb-fechas__lista { display: grid; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--hueso-linea); }
+  .fecha { display: grid; gap: var(--e-1); padding: var(--e-5) var(--margen-der) var(--e-5) var(--margen); border-bottom: 1px solid var(--hueso-linea); }
+  .fecha__titulo { font-size: var(--t-sm); font-weight: var(--peso-boton); color: var(--hueso-70); }
+  .fecha__valor { font-family: var(--f-display); font-stretch: var(--ancho-display); font-weight: var(--peso-display); font-size: var(--t-xl); line-height: 1; text-transform: uppercase; color: var(--perla); }
+  .fecha__texto { font-size: var(--t-sm); color: var(--hueso-70); max-width: 40ch; }
+
+  /* Pasos */
+  .mb-pasos__lista { display: grid; gap: var(--junta); margin: 0; padding: 0; list-style: none; background: var(--linea); border-block: 1px solid var(--linea); }
+  .paso { display: grid; gap: var(--e-2); align-content: start; padding: var(--e-5) var(--margen-der) var(--e-6) var(--margen); background: var(--hueso); }
+  .paso__numero { font-family: var(--f-display); font-stretch: var(--ancho-display); font-weight: var(--peso-display); font-size: var(--t-3xl); line-height: 0.85; }
+  .paso__titulo { font-size: var(--t-lg); }
+  .paso__texto { color: var(--texto-suave); max-width: 34ch; }
+
+  /* Lo que no tiene cambio */
+  .mb-cambio__caja { display: grid; gap: var(--e-2); padding: var(--e-5); border: var(--borde-fuerte); background: var(--perla); max-width: 56rem; }
+  .mb-cambio__titulo { font-size: var(--t-xl); }
+
+  /* FAQ */
+  .mb-faq { display: grid; gap: var(--e-5); }
+  .mb-faq__lista { max-width: 48rem; border-top: var(--borde-fuerte); }
+
+  @media (min-width: 900px) {
+    .mb-portada__texto { padding-block: var(--e-8) var(--e-7); }
+    .mb-cajas__lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .caja__info { padding: var(--e-5) var(--e-5) var(--e-6); }
+    .caja__nombre { font-size: clamp(1.75rem, 0.5rem + 2.4vw, 3rem); }
+    .mb-fechas__lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .fecha { padding: var(--e-6) var(--e-6) var(--e-7); border-bottom: 0; border-right: 1px solid var(--hueso-linea); }
+    .fecha:first-child { padding-left: var(--margen); }
+    .fecha:last-child { border-right: 0; }
+    .mb-pasos__lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .paso:first-child { padding-left: var(--margen); }
+    .mb-faq { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); align-items: start; }
+  }
+</style>
+
+<script>
+  // Una vez / Cada mes: cambia el texto de cobro y lo que se va a pedir
+  document.querySelectorAll<HTMLElement>('[data-caja]').forEach((caja) => {
+    const nota = caja.querySelector('[data-nota-modo]');
+    const boton = caja.querySelector<HTMLButtonElement>('[data-agregar]');
+    caja.addEventListener('change', (e) => {
+      const modo = (e.target as HTMLInputElement).value;
+      if (boton) boton.dataset.modo = modo;
+      if (nota) nota.textContent = modo === 'Una vez'
+        ? 'Pagas una sola vez al hacer el pedido. Sin suscripción.'
+        : 'Se cobra el [DÍA DE COBRO] de cada mes. Cancela cuando quieras.';
+    });
+  });
+</script>
