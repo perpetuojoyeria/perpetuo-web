@@ -3,13 +3,24 @@
   "eyebrow": "Rodio · Plata 925 · Oro laminado",
   "titulo": "Brillo que se queda.",
   "frase": "Ponte una. Te vas a quedar con tres.",
-  "botonPrincipal": { "texto": "Arma tu look", "enlace": "/looks" },
-  "botonSecundario": { "texto": "Ver la mystery box", "enlace": "/mystery-box" },
+  "botonPrincipal": {
+    "texto": "Arma tu look",
+    "enlace": "/looks"
+  },
+  "botonSecundario": {
+    "texto": "Ver la mystery box",
+    "enlace": "/mystery-box"
+  },
   "video": {
     "mp4": "/videos/hero.mp4",
     "webm": "/videos/hero.webm",
     "poster": "/videos/hero-poster.jpg",
     "descripcionAccesible": "Video corto de joyas Perpetuo puestas: argollas apiladas en la oreja y cadenas por capas en el cuello."
   },
-  "marcador": "VIDEO 4:5 · 6 a 8 segundos en bucle, sin sonido. Primer plano de una oreja con tres argollas apiladas en plata 925 y un collar por capas; luz natural de ventana, fondo liso Blanco Hueso. La modelo gira la cabeza despacio y el brillo se mueve."
+  "marcador": "VIDEO 4:5 · 6 a 8 segundos en bucle, sin sonido. Primer plano de una oreja con tres argollas apiladas en plata 925 y un collar por capas; luz natural de ventana, fondo liso Blanco Hueso. La modelo gira la cabeza despacio y el brillo se mueve.",
+  "anillo": {
+    "_instrucciones": "Anillo que atraviesa el título. Pon la foto real en 'src' (PNG sin fondo, anillo visto un poco desde arriba para que se vea como un óvalo, mínimo 1600 px de ancho). Mientras no exista, se usa el anillo de prueba.",
+    "src": "/fotos/hero/anillo.png",
+    "prueba": "/fotos/hero/anillo-prueba.png"
+  }
 }

@@ -46,6 +46,7 @@ Perpetuo es una marca colombiana de joyería (Medellín) en tres materiales que 
 - Evitar: nombres técnicos en mayúscula ("CADENA 5MM 60CM 6543"), fondo crema con dorados genéricos, plantilla banner → grilla → newsletter sin personalidad, morados/índigos por defecto.
 
 ## FOTOGRAFÍA
+- Hero: anillo que atraviesa el título (mitad detrás y mitad delante de las letras, flota suave). Hoy usa public/fotos/hero/anillo-prueba.png (aro liso de PRUEBA, generado solo para mostrar el efecto; no es un producto). Reemplazar por public/fotos/hero/anillo.png: foto real PNG sin fondo, anillo visto un poco desde arriba (óvalo), mínimo 1600 px.
 Fotos con personalidad, luz natural, fondos lisos en la paleta, la mitad con la joya puesta. Si falta una foto: espacio con la proporción correcta y nota de dirección de arte. NUNCA dibujar joyas falsas con CSS.
 
 ## VOZ
