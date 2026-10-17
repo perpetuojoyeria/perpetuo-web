@@ -103,7 +103,15 @@ const hayPoster = existe(video.poster);
     justify-items: start;
     padding: var(--e-6) var(--margen-der) var(--e-5) var(--margen);
   }
+  /* Etiqueta amarilla con letra azul: se lee bien aunque el anillo pase por detrás */
   .hero__eyebrow {
+    position: relative;
+    z-index: 3;
+    padding: var(--e-1) var(--e-2);
+    border: 1px solid var(--noche);
+    border-radius: var(--r-etiqueta);
+    background: var(--perla);
+    color: var(--noche);
     font-size: var(--t-xs);
     font-weight: var(--peso-boton);
     letter-spacing: var(--espaciado-etiqueta);
