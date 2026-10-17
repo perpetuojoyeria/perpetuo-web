@@ -16,7 +16,8 @@
     "webm": "/videos/hero.webm",
     "poster": "/videos/hero-poster.jpg",
     "descripcionAccesible": "Video corto de joyas Perpetuo puestas: argollas apiladas en la oreja y cadenas por capas en el cuello.",
-    "mp4Escritorio": "/videos/hero-escritorio.mp4"
+    "mp4Escritorio": "/videos/hero-escritorio.mp4",
+    "posterEscritorio": "/videos/hero-poster-escritorio.jpg"
   },
   "marcador": "VIDEO 4:5 · 6 a 8 segundos en bucle, sin sonido. Primer plano de una oreja con tres argollas apiladas en plata 925 y un collar por capas; luz natural de ventana, fondo liso Blanco Hueso. La modelo gira la cabeza despacio y el brillo se mueve.",
   "anillo": {

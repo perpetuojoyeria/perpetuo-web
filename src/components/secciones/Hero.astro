@@ -10,14 +10,16 @@ const anilloSrc = anilloReal ? anillo.src : existe(anillo.prueba) ? anillo.prueb
 const hayVideo = existe(video.mp4);
 const hayWebm = existe(video.webm);
 const hayEscritorio = existe(video.mp4Escritorio);
+const hayPosterEscritorio = existe(video.posterEscritorio);
 const hayPoster = existe(video.poster);
 ---
 <section class="hero sobre-oscuro" aria-labelledby="hero-titulo">
   <div class="hero__medio">
     {hayVideo ? (
       <video class="hero__video" muted loop playsinline preload="metadata"
-        poster={hayPoster ? video.poster : undefined} aria-label={video.descripcionAccesible} data-hero-video>
-        {hayEscritorio && <source src={video.mp4Escritorio} type="video/mp4" media="(min-width: 900px)" />}
+        poster={hayPoster ? video.poster : undefined} aria-label={video.descripcionAccesible} data-hero-video
+        data-src-escritorio={hayEscritorio ? video.mp4Escritorio : undefined}
+        data-poster-escritorio={hayPosterEscritorio ? video.posterEscritorio : undefined}>
         {hayWebm && <source src={video.webm} type="video/webm" />}
         <source src={video.mp4} type="video/mp4" />
       </video>
@@ -175,8 +177,8 @@ const hayPoster = existe(video.poster);
     .hero__medio { aspect-ratio: auto; height: min(88vh, 860px); max-height: none; }
     .hero__medio::after { background: linear-gradient(to right, rgb(35 42 68 / 0.8) 0%, rgb(35 42 68 / 0.25) 50%, transparent 75%); }
     .hero__texto { padding: var(--e-8) var(--e-7); gap: var(--e-4); }
-    /* En computador el anillo abraza la palabra "QUE" */
-    .anillo { left: 77%; top: 25%; width: 50%; --giro: -14deg; }
+    /* En computador el anillo abraza "BRILLO", sobre la zona oscura, para no tapar la cara del video */
+    .anillo { left: 36%; top: 24%; width: 46%; --giro: -10deg; }
     .hero__prueba { bottom: var(--e-6); right: calc(var(--e-5) + 60px); }
     .hero__pausa { top: auto; bottom: var(--e-5); right: var(--e-5); }
   }
@@ -196,6 +198,12 @@ const hayPoster = existe(video.poster);
 
   const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
   const boton = document.querySelector<HTMLButtonElement>('[data-hero-pausa]');
+  // En computador se usa la versión horizontal del video (si existe)
+  if (video?.dataset.srcEscritorio && window.matchMedia('(min-width: 900px)').matches) {
+    if (video.dataset.posterEscritorio) video.poster = video.dataset.posterEscritorio;
+    video.src = video.dataset.srcEscritorio;
+    video.load();
+  }
   if (video && boton) {
     const reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const ahorro = (navigator as any).connection?.saveData === true;
