@@ -157,7 +157,7 @@ const metalesDisponibles = (['plata', 'oro', 'rodio'] as const).filter((m) => li
   const raiz = document.querySelector<HTMLElement>('[data-catalogo]');
   if (raiz) {
     const chips = Array.from(raiz.querySelectorAll<HTMLButtonElement>('[data-chip]'));
-    const opsMetal = Array.from(raiz.querySelectorAll<HTMLButtonElement>('[data-metal]'));
+    const opsMetal = Array.from(raiz.querySelectorAll<HTMLButtonElement>('.filtro-metal__op'));
     const items = Array.from(raiz.querySelectorAll<HTMLElement>('[data-item]'));
     const conteo = raiz.querySelector('[data-conteo]');
     const vacio = raiz.querySelector<HTMLElement>('[data-vacio]');

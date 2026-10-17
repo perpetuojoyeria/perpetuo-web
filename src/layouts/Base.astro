@@ -5,6 +5,7 @@ import '@fontsource-variable/jost';
 import '../styles/tokens.css';
 import '../styles/base.css';
 import sitio from '../data/sitio.json';
+import AvisoBolsa from '../components/layout/AvisoBolsa.astro';
 
 interface Props {
   titulo?: string;
@@ -47,5 +48,6 @@ const urlImagen = new URL(imagen, Astro.site ?? `https://${sitio.dominio}`).href
   </head>
   <body>
     <slot />
+    <AvisoBolsa />
   </body>
 </html>

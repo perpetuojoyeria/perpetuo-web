@@ -1,0 +1,109 @@
+---
+// Conecta TODOS los botones "Agregar" del sitio (cualquier botón con data-agregar) con la bolsa,
+// actualiza el número del encabezado y muestra un aviso corto con enlace a la bolsa.
+---
+<div class="aviso-bolsa sobre-oscuro" data-aviso-bolsa hidden>
+  <p class="aviso-bolsa__texto" role="status" aria-live="polite">
+    <strong>A tu bolsa:</strong> <span data-aviso-nombre></span>
+  </p>
+  <a class="boton boton--chico" href="/bolsa">Ver bolsa</a>
+  <button class="aviso-bolsa__cerrar" type="button" aria-label="Cerrar aviso" data-aviso-cerrar>
+    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<style>
+  .aviso-bolsa {
+    position: fixed;
+    z-index: 40;
+    left: var(--margen);
+    right: var(--margen-der);
+    bottom: calc(var(--e-3) + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    align-items: center;
+    gap: var(--e-3);
+    padding: var(--e-3) var(--e-3) var(--e-3) var(--e-4);
+    background: var(--profundo);
+    color: var(--hueso);
+    box-shadow: var(--sombra-3);
+  }
+  .aviso-bolsa[hidden] { display: none; }
+  .aviso-bolsa__texto { flex: 1; min-width: 0; font-size: var(--t-sm); }
+  .aviso-bolsa__texto span { overflow-wrap: anywhere; }
+  .aviso-bolsa .boton { flex: none; }
+  .aviso-bolsa__cerrar {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: var(--r-circulo);
+    background: transparent;
+    color: var(--hueso);
+    cursor: pointer;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .aviso-bolsa:not([hidden]) { animation: aviso-subir 0.35s var(--suave); }
+  }
+  @keyframes aviso-subir { from { opacity: 0; transform: translateY(12px); } }
+  @media (min-width: 900px) {
+    .aviso-bolsa { left: auto; right: var(--e-5); bottom: var(--e-5); width: 26rem; }
+  }
+</style>
+
+<script>
+  import { agregar, cuenta, lista } from '../../lib/bolsa';
+  const nombres: Record<string, string> = { plata: 'Plata 925', oro: 'Oro laminado', rodio: 'Rodio' };
+
+  // Número del encabezado
+  const pintarCuenta = () => {
+    const n = cuenta(lista());
+    document.querySelectorAll<HTMLElement>('[data-cuenta-bolsa]').forEach((el) => {
+      el.textContent = String(n);
+      el.hidden = n === 0;
+    });
+    document.querySelectorAll<HTMLElement>('[data-enlace-bolsa]').forEach((a) => {
+      a.setAttribute('aria-label', n ? `Bolsa de compras, ${n} ${n === 1 ? 'pieza' : 'piezas'}` : 'Bolsa de compras');
+    });
+  };
+  pintarCuenta();
+  window.addEventListener('bolsa:cambio', pintarCuenta);
+  window.addEventListener('storage', pintarCuenta); // si cambia en otra pestaña
+
+  // Aviso
+  const aviso = document.querySelector<HTMLElement>('[data-aviso-bolsa]');
+  const avisoNombre = aviso?.querySelector('[data-aviso-nombre]');
+  let temporizador: number | undefined;
+  const mostrarAviso = (texto: string) => {
+    if (!aviso || !avisoNombre) return;
+    avisoNombre.textContent = texto;
+    aviso.hidden = false;
+    clearTimeout(temporizador);
+    temporizador = window.setTimeout(() => (aviso.hidden = true), 5000);
+  };
+  aviso?.querySelector('[data-aviso-cerrar]')?.addEventListener('click', () => (aviso.hidden = true));
+  aviso?.addEventListener('pointerenter', () => clearTimeout(temporizador));
+
+  // Todos los botones "Agregar" del sitio (también los que aparecen después, por eso escucha en document)
+  document.addEventListener('click', (e) => {
+    const boton = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-agregar]');
+    if (!boton) return;
+    const d = boton.dataset;
+    const precio = Number(d.precio);
+    if (!d.slug || !d.nombre || !d.metal || !precio) return;
+    agregar({
+      slug: d.slug,
+      nombre: d.nombre,
+      metal: d.metal,
+      precio,
+      tipo: d.tipo === 'mystery-box' ? 'mystery-box' : 'producto',
+      modo: d.modo || undefined,
+    });
+    mostrarAviso(`${d.nombre} · ${nombres[d.metal] ?? d.metal}${d.modo ? ` · ${d.modo}` : ''}`);
+    // confirmación en el mismo botón
+    if (!boton.dataset.textoOriginal) boton.dataset.textoOriginal = boton.textContent?.trim() || '';
+    boton.textContent = '¡Agregado!';
+    setTimeout(() => (boton.textContent = boton.dataset.textoOriginal || ''), 1600);
+  });
+</script>

@@ -1,0 +1,25 @@
+{
+  "_instrucciones": "Textos de la página /bolsa. Cambia lo que está entre [CORCHETES] por los datos reales. El número de WhatsApp y el monto de envío gratis se cambian en sitio.json.",
+  "vacia": {
+    "titulo": "Nada por aquí… todavía.",
+    "texto": "Tu bolsa está esperando su primer destello."
+  },
+  "envio": {
+    "falta": "Te faltan {falta} para el envío gratis",
+    "listo": "¡Tienes envío gratis!",
+    "porConfirmar": "Por confirmar",
+    "notaPorConfirmar": "Te lo confirmamos por WhatsApp según tu ciudad: [COSTO DE ENVÍO]."
+  },
+  "metodos": [
+    { "valor": "PSE", "nota": "Te mandamos el link de pago por WhatsApp." },
+    { "valor": "Tarjeta", "nota": "Crédito o débito. Te mandamos el link de pago por WhatsApp." },
+    { "valor": "Contraentrega", "nota": "Pagas al recibir. Disponible en [CIUDADES CON CONTRAENTREGA]." },
+    { "valor": "Addi", "nota": "Paga a cuotas. Te mandamos el link por WhatsApp." },
+    { "valor": "Sistecrédito", "nota": "Paga a cuotas. Te mandamos el link por WhatsApp." }
+  ],
+  "comoSigue": "Al tocar el botón se abre WhatsApp con tu pedido ya escrito. Solo lo envías, te confirmamos disponibilidad y envío, y te pasamos el pago. Tu bolsa queda guardada mientras tanto.",
+  "sumale": {
+    "titulo": "Súmale brillo",
+    "texto": "Las favoritas para completar tus capas (o llegar al envío gratis)."
+  }
+}

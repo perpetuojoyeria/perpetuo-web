@@ -1,0 +1,371 @@
+---
+// Bolsa y pago (v1 por WhatsApp). La lista se arma en el navegador con lo que la clienta agregó
+// (src/lib/bolsa.ts). El pedido se envía con src/lib/checkout: hoy WhatsApp, mañana una pasarela.
+import Base from '../layouts/Base.astro';
+import BarraAnuncio from '../components/layout/BarraAnuncio.astro';
+import Encabezado from '../components/layout/Encabezado.astro';
+import Pie from '../components/layout/Pie.astro';
+import Estrella from '../components/base/Estrella.astro';
+import TarjetaProducto from '../components/base/TarjetaProducto.astro';
+import FranjaConfianza from '../components/base/FranjaConfianza.astro';
+import sitio from '../data/sitio.json';
+import textos from '../data/bolsa.json';
+import box from '../data/mystery-box.json';
+import { productos, favoritos } from '../lib/productos';
+import { existeEnPublic } from '../lib/archivos';
+import { formatoCOP } from '../lib/precio';
+
+// Foto y enlace de cada pieza, para dibujar la bolsa en el navegador
+const catalogo: Record<string, { foto?: string; nota?: string; enlace: string }> = {};
+for (const p of productos) {
+  const f = p.fotos[0];
+  catalogo[p.slug] = { foto: existeEnPublic(f?.src) ? f.src : undefined, nota: f?.nota, enlace: `/producto/${p.slug}` };
+}
+for (const v of box.versiones) {
+  const src = `/fotos/mystery-box/caja-${v.metal}.jpg`;
+  catalogo[`mystery-box-${v.metal}`] = { foto: existeEnPublic(src) ? src : undefined, nota: 'Caja Perpetuo', enlace: `/mystery-box#${v.metal}` };
+}
+const sugeridas = favoritos().slice(0, 4);
+---
+<Base titulo="Tu bolsa" descripcion="Tu bolsa de Perpetuo. Pide por WhatsApp y paga con PSE, tarjeta, contraentrega, Addi o Sistecrédito." indexar={false}>
+  <BarraAnuncio />
+  <Encabezado />
+  <main class="bolsa" data-bolsa data-catalogo={JSON.stringify(catalogo)} data-envio-gratis={sitio.envioGratisDesde}>
+    <header class="bolsa__cabeza relleno">
+      <h1>Tu bolsa</h1>
+      <p class="bolsa__conteo" data-conteo-texto></p>
+    </header>
+
+    <!-- Barra hacia el envío gratis -->
+    <div class="progreso relleno" data-progreso hidden>
+      <p class="progreso__texto" aria-live="polite">
+        <Estrella tamano="0.85rem" /> <span data-progreso-texto></span>
+      </p>
+      <div class="progreso__barra" role="progressbar" aria-label="Camino al envío gratis" aria-valuemin="0" aria-valuemax={sitio.envioGratisDesde} aria-valuenow="0" data-progreso-barra>
+        <span class="progreso__relleno" data-progreso-relleno></span>
+      </div>
+      <p class="progreso__meta">Envío gratis desde {formatoCOP(sitio.envioGratisDesde)}</p>
+    </div>
+
+    <div class="bolsa__cuerpo">
+      <!-- Lista de piezas (la llena el script) -->
+      <section class="bolsa__lista" aria-label="Piezas en tu bolsa">
+        <ul class="lineas" role="list" data-lineas></ul>
+        <div class="bolsa__vacia relleno" data-vacia hidden>
+          <p class="bolsa__vacia-titulo">{textos.vacia.titulo}</p>
+          <p>{textos.vacia.texto}</p>
+          <div class="bolsa__vacia-botones">
+            <a class="boton" href="/aretes">Ver aretes</a>
+            <a class="boton boton--borde" href="/mystery-box">Ver la Mystery Box</a>
+          </div>
+        </div>
+        <noscript><p class="relleno">Para ver tu bolsa necesitas activar JavaScript, o escríbenos directo al WhatsApp {sitio.whatsappVisible}.</p></noscript>
+      </section>
+
+      <!-- Resumen y pedido -->
+      <aside class="resumen" aria-labelledby="resumen-titulo" data-resumen hidden>
+        <h2 class="resumen__titulo" id="resumen-titulo">Resumen</h2>
+        <dl class="resumen__cuentas">
+          <div><dt>Subtotal</dt><dd data-subtotal>$0</dd></div>
+          <div><dt>Envío</dt><dd data-envio>—</dd></div>
+          <div class="resumen__total"><dt>Total</dt><dd data-total>$0</dd></div>
+        </dl>
+        <p class="resumen__nota" data-envio-nota hidden>{textos.envio.notaPorConfirmar}</p>
+
+        <form class="pedido" data-pedido novalidate>
+          <fieldset class="pedido__metodos">
+            <legend>¿Cómo quieres pagar?</legend>
+            <div class="metodos">
+              {textos.metodos.map((m, i) => (
+                <label class="metodo">
+                  <input type="radio" name="metodo" value={m.valor} data-nota={m.nota} checked={i === 0} />
+                  <span>{m.valor}</span>
+                </label>
+              ))}
+            </div>
+            <p class="pedido__metodo-nota" data-metodo-nota>{textos.metodos[0].nota}</p>
+          </fieldset>
+
+          <div class="campo">
+            <label for="pedido-nombre">Tu nombre</label>
+            <input id="pedido-nombre" name="nombre" type="text" autocomplete="name" required />
+            <p class="campo__error" data-error="nombre" hidden>Cuéntanos cómo te llamas.</p>
+          </div>
+          <div class="campo">
+            <label for="pedido-ciudad">Ciudad</label>
+            <input id="pedido-ciudad" name="ciudad" type="text" autocomplete="address-level2" required />
+            <p class="campo__error" data-error="ciudad" hidden>¿A qué ciudad te lo mandamos?</p>
+          </div>
+          <div class="campo">
+            <label for="pedido-nota">Nota <span class="campo__opcional">(opcional)</span></label>
+            <textarea id="pedido-nota" name="nota" rows="2" placeholder="¿Es para regalo? Cuéntanos."></textarea>
+          </div>
+
+          <button class="boton boton--oscuro boton--ancho pedido__enviar" type="submit">
+            Pedir por WhatsApp · <span data-total-boton>$0</span>
+          </button>
+          <p class="pedido__como">{textos.comoSigue}</p>
+        </form>
+      </aside>
+    </div>
+
+    <section class="sumale seccion" aria-labelledby="sumale-titulo">
+      <div class="relleno cabeza-seccion">
+        <div>
+          <h2 class="titulo-seccion" id="sumale-titulo">{textos.sumale.titulo}</h2>
+          <p class="sumale__texto">{textos.sumale.texto}</p>
+        </div>
+      </div>
+      <ul class="sumale__grilla" role="list">
+        {sugeridas.map((p) => <li><TarjetaProducto producto={p} /></li>)}
+      </ul>
+    </section>
+
+    <section aria-label="Compra tranquila"><FranjaConfianza /></section>
+  </main>
+  <Pie />
+</Base>
+
+<style>
+  .bolsa__cabeza { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--e-2) var(--e-4); padding-block: var(--e-5) var(--e-4); }
+  .bolsa__cabeza h1 { font-size: var(--t-3xl); }
+  .bolsa__conteo { font-size: var(--t-sm); color: var(--texto-suave); }
+
+  /* Progreso: franja amarilla con borde, barra rellena en Azul Noche */
+  .progreso { display: grid; gap: var(--e-2); padding-block: var(--e-4); background: var(--perla); border-block: var(--borde-fuerte); }
+  .progreso[hidden] { display: none; }
+  .progreso__texto { display: flex; align-items: center; gap: var(--e-2); font-weight: var(--peso-boton); }
+  .progreso__barra { height: 12px; border: var(--borde-fuerte); border-radius: var(--r-pildora); background: var(--hueso); overflow: hidden; }
+  .progreso__relleno { display: block; height: 100%; width: 0; background: var(--noche); transition: width var(--medio) var(--suave); }
+  .progreso__meta { font-size: var(--t-xs); color: var(--texto-suave); }
+
+  .bolsa__cuerpo { display: grid; }
+  .lineas { margin: 0; padding: 0; list-style: none; }
+  .lineas :global(.linea) {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: var(--e-4);
+    padding: var(--e-4) var(--margen-der) var(--e-4) var(--margen);
+    border-bottom: var(--borde);
+  }
+  .lineas :global(.linea__foto) { display: block; aspect-ratio: 1; background: var(--linea-suave); overflow: hidden; }
+  .lineas :global(.linea__foto img) { width: 100%; height: 100%; object-fit: cover; }
+  .lineas :global(.linea__info) { display: grid; gap: var(--e-1); align-content: start; min-width: 0; }
+  .lineas :global(.linea__arriba) { display: flex; justify-content: space-between; gap: var(--e-3); }
+  .lineas :global(.linea__nombre) { font-size: var(--t-md); font-weight: var(--peso-boton); line-height: 1.25; }
+  .lineas :global(.linea__nombre a) { text-decoration: none; }
+  .lineas :global(.linea__nombre a:hover) { text-decoration: underline; }
+  .lineas :global(.linea__total) { font-weight: var(--peso-boton); white-space: nowrap; }
+  .lineas :global(.linea__detalle) { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-1) var(--e-2); font-size: var(--t-sm); color: var(--texto-suave); }
+  .lineas :global(.punto) { width: 12px; height: 12px; border-radius: var(--r-circulo); border: 1px solid var(--noche); }
+  .lineas :global(.punto--oro) { background: var(--metal-oro); }
+  .lineas :global(.punto--plata) { background: var(--metal-plata); }
+  .lineas :global(.punto--rodio) { background: var(--metal-rodio); }
+  .lineas :global(.linea__abajo) { display: flex; align-items: center; justify-content: space-between; gap: var(--e-3); margin-top: var(--e-2); }
+  .lineas :global(.cantidad) { display: inline-flex; align-items: center; border: var(--borde-fuerte); border-radius: var(--r-pildora); }
+  .lineas :global(.cantidad button) { display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: var(--r-circulo); background: none; color: var(--noche); font: inherit; font-size: var(--t-md); font-weight: var(--peso-boton); cursor: pointer; }
+  .lineas :global(.cantidad button:disabled) { opacity: 0.35; cursor: default; }
+  .lineas :global(.cantidad output) { min-width: 1.6em; text-align: center; font-weight: var(--peso-boton); }
+  .lineas :global(.linea__quitar) { padding: var(--e-2) 0; border: 0; background: none; color: var(--texto-suave); font: inherit; font-size: var(--t-sm); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .lineas :global(.linea__quitar:hover) { color: var(--noche); }
+
+  .bolsa__vacia { display: grid; gap: var(--e-3); justify-items: start; padding-block: var(--e-7); }
+  .bolsa__vacia-titulo { font-family: var(--f-display); font-stretch: var(--ancho-display); font-weight: var(--peso-display); font-size: var(--t-xl); line-height: 1; text-transform: uppercase; }
+  .bolsa__vacia-botones { display: flex; flex-wrap: wrap; gap: var(--e-2); margin-top: var(--e-2); }
+
+  /* Resumen */
+  .resumen { display: grid; gap: var(--e-4); align-content: start; padding: var(--e-5) var(--margen-der) var(--e-6) var(--margen); background: var(--hueso); }
+  .resumen[hidden] { display: none; }
+  .resumen__titulo { font-size: var(--t-xl); }
+  .resumen__cuentas { margin: 0; border-top: var(--borde-fuerte); }
+  .resumen__cuentas > div { display: flex; justify-content: space-between; gap: var(--e-3); padding: var(--e-3) 0; border-bottom: var(--borde); }
+  .resumen__cuentas dd { margin: 0; font-weight: var(--peso-boton); text-align: right; }
+  .resumen__total { font-size: var(--t-lg); font-weight: var(--peso-boton); border-bottom: var(--borde-fuerte) !important; }
+  .resumen__nota { font-size: var(--t-xs); color: var(--texto-suave); }
+
+  .pedido { display: grid; gap: var(--e-4); }
+  .pedido__metodos { margin: 0; padding: 0; border: 0; min-width: 0; }
+  .pedido__metodos legend { margin-bottom: var(--e-2); font-weight: var(--peso-boton); }
+  .metodos { display: flex; flex-wrap: wrap; gap: var(--e-2); }
+  .metodo { position: relative; display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--e-4); border: var(--borde-fuerte); border-radius: var(--r-pildora); font-size: var(--t-sm); font-weight: var(--peso-boton); cursor: pointer; }
+  .metodo input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+  .metodo:has(input:checked) { background: var(--noche); color: var(--hueso); }
+  .metodo:has(input:focus-visible) { outline: 2px solid var(--noche); outline-offset: 2px; }
+  .pedido__metodo-nota { margin-top: var(--e-2); font-size: var(--t-xs); color: var(--texto-suave); min-height: 1.5em; }
+
+  .campo { display: grid; gap: var(--e-1); }
+  .campo label { font-size: var(--t-sm); font-weight: var(--peso-boton); }
+  .campo__opcional { font-weight: var(--peso-texto); color: var(--texto-suave); }
+  .campo input, .campo textarea { width: 100%; min-height: 48px; padding: var(--e-3); border: var(--borde-fuerte); border-radius: var(--r-chico); background: var(--hueso); color: var(--noche); font: inherit; font-size: var(--t-base); }
+  .campo textarea { resize: vertical; }
+  .campo input:focus-visible, .campo textarea:focus-visible { outline: 2px solid var(--noche); outline-offset: 2px; }
+  .campo input[aria-invalid='true'] { border-width: 2.5px; }
+  .campo__error { font-size: var(--t-xs); font-weight: var(--peso-boton); }
+  .campo__error::before { content: '× '; }
+  .pedido__enviar { min-height: 56px; font-size: var(--t-md); }
+  .pedido__como { font-size: var(--t-xs); color: var(--texto-suave); }
+
+  /* Súmale brillo */
+  .sumale__texto { margin-top: var(--e-2); color: var(--texto-suave); }
+  .sumale__grilla { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 0; padding: 0; list-style: none; border-block: 1px solid var(--linea); }
+  .sumale__grilla > li { min-width: 0; background: var(--hueso); box-shadow: 0 0 0 1px var(--linea); }
+
+  @media (min-width: 900px) {
+    .bolsa__cabeza { padding-top: var(--e-7); }
+    .bolsa__cuerpo { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; border-bottom: var(--borde); }
+    .bolsa__cuerpo:has(.resumen[hidden]) { grid-template-columns: 1fr; border-bottom: 0; }
+    .lineas :global(.linea) { grid-template-columns: 140px minmax(0, 1fr); padding-right: var(--e-6); }
+    .resumen { position: sticky; top: calc(64px + var(--e-4)); padding: var(--e-6); border-left: var(--borde); }
+    .sumale__grilla { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+</style>
+
+<script>
+  import { lista, cambiarCantidad, quitar, subtotal, cuenta, formatoCOP } from '../lib/bolsa';
+  import { iniciarPago } from '../lib/checkout';
+  import textos from '../data/bolsa.json';
+
+  const nombres: Record<string, string> = { plata: 'Plata 925', oro: 'Oro laminado', rodio: 'Rodio' };
+  const raiz = document.querySelector<HTMLElement>('[data-bolsa]')!;
+  const catalogo: Record<string, { foto?: string; nota?: string; enlace: string }> = JSON.parse(raiz.dataset.catalogo || '{}');
+  const meta = Number(raiz.dataset.envioGratis);
+  const $ = <T extends Element = HTMLElement>(s: string) => raiz.querySelector<T>(s)!;
+
+  const crear = (etiqueta: string, clase?: string, texto?: string) => {
+    const el = document.createElement(etiqueta);
+    if (clase) el.className = clase;
+    if (texto) el.textContent = texto;
+    return el;
+  };
+
+  const pintar = () => {
+    const items = lista();
+    const n = cuenta(items);
+    const total = subtotal(items);
+    const gratis = total >= meta;
+    const vacia = items.length === 0;
+
+    $('[data-conteo-texto]').textContent = vacia ? '' : `${n} ${n === 1 ? 'pieza' : 'piezas'}`;
+    $('[data-vacia]').hidden = !vacia;
+    $('[data-resumen]').hidden = vacia;
+    $('[data-progreso]').hidden = vacia;
+
+    // Progreso hacia el envío gratis
+    $('[data-progreso-texto]').textContent = gratis ? textos.envio.listo : textos.envio.falta.replace('{falta}', formatoCOP(meta - total));
+    $('[data-progreso-relleno]').style.width = `${Math.min(100, (total / meta) * 100)}%`;
+    $('[data-progreso-barra]').setAttribute('aria-valuenow', String(Math.min(total, meta)));
+
+    // Resumen
+    $('[data-subtotal]').textContent = formatoCOP(total);
+    $('[data-envio]').textContent = gratis ? 'Gratis' : textos.envio.porConfirmar;
+    $('[data-envio-nota]').hidden = gratis;
+    $('[data-total]').textContent = formatoCOP(total) + (gratis ? '' : ' + envío');
+    $('[data-total-boton]').textContent = formatoCOP(total);
+
+    // Lista
+    const ul = $('[data-lineas]');
+    ul.replaceChildren(...items.map((i) => {
+      const info = catalogo[i.slug] ?? { enlace: '/' };
+      const enlace = info.enlace + (i.tipo !== 'mystery-box' ? `?metal=${i.metal}` : '');
+      const li = crear('li', 'linea');
+
+      const foto = crear('a', 'linea__foto') as HTMLAnchorElement;
+      foto.href = enlace;
+      foto.tabIndex = -1;
+      foto.setAttribute('aria-hidden', 'true');
+      if (info.foto) {
+        const img = crear('img') as HTMLImageElement;
+        img.src = info.foto; img.alt = ''; img.loading = 'lazy';
+        foto.append(img);
+      }
+
+      const datos = crear('div', 'linea__info');
+      const arriba = crear('div', 'linea__arriba');
+      const nombre = crear('p', 'linea__nombre');
+      const a = crear('a', '', i.nombre) as HTMLAnchorElement;
+      a.href = enlace;
+      nombre.append(a);
+      arriba.append(nombre, crear('p', 'linea__total', formatoCOP(i.precio * i.cantidad)));
+
+      const detalle = crear('p', 'linea__detalle');
+      const punto = crear('span', `punto punto--${i.metal}`);
+      punto.setAttribute('aria-hidden', 'true');
+      detalle.append(punto, nombres[i.metal] ?? i.metal);
+      if (i.modo) detalle.append(crear('span', '', `· ${i.modo === 'Cada mes' ? 'Cada mes (suscripción)' : i.modo}`));
+      if (i.cantidad > 1) detalle.append(crear('span', '', `· ${formatoCOP(i.precio)} c/u`));
+
+      const abajo = crear('div', 'linea__abajo');
+      const cantidad = crear('div', 'cantidad');
+      cantidad.setAttribute('role', 'group');
+      cantidad.setAttribute('aria-label', `Cantidad de ${i.nombre}`);
+      const menos = crear('button', '', '−') as HTMLButtonElement;
+      menos.type = 'button';
+      menos.setAttribute('aria-label', 'Quitar una');
+      menos.disabled = i.cantidad <= 1;
+      menos.addEventListener('click', () => cambiarCantidad(i.id, i.cantidad - 1));
+      const mas = crear('button', '', '+') as HTMLButtonElement;
+      mas.type = 'button';
+      mas.setAttribute('aria-label', 'Agregar una más');
+      mas.disabled = i.cantidad >= 10;
+      mas.addEventListener('click', () => cambiarCantidad(i.id, i.cantidad + 1));
+      cantidad.append(menos, crear('output', '', String(i.cantidad)), mas);
+      const quitarBoton = crear('button', 'linea__quitar', 'Quitar') as HTMLButtonElement;
+      quitarBoton.type = 'button';
+      quitarBoton.setAttribute('aria-label', `Quitar ${i.nombre} de la bolsa`);
+      quitarBoton.addEventListener('click', () => quitar(i.id));
+      abajo.append(cantidad, quitarBoton);
+
+      datos.append(arriba, detalle, abajo);
+      li.append(foto, datos);
+      return li;
+    }));
+  };
+
+  pintar();
+  window.addEventListener('bolsa:cambio', pintar);
+  window.addEventListener('storage', pintar);
+
+  // Nota según el método de pago
+  const form = $<HTMLFormElement>('[data-pedido]');
+  form.addEventListener('change', (e) => {
+    const t = e.target as HTMLInputElement;
+    if (t.name === 'metodo') $('[data-metodo-nota]').textContent = t.dataset.nota || '';
+  });
+
+  // Enviar el pedido
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const datos = new FormData(form);
+    const campos = ['nombre', 'ciudad'] as const;
+    let primeroMalo: HTMLInputElement | null = null;
+    for (const c of campos) {
+      const input = form.elements.namedItem(c) as HTMLInputElement;
+      const malo = !String(datos.get(c) || '').trim();
+      input.setAttribute('aria-invalid', String(malo));
+      const error = $(`[data-error="${c}"]`);
+      error.hidden = !malo;
+      if (malo) input.setAttribute('aria-describedby', error.id || (error.id = `error-${c}`));
+      else input.removeAttribute('aria-describedby');
+      if (malo && !primeroMalo) primeroMalo = input;
+    }
+    if (primeroMalo) { primeroMalo.focus(); return; }
+
+    const items = lista();
+    if (!items.length) return;
+    const total = subtotal(items);
+    const { url } = await iniciarPago({
+      items,
+      subtotal: total,
+      envioGratis: total >= meta,
+      datos: {
+        nombre: String(datos.get('nombre')).trim(),
+        ciudad: String(datos.get('ciudad')).trim(),
+        metodo: String(datos.get('metodo') || 'Por definir'),
+        nota: String(datos.get('nota') || '').trim() || undefined,
+      },
+    });
+    // se abre en otra pestaña (o en la app de WhatsApp) y la bolsa queda aquí
+    const enlace = Object.assign(document.createElement('a'), { href: url, target: '_blank', rel: 'noopener' });
+    enlace.click();
+  });
+</script>
