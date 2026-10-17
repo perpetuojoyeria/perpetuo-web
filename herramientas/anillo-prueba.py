@@ -6,10 +6,10 @@ from PIL import Image
 salida, muestra = sys.argv[1], sys.argv[2]
 N, S = 1500, 2
 W = N * S
-xs = np.linspace(-1.32, 1.32, W)
+xs = np.linspace(-1.4, 1.4, W)
 X, Y = np.meshgrid(xs, -xs)
 R = 1.0
-ancho, grosor = 0.085, 0.034
+ancho, grosor = 0.062, 0.03   # banda más fina, como un solitario
 tilt = np.radians(-26)                       # visto un poco desde arriba: el lado cercano queda abajo
 ct, st = np.cos(tilt), np.sin(tilt)
 
@@ -19,8 +19,8 @@ def local(px, py, pz):
 # ——— Circón ———
 phi = np.radians(28)                          # posición sobre la banda (un poco a la derecha del frente)
 u = np.array([np.sin(phi), 0.0, np.cos(phi)])  # eje de la piedra = hacia afuera de la banda
-rg = 0.15                                     # radio del filetín
-centro = u * (R + grosor + 0.075)
+rg = 0.17                                     # radio del filetín (piedra grande, como un solitario)
+centro = u * (R + grosor + 0.13)   # piedra elevada sobre la canastica de garras
 # base ortonormal alrededor del eje de la piedra
 e1 = np.array([0.0, 1.0, 0.0]); e2 = np.cross(u, e1)
 def planos(n, inclinacion, offset):
@@ -50,12 +50,14 @@ def sdf_circon(lx, ly, lz):
 
 # garras: 4 cápsulas desde la banda hasta el borde de la piedra
 garras = []
+tang = np.array([np.cos(phi), 0.0, -np.sin(phi)])   # dirección a lo largo de la banda
 for k in range(4):
     a = np.pi / 4 + k * np.pi / 2
     lat = np.cos(a) * e1 + np.sin(a) * e2
-    arriba = centro + lat * rg * 0.92 + u * 0.022
-    abajo = u * (R + grosor * 0.6) + lat * rg * 0.5
-    garras.append((abajo, arriba))
+    pie = u * (R + grosor * 0.5) + np.sign(np.dot(lat, tang) + 1e-6) * tang * rg * 0.45 + lat * rg * 0.15
+    filete = centro + lat * rg * 1.03
+    punta = centro + lat * rg * 0.86 + u * (mesa_h * 0.75)
+    garras.append((pie, filete)); garras.append((filete, punta))
 def sdf_capsula(lx, ly, lz, a, b, r):
     pa = np.stack([lx - a[0], ly - a[1], lz - a[2]]); ba = (b - a)[:, None]
     hh = np.clip((pa * ba).sum(0) / (ba * ba).sum(), 0, 1)
@@ -69,27 +71,34 @@ def sdf_todo(px, py, pz):
     banda = ((np.abs(q) / grosor)**k + (np.abs(ly) / ancho)**k)**(1 / k) - 1
     banda = banda * min(grosor, ancho) * 0.9
     piedra = sdf_circon(lx, ly, lz)
-    garra = np.min([sdf_capsula(lx, ly, lz, a, b, 0.014) for a, b in garras], axis=0)
+    garra = np.min([sdf_capsula(lx, ly, lz, a, b, 0.017) for a, b in garras], axis=0)
     metal = np.minimum(banda, garra)
     return np.minimum(metal, piedra), (piedra < metal)
 
-# marcha de rayos solo sobre los rayos activos (más rápido)
-ox, oy = X.ravel(), Y.ravel(); t = np.zeros_like(ox); hit = np.zeros(ox.shape, bool); vivo = np.ones(ox.shape, bool)
-for i in range(320):
+# cámara con perspectiva (como una foto real): rayos que salen de un punto
+D = 7.0
+ox0, oy0 = X.ravel(), Y.ravel()
+dl = np.sqrt(ox0**2 + oy0**2 + D**2)
+dx, dy, dz = ox0 / dl, oy0 / dl, -D / dl
+cam = np.array([0.0, 0.0, D])
+t = np.full(ox0.shape, D - 1.6); hit = np.zeros(ox0.shape, bool); vivo = np.ones(ox0.shape, bool)
+for i in range(360):
     idx = np.nonzero(vivo)[0]
     if idx.size == 0: break
-    d, _ = sdf_todo(ox[idx], oy[idx], 3.0 - t[idx])
+    d, _ = sdf_todo(cam[0] + dx[idx] * t[idx], cam[1] + dy[idx] * t[idx], cam[2] + dz[idx] * t[idx])
     t[idx] += d * 0.6
     h = d < 4e-5; hit[idx[h]] = True
-    vivo[idx[h | (t[idx] > 6)]] = False
+    vivo[idx[h | (t[idx] > D + 2)]] = False
 idx = np.nonzero(hit)[0]
-px, py, pz = ox[idx], oy[idx], 3.0 - t[idx]
+px, py, pz = cam[0] + dx[idx] * t[idx], cam[1] + dy[idx] * t[idx], cam[2] + dz[idx] * t[idx]
+vx, vy, vz = dx[idx], dy[idx], dz[idx]
 e = 3e-4
 f = lambda a, b, c: sdf_todo(a, b, c)[0]
 nx = f(px + e, py, pz) - f(px - e, py, pz); ny = f(px, py + e, pz) - f(px, py - e, pz); nz = f(px, py, pz + e) - f(px, py, pz - e)
 L = np.sqrt(nx**2 + ny**2 + nz**2) + 1e-12; nx /= L; ny /= L; nz /= L
 _, es_piedra = sdf_todo(px, py, pz)
-rx, ry, rz = 2 * nz * nx, 2 * nz * ny, -1 + 2 * nz * nz
+dn = vx * nx + vy * ny + vz * nz
+rx, ry, rz = vx - 2 * dn * nx, vy - 2 * dn * ny, vz - 2 * dn * nz
 
 hueso = np.array([251, 251, 244.]) / 255; noche = np.array([46, 65, 108.]) / 255
 profundo = np.array([35, 42, 68.]) / 255; perla = np.array([255, 253, 203.]) / 255
@@ -124,9 +133,9 @@ if g.any():
     qx, qy, qz = glx - centro[0], gly - centro[1], glz - centro[2]
     a1 = qx * e1[0] + qy * e1[1] + qz * e1[2]; a2 = qx * e2[0] + qy * e2[1] + qz * e2[2]
     az = np.arctan2(a2, a1); rr = np.sqrt(a1**2 + a2**2) / rg
-    sector = np.floor((az / (2 * np.pi) + 0.5) * 16)                 # 16 "flechas" simétricas, como un brillante
-    anillo = np.floor(rr * 4)
-    va = (sector + 0.5) * 2 * np.pi / 16
+    sector = np.floor((az / (2 * np.pi) + 0.5) * 8)                  # 8 "flechas" grandes, como un brillante
+    anillo = np.floor(rr * 2)
+    va = (sector + 0.5) * 2 * np.pi / 8
     vx = np.cos(va); vy = np.sin(va)
     ix = vx * 0.7 - rx[g] * 0.3; iy = vy * 0.7 - ry[g] * 0.3; iz = np.abs(rz[g]) * 0.6 + 0.4
     n_ = np.sqrt(ix**2 + iy**2 + iz**2); dentro = estudio(ix / n_, iy / n_, iz / n_)
@@ -134,10 +143,20 @@ if g.any():
     base = dentro * (1 - fres) * 1.2 + refl * fres
     fid = np.round(nx[g] * 9) * 131 + np.round(ny[g] * 9) * 17 + np.round(nz[g] * 9) * 7 + sector * 3.7 + anillo * 11.3
     rnd = (np.sin(fid * 12.9898) * 43758.5453) % 1.0
-    claro = rnd > 0.5; oscuro = rnd < 0.22
-    base[claro] = base[claro] * 0.35 + 1.3
-    base[oscuro] = base[oscuro] * 0.25 + noche * 0.2
-    tinte = np.where((rnd > 0.93)[:, None], perla[None, :] * 1.25, np.where(((rnd > 0.86) & (rnd <= 0.93))[:, None], np.array([0.82, 0.88, 1.0])[None, :] * 1.25, 1.0))
+    # brillo continuo con mucho contraste (curva en S) en vez de cuadritos blancos y negros
+    lum = base.mean(1)
+    var = 0.7 + 1.0 * rnd                                    # cada faceta refleja distinto (más luz: de lejos se ve blanca)
+    # degradado dentro de cada faceta (la luz nunca es pareja en una piedra real)
+    onda = 0.75 + 0.35 * np.cos(rr * 5.5 + az * 2.0) * np.cos(rr * 3.1 - az)
+    v = np.clip(lum * var * onda * 1.3, 0, 1.5)
+    v = v**2.2 / (v**2.2 + (1.05 - np.minimum(v, 1))**2.2 + 1e-6)
+    base = (v[:, None] * 1.25) * np.array([0.97, 0.98, 1.0])[None, :] + profundo[None, :] * 0.08
+    # "fuego": pocas chispitas de color
+    fuego = (rnd > 0.965)
+    hue = (rnd[fuego] - 0.955) / 0.045
+    espectro = np.stack([np.clip(1.6 - np.abs(hue * 6 - 1), 0, 1), np.clip(1.6 - np.abs(hue * 6 - 3), 0, 1), np.clip(1.6 - np.abs(hue * 6 - 5), 0, 1)], 1)
+    base[fuego] = espectro * 0.32 + 0.72                     # fuego sutil, casi pastel
+    tinte = np.where(((rnd > 0.9) & (rnd <= 0.955))[:, None], np.array([0.88, 0.92, 1.0])[None, :] * 1.1, 1.0)
     col[g] = base * tinte
 
 col = 1 - np.exp(-col * 1.25); col = np.clip(col / (1 - np.exp(-1.25)), 0, 1)
