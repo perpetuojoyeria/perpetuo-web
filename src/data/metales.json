@@ -1,0 +1,6 @@
+{
+  "_instrucciones": "Los tres metales. No cambies las claves (plata, oro, rodio): los productos las usan.",
+  "plata": { "nombre": "Plata 925", "corto": "Plata", "nota": "el corazón" },
+  "oro": { "nombre": "Oro laminado", "corto": "Oro", "nota": "el capricho" },
+  "rodio": { "nombre": "Rodio", "corto": "Rodio", "nota": "para empezar" }
+}

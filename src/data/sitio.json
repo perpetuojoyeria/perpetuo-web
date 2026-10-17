@@ -1,0 +1,13 @@
+{
+  "_instrucciones": "Datos generales de la tienda. Cambia aquí el WhatsApp, el monto de envío gratis o el dominio y se actualiza en todo el sitio.",
+  "nombre": "Perpetuo Joyería",
+  "tagline": "Brillo que se queda.",
+  "descripcion": "Joyería en plata 925, oro laminado y rodio para llevar por capas todos los días. Hecha con amor en Medellín.",
+  "dominio": "perpetuojoyeria.com",
+  "whatsapp": "573053387593",
+  "whatsappVisible": "305 338 7593",
+  "envioGratisDesde": 250000,
+  "ciudad": "Medellín, Colombia",
+  "instagram": "[USUARIO DE INSTAGRAM]",
+  "imagenCompartir": "/fotos/compartir.jpg"
+}

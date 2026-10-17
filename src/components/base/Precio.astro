@@ -1,0 +1,24 @@
+---
+// Precio en COP ($89.900). 'antes' muestra el valor tachado.
+import { formatoCOP } from '../../lib/precio';
+interface Props { valor: number; antes?: number; grande?: boolean; clase?: string }
+const { valor, antes, grande = false, clase = '' } = Astro.props;
+---
+<span class:list={['precio', { 'precio--grande': grande }, clase]}>
+  <span class="precio__actual" data-precio>{formatoCOP(valor)}</span>
+  {antes && (
+    <s class="precio__antes"><span class="solo-lector">Antes </span>{formatoCOP(antes)}</s>
+  )}
+</span>
+
+<style>
+  .precio {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--e-2);
+    font-variant-numeric: tabular-nums;
+  }
+  .precio__actual { font-weight: var(--peso-boton); }
+  .precio__antes { font-size: 0.85em; color: var(--texto-suave); }
+  .precio--grande { font-size: var(--t-lg); }
+</style>

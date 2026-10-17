@@ -1,32 +1,15 @@
 ---
-// Página de inicio: aquí se ensamblan las secciones en orden.
+// Home: aquí se ensamblan las secciones en orden.
 import Base from '../layouts/Base.astro';
-import BarraAnuncio from '../components/BarraAnuncio.astro';
-import Encabezado from '../components/Encabezado.astro';
-import Hero from '../components/Hero.astro';
+import BarraAnuncio from '../components/layout/BarraAnuncio.astro';
+import Encabezado from '../components/layout/Encabezado.astro';
+import Hero from '../components/secciones/Hero.astro';
 ---
 <Base>
   <BarraAnuncio />
   <Encabezado />
   <main>
     <Hero />
-    <!-- Paso 3: Looks Perpetuo (pendiente de aprobación del paso 2) -->
-    <section class="pendiente contenedor" aria-label="Próximas secciones">
-      <p>Aquí irán los Looks Perpetuo (paso 3).</p>
-    </section>
+    <!-- Etapa 2: el resto del Home (cuadrícula, looks, mystery box, favoritos, confianza) -->
   </main>
 </Base>
-
-<style>
-  .pendiente {
-    display: grid;
-    place-items: center;
-    min-height: 60vh;   /* alto temporal */
-    font-size: var(--t-sm);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    opacity: 0.35;
-    align-items: start;
-    padding-block: var(--e-9);
-  }
-</style>

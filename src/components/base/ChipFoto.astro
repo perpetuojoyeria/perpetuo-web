@@ -1,0 +1,33 @@
+---
+// Chip de subcategoría con foto en círculo (como Mejuri).
+import Foto from './Foto.astro';
+interface Props { texto: string; enlace: string; foto?: string; nota?: string; activo?: boolean }
+const { texto, enlace, foto, nota, activo = false } = Astro.props;
+---
+<a class:list={['chip', { 'chip--activo': activo }]} href={enlace} aria-current={activo ? 'true' : undefined}>
+  <span class="chip__foto"><Foto src={foto} alt="" nota={nota} proporcion="1 / 1" redonda /></span>
+  <span class="chip__texto">{texto}</span>
+</a>
+
+<style>
+  .chip {
+    display: inline-grid;
+    justify-items: center;
+    gap: var(--e-2);
+    width: 84px;
+    text-decoration: none;
+    font-size: var(--t-sm);
+    font-weight: var(--peso-medio);
+    text-align: center;
+  }
+  .chip__foto {
+    width: 72px;
+    padding: 3px;
+    border: var(--borde);
+    border-radius: var(--r-circulo);
+    transition: border-color var(--rapido);
+  }
+  .chip:hover .chip__foto,
+  .chip--activo .chip__foto { border-color: var(--noche); box-shadow: inset 0 0 0 1px var(--noche); }
+  .chip--activo .chip__texto { text-decoration: underline; text-underline-offset: 4px; }
+</style>

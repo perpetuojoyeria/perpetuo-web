@@ -1,0 +1,9 @@
+{
+  "_instrucciones": "Franja de confianza. Cambia los textos entre [CORCHETES] por las políticas reales.",
+  "items": [
+    { "titulo": "Garantía de [TIEMPO]", "texto": "Si algo falla, lo resolvemos." },
+    { "titulo": "Cambios en [N] días", "texto": "Si no fue amor, la cambias." },
+    { "titulo": "Envío gratis desde $250.000", "texto": "A [COBERTURA DE ENVÍOS]." },
+    { "titulo": "Paga como quieras", "texto": "PSE, tarjeta, contraentrega, Addi, Sistecrédito o WhatsApp." }
+  ]
+}

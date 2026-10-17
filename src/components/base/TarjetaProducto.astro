@@ -1,0 +1,106 @@
+---
+// Tarjeta de producto: foto, etiqueta, nombre, precio, punticos de metal y "Agregar +".
+import Foto from './Foto.astro';
+import Etiqueta from './Etiqueta.astro';
+import Precio from './Precio.astro';
+import PuntosMetal from './PuntosMetal.astro';
+import { precioDe, nombreMetal, type Producto } from '../../lib/productos';
+
+interface Props { producto: Producto; prioridad?: boolean }
+const { producto: p, prioridad = false } = Astro.props;
+const metal = p.metales[0];
+const precio = precioDe(p, metal);
+const foto = p.fotos[0];
+const fotoPuesta = p.fotos[1];
+const url = `/producto/${p.slug}`;
+---
+<article class="tarjeta">
+  <a class="tarjeta__foto" href={url} tabindex="-1" aria-hidden="true">
+    <Foto src={foto?.src} alt="" nota={foto?.nota} proporcion="4 / 5" prioridad={prioridad} />
+    {fotoPuesta && (
+      <span class="tarjeta__foto-puesta">
+        <Foto src={fotoPuesta.src} alt="" nota={fotoPuesta.nota} proporcion="4 / 5" />
+      </span>
+    )}
+  </a>
+  <div class="tarjeta__sellos">
+    {p.etiquetas.map((t) => <Etiqueta texto={t} />)}
+    {p.placeholder && <Etiqueta texto="Ejemplo" variante="suave" />}
+  </div>
+
+  <div class="tarjeta__info">
+    <h3 class="tarjeta__nombre"><a href={url}>{p.nombre}</a></h3>
+    <Precio valor={precio} />
+    <PuntosMetal metales={p.metales} />
+  </div>
+
+  <button
+    class="boton boton--chico tarjeta__agregar"
+    type="button"
+    data-agregar
+    data-slug={p.slug}
+    data-nombre={p.nombre}
+    data-metal={metal}
+    data-precio={precio}
+    aria-label={`Agregar ${p.nombre} en ${nombreMetal(metal)} a la bolsa`}
+  >Agregar +</button>
+</article>
+
+<style>
+  .tarjeta {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "foto" "info" "boton";
+    align-content: start;
+    gap: var(--e-3);
+    min-width: 0;
+  }
+  /* Con espacio, el botón se pone al lado del precio */
+  @media (min-width: 900px) {
+    .tarjeta {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas: "foto foto" "info boton";
+      align-items: end;
+      gap: var(--e-3) var(--e-2);
+    }
+  }
+  .tarjeta__foto {
+    grid-area: foto;
+    position: relative;
+    display: block;
+    border-radius: var(--r-tarjeta);
+    overflow: hidden;
+    isolation: isolate;
+    text-decoration: none;
+  }
+  /* En computador, al pasar el mouse se ve la foto con la joya puesta */
+  .tarjeta__foto-puesta {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity var(--medio) var(--suave);
+  }
+  @media (hover: hover) {
+    .tarjeta:hover .tarjeta__foto-puesta { opacity: 1; }
+  }
+  .tarjeta__sellos {
+    position: absolute;
+    top: var(--e-3);
+    left: var(--e-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e-1);
+    pointer-events: none;
+  }
+  .tarjeta__info { grid-area: info; display: grid; gap: var(--e-1); min-width: 0; }
+  .tarjeta__nombre {
+    font-size: var(--t-md);
+    line-height: 1.2;
+  }
+  .tarjeta__nombre a { text-decoration: none; }
+  .tarjeta__nombre a::after { content: ''; position: absolute; inset: 0 0 64px 0; } /* toda la foto es tocable */
+  .tarjeta__nombre a:focus-visible { outline: none; }
+  .tarjeta:has(.tarjeta__nombre a:focus-visible) .tarjeta__foto { outline: 2px solid var(--noche); outline-offset: 3px; }
+  .tarjeta__agregar { grid-area: boton; justify-self: start; position: relative; z-index: 1; padding-inline: var(--e-4); }
+</style>

@@ -1,0 +1,37 @@
+---
+// Sello redondo de precio (Mystery Box, ofertas). Amarillo Perla con texto Azul Noche.
+import { formatoCOP } from '../../lib/precio';
+import Estrella from './Estrella.astro';
+interface Props { valor: number; texto?: string; clase?: string }
+const { valor, texto = 'por', clase = '' } = Astro.props;
+---
+<span class:list={['sello', clase]}>
+  <Estrella tamano="0.9rem" />
+  <span class="sello__texto">{texto}</span>
+  <strong class="sello__valor">{formatoCOP(valor)}</strong>
+</span>
+
+<style>
+  .sello {
+    display: inline-grid;
+    place-items: center;
+    align-content: center;
+    gap: 2px;
+    width: 104px;
+    aspect-ratio: 1;
+    border: var(--borde-fuerte);
+    border-radius: var(--r-circulo);
+    background: var(--perla);
+    color: var(--noche);
+    text-align: center;
+    transform: rotate(-8deg);
+    box-shadow: var(--sombra-2);
+  }
+  .sello__texto { font-size: var(--t-xs); line-height: 1; }
+  .sello__valor {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+</style>

@@ -1,0 +1,59 @@
+---
+// Foto con proporción fija. Si el archivo aún no existe, muestra un espacio
+// del mismo tamaño con la nota de dirección de arte (nunca una joya dibujada).
+import { existeEnPublic } from '../../lib/archivos';
+
+interface Props {
+  src?: string;
+  alt: string;
+  nota?: string;           // qué foto va aquí
+  proporcion?: string;     // '4 / 5', '1 / 1', '16 / 9'…
+  redonda?: boolean;
+  prioridad?: boolean;     // true solo para la primera foto visible (no espera para cargar)
+  clase?: string;
+}
+const { src, alt, nota, proporcion = '4 / 5', redonda = false, prioridad = false, clase = '' } = Astro.props;
+const existe = existeEnPublic(src);
+---
+<div class:list={['foto', { 'foto--redonda': redonda }, clase]} style={`--proporcion:${proporcion}`}>
+  {existe ? (
+    <img src={src} alt={alt} loading={prioridad ? 'eager' : 'lazy'} decoding="async" fetchpriority={prioridad ? 'high' : undefined} />
+  ) : (
+    <div class="foto__marcador" role="img" aria-label={alt}>
+      {!redonda && nota && <span class="foto__nota">{nota}</span>}
+    </div>
+  )}
+</div>
+
+<style>
+  .foto {
+    position: relative;
+    aspect-ratio: var(--proporcion);
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    background: var(--linea-suave);
+  }
+  .foto--redonda { border-radius: var(--r-circulo); }
+  .foto img { width: 100%; height: 100%; object-fit: cover; }
+  .foto__marcador {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+    padding: var(--e-3);
+    background:
+      repeating-linear-gradient(135deg, transparent 0 10px, var(--linea-suave) 10px 11px),
+      var(--linea-suave);
+  }
+  .foto__nota {
+    max-width: 30ch;
+    padding: var(--e-2) var(--e-3);
+    border: 1px dashed var(--noche-30);
+    border-radius: var(--r-chico);
+    background: var(--hueso);
+    font-size: 0.7rem;
+    line-height: 1.4;
+    color: var(--texto-suave);
+  }
+</style>

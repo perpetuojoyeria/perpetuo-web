@@ -1,0 +1,65 @@
+---
+// Selector de metal: tres píldoras con su puntico. Funciona sin JavaScript (botones de opción).
+// Avisa el cambio con el evento "metal:cambio" para que la página actualice precio y fotos.
+import metalesInfo from '../../data/metales.json';
+type Metal = 'plata' | 'oro' | 'rodio';
+interface Props { nombre: string; metales: Metal[]; seleccionado?: Metal; precios?: Record<string, number> }
+const { nombre, metales, seleccionado = metales[0], precios } = Astro.props;
+---
+<fieldset class="selector" data-selector-metal data-precios={precios ? JSON.stringify(precios) : undefined}>
+  <legend class="selector__titulo">Metal: <strong data-metal-elegido>{metalesInfo[seleccionado].nombre}</strong></legend>
+  <div class="selector__opciones">
+    {metales.map((m) => (
+      <label class="selector__opcion">
+        <input type="radio" name={nombre} value={m} checked={m === seleccionado} data-nombre={metalesInfo[m].nombre} />
+        <span class={`punto punto--${m}`} aria-hidden="true"></span>
+        <span>{metalesInfo[m].nombre}</span>
+      </label>
+    ))}
+  </div>
+</fieldset>
+
+<style>
+  .selector { margin: 0; padding: 0; border: 0; min-width: 0; }
+  .selector__titulo { padding: 0; margin-bottom: var(--e-3); font-size: var(--t-sm); }
+  .selector__opciones { display: flex; flex-wrap: wrap; gap: var(--e-2); }
+  .selector__opcion {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+    min-height: 44px;
+    padding: 0 var(--e-4);
+    border: var(--borde);
+    border-radius: var(--r-pildora);
+    background: var(--hueso);
+    font-size: var(--t-sm);
+    font-weight: var(--peso-medio);
+    cursor: pointer;
+    transition: border-color var(--rapido), box-shadow var(--rapido);
+  }
+  .selector__opcion:hover { border-color: var(--noche); }
+  .selector__opcion input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .selector__opcion:has(input:checked) { border-color: var(--noche); box-shadow: inset 0 0 0 1px var(--noche); }
+  .selector__opcion:has(input:focus-visible) { outline: 2px solid var(--noche); outline-offset: 3px; }
+  .punto {
+    width: 14px; height: 14px;
+    border-radius: var(--r-circulo);
+    border: 1px solid var(--noche);
+    box-shadow: inset 0 0 0 1.5px var(--hueso);
+  }
+  .punto--oro { background: var(--metal-oro); }
+  .punto--plata { background: var(--metal-plata); }
+  .punto--rodio { background: var(--metal-rodio); }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLFieldSetElement>('[data-selector-metal]').forEach((grupo) => {
+    const elegido = grupo.querySelector('[data-metal-elegido]');
+    grupo.addEventListener('change', (e) => {
+      const input = e.target as HTMLInputElement;
+      if (elegido) elegido.textContent = input.dataset.nombre ?? input.value;
+      grupo.dispatchEvent(new CustomEvent('metal:cambio', { bubbles: true, detail: { metal: input.value } }));
+    });
+  });
+</script>

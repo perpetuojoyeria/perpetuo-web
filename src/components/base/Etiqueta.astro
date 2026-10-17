@@ -1,0 +1,24 @@
+---
+// Etiqueta pequeña: "Favorito", "Nuevo", "Del mes"…
+// destacada = Amarillo Perla (lo especial) · suave = contorno · oscura = Azul Profundo
+interface Props { texto: string; variante?: 'destacada' | 'suave' | 'oscura'; clase?: string }
+const { texto, variante = 'destacada', clase = '' } = Astro.props;
+---
+<span class:list={['etiqueta', `etiqueta--${variante}`, clase]}>{texto}</span>
+
+<style>
+  .etiqueta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 var(--e-3);
+    border-radius: var(--r-pildora);
+    font-size: var(--t-xs);
+    font-weight: var(--peso-boton);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .etiqueta--destacada { background: var(--perla); color: var(--noche); border: 1px solid var(--noche); }
+  .etiqueta--suave { background: var(--hueso); color: var(--noche); border: 1px solid var(--linea); }
+  .etiqueta--oscura { background: var(--profundo); color: var(--hueso); }
+</style>

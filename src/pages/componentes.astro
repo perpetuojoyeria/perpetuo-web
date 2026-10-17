@@ -1,0 +1,226 @@
+---
+// Página interna de muestra: todos los tokens y componentes base en un solo lugar.
+// No aparece en Google (indexar = false). Sirve para revisar el sistema antes de armar páginas.
+import Base from '../layouts/Base.astro';
+import Encabezado from '../components/layout/Encabezado.astro';
+import BarraAnuncio from '../components/layout/BarraAnuncio.astro';
+import Estrella from '../components/base/Estrella.astro';
+import Etiqueta from '../components/base/Etiqueta.astro';
+import Precio from '../components/base/Precio.astro';
+import SelloPrecio from '../components/base/SelloPrecio.astro';
+import PuntosMetal from '../components/base/PuntosMetal.astro';
+import SelectorMetal from '../components/base/SelectorMetal.astro';
+import TarjetaProducto from '../components/base/TarjetaProducto.astro';
+import ChipFoto from '../components/base/ChipFoto.astro';
+import Acordeon from '../components/base/Acordeon.astro';
+import FranjaConfianza from '../components/base/FranjaConfianza.astro';
+import Foto from '../components/base/Foto.astro';
+import categorias from '../data/categorias.json';
+import { productos } from '../lib/productos';
+
+const colores = [
+  { nombre: 'Blanco Hueso', hex: '#FBFBF4', var: '--hueso', uso: 'Fondo principal' },
+  { nombre: 'Azul Noche', hex: '#2E416C', var: '--noche', uso: 'Texto principal y bloques fuertes' },
+  { nombre: 'Azul Profundo', hex: '#232A44', var: '--profundo', uso: 'Fondos oscuros, footer, sellos' },
+  { nombre: 'Amarillo Perla', hex: '#FFFDCB', var: '--perla', uso: 'Solo botones, sellos de precio y etiquetas' },
+];
+const aretes = categorias.categorias[0];
+const muestra = [productos[0], productos[3], productos[6], productos[10]];
+---
+<Base titulo="Componentes" indexar={false}>
+  <BarraAnuncio />
+  <Encabezado />
+  <main class="muestrario contenedor">
+    <header class="muestrario__cabeza">
+      <p class="antetitulo">Etapa 1 · sistema de diseño</p>
+      <h1>Los ladrillos de Perpetuo</h1>
+      <p class="muestrario__intro">Todo lo que ves aquí sale de un solo archivo de tokens. Las páginas se arman combinando estas piezas.</p>
+    </header>
+
+    <!-- Color -->
+    <section class="bloque" aria-labelledby="t-color">
+      <h2 id="t-color">Color</h2>
+      <p class="nota">Solo cuatro. El amarillo nunca es fondo: es la señal de "aquí pasa algo".</p>
+      <ul class="colores" role="list">
+        {colores.map((c) => (
+          <li class="color">
+            <span class="color__muestra" style={`background: var(${c.var})`}></span>
+            <strong>{c.nombre}</strong>
+            <span class="nota">{c.hex} · {c.uso}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Tipografía -->
+    <section class="bloque" aria-labelledby="t-tipo">
+      <h2 id="t-tipo">Tipografía</h2>
+      <p class="nota">Fraunces con curvas suaves para títulos; Jost para todo lo demás. Nada en mayúsculas sostenidas.</p>
+      <div class="tipos">
+        <p class="tipo-3xl">Brillo que se queda.</p>
+        <p class="tipo-2xl">Arma tu oreja apilada</p>
+        <p class="tipo-xl">Las favoritas del mes</p>
+        <p class="tipo-italica">Ponte una. Te vas a quedar con tres.</p>
+        <p class="tipo-texto">Texto en Jost: frases cortas, claras y con tono de amiga. Material y precio siempre a la vista, para que nadie tenga que preguntar por DM.</p>
+        <p class="tipo-boton">Botones en Jost gruesa · Agregar a la bolsa</p>
+      </div>
+    </section>
+
+    <!-- Botones -->
+    <section class="bloque" aria-labelledby="t-botones">
+      <h2 id="t-botones">Botones</h2>
+      <p class="nota">Amarillo = acción principal. Sobre fondo claro lleva borde Azul Noche para que se vea.</p>
+      <div class="fila">
+        <a class="boton" href="#t-botones">Arma tu look</a>
+        <a class="boton boton--oscuro" href="#t-botones">Agregar a la bolsa</a>
+        <a class="boton boton--borde" href="#t-botones">Ver todo</a>
+        <a class="boton boton--chico" href="#t-botones">Agregar +</a>
+        <a class="enlace" href="#t-botones">Enlace subrayado</a>
+      </div>
+      <div class="fila panel-oscuro sobre-oscuro">
+        <a class="boton" href="#t-botones">Destapa la mystery box</a>
+        <a class="boton boton--borde" href="#t-botones">Cómo funciona</a>
+      </div>
+    </section>
+
+    <!-- Etiquetas, precio, sello -->
+    <section class="bloque" aria-labelledby="t-sellos">
+      <h2 id="t-sellos">Etiquetas, precios y sellos</h2>
+      <div class="fila">
+        <Etiqueta texto="Favorito" />
+        <Etiqueta texto="Nuevo" />
+        <Etiqueta texto="Del mes" />
+        <Etiqueta texto="Ejemplo" variante="suave" />
+        <Etiqueta texto="Agotado" variante="oscura" />
+      </div>
+      <div class="fila">
+        <Precio valor={89900} />
+        <Precio valor={129900} antes={169900} grande />
+        <SelloPrecio valor={149900} />
+        <span class="estrellas"><Estrella tamano="1rem" /><Estrella tamano="1.5rem" /><Estrella tamano="2.25rem" /></span>
+      </div>
+      <p class="nota">La estrella sale del archivo original del logo; es el único adorno.</p>
+    </section>
+
+    <!-- Metal -->
+    <section class="bloque" aria-labelledby="t-metal">
+      <h2 id="t-metal">Metal</h2>
+      <p class="nota">Punticos hechos solo con la paleta: oro = perla, plata = hueso, rodio = azul suave.</p>
+      <div class="fila">
+        <PuntosMetal metales={['plata', 'oro', 'rodio']} />
+        <PuntosMetal metales={['plata', 'oro', 'rodio']} conNombre />
+      </div>
+      <SelectorMetal nombre="muestra-metal" metales={['plata', 'oro', 'rodio']} />
+    </section>
+
+    <!-- Chips -->
+    <section class="bloque" aria-labelledby="t-chips">
+      <h2 id="t-chips">Chips con foto</h2>
+      <div class="fila fila--chips">
+        <ChipFoto texto="Todo" enlace="#t-chips" activo nota="Todos los aretes" />
+        {aretes.subcategorias.map((s) => <ChipFoto texto={s.nombre} enlace="#t-chips" nota={s.nota} />)}
+      </div>
+    </section>
+
+    <!-- Tarjetas -->
+    <section class="bloque" aria-labelledby="t-tarjetas">
+      <h2 id="t-tarjetas">Tarjetas de producto</h2>
+      <p class="nota">Productos de ejemplo. En computador, al pasar el mouse cambia a la foto con la joya puesta.</p>
+      <div class="grilla">
+        {muestra.map((p, i) => <TarjetaProducto producto={p} prioridad={i < 2} />)}
+      </div>
+    </section>
+
+    <!-- Fotos -->
+    <section class="bloque" aria-labelledby="t-fotos">
+      <h2 id="t-fotos">Espacios para fotos</h2>
+      <p class="nota">Mientras no hay foto, queda el espacio con su proporción y la nota de lo que va ahí.</p>
+      <div class="fotos">
+        <Foto alt="" proporcion="1 / 1" nota="1:1 · Mano con tres anillos apilados, fondo Azul Noche" />
+        <Foto alt="" proporcion="4 / 5" nota="4:5 · Cuello con dos cadenas en capas, luz de ventana" />
+        <Foto alt="" proporcion="16 / 9" nota="16:9 · Mesa con la mystery box abierta, vista desde arriba" />
+      </div>
+    </section>
+
+    <!-- Acordeón -->
+    <section class="bloque" aria-labelledby="t-acordeon">
+      <h2 id="t-acordeon">Acordeón</h2>
+      <div class="acordeones">
+        <Acordeon titulo="¿Cuánto se demora el envío?" abierto>En [TIEMPO DE ENVÍO] llega a tu casa. Te mandamos la guía por WhatsApp.</Acordeon>
+        <Acordeon titulo="¿Me puedo salir cuando quiera?">Sí. Sin letra pequeña, sin llamadas incómodas.</Acordeon>
+      </div>
+    </section>
+
+    <!-- Confianza -->
+    <section class="bloque" aria-labelledby="t-confianza">
+      <h2 id="t-confianza">Franja de confianza</h2>
+      <FranjaConfianza />
+      <FranjaConfianza oscura />
+      <div class="angosta"><FranjaConfianza compacta /></div>
+    </section>
+
+    <!-- Bordes y sombras -->
+    <section class="bloque" aria-labelledby="t-forma">
+      <h2 id="t-forma">Bordes y sombras</h2>
+      <div class="formas">
+        <div class="forma" style="border-radius: var(--r-chico)">12px · campos</div>
+        <div class="forma" style="border-radius: var(--r-tarjeta)">24px · tarjetas</div>
+        <div class="forma" style="border-radius: var(--r-bloque); box-shadow: var(--sombra-2)">28px · bloques</div>
+        <div class="forma" style="border-radius: var(--r-pildora); box-shadow: var(--sombra-3)">píldora</div>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .muestrario { padding-block: var(--e-7) var(--e-9); display: grid; gap: var(--e-8); }
+  .muestrario__cabeza { display: grid; gap: var(--e-3); max-width: 40rem; }
+  .muestrario__cabeza h1 { font-size: var(--t-2xl); }
+  .muestrario__intro { font-size: var(--t-md); color: var(--texto-suave); }
+  .bloque { display: grid; gap: var(--e-5); }
+  .bloque h2 { font-size: var(--t-xl); }
+  .nota { font-size: var(--t-sm); color: var(--texto-suave); margin-top: calc(var(--e-3) * -1); }
+  .fila { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-4); }
+  .fila--chips { gap: var(--e-2); }
+  .panel-oscuro { padding: var(--e-6); border-radius: var(--r-bloque); background: var(--profundo); }
+
+  .colores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-4); margin: 0; padding: 0; list-style: none; }
+  .color { display: grid; gap: var(--e-1); min-width: 0; }
+  .color .nota { margin: 0; }
+  .color__muestra { height: 96px; border-radius: var(--r-tarjeta); border: var(--borde); }
+
+  .tipos { display: grid; gap: var(--e-4); }
+  .tipo-3xl, .tipo-2xl, .tipo-xl, .tipo-italica {
+    font-family: var(--f-display);
+    font-variation-settings: var(--display-ajustes);
+    font-weight: var(--peso-display);
+    line-height: var(--interlinea-titulo);
+    letter-spacing: -0.01em;
+  }
+  .tipo-3xl { font-size: var(--t-3xl); letter-spacing: -0.02em; }
+  .tipo-2xl { font-size: var(--t-2xl); }
+  .tipo-xl { font-size: var(--t-xl); }
+  .tipo-italica { font-size: var(--t-lg); font-style: italic; }
+  .tipo-texto { max-width: var(--ancho-texto); }
+  .tipo-boton { font-weight: var(--peso-boton); }
+
+  .estrellas { display: inline-flex; align-items: center; gap: var(--e-3); }
+
+  .grilla { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-6) var(--e-4); }
+  .fotos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-4); align-items: start; }
+  .fotos > :global(:last-child) { grid-column: 1 / -1; }
+  .fotos :global(.foto) { border-radius: var(--r-tarjeta); }
+  .acordeones { max-width: 40rem; border-top: var(--borde); }
+  .angosta { max-width: 26rem; }
+
+  .formas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-4); }
+  .forma { display: grid; place-items: center; min-height: 88px; border: var(--borde); background: var(--hueso); font-size: var(--t-sm); }
+
+  @media (min-width: 900px) {
+    .colores { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grilla { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .fotos { grid-template-columns: 1fr 1fr 2fr; }
+    .fotos > :global(:last-child) { grid-column: auto; }
+    .formas { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+</style>

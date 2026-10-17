@@ -1,0 +1,85 @@
+---
+// Barra de anuncio: franja delgada en Azul Profundo con frases que rotan.
+// Las frases se editan en src/data/anuncios.json.
+import Estrella from '../base/Estrella.astro';
+import datos from '../../data/anuncios.json';
+const { frases, segundosPorFrase } = datos;
+---
+<aside class="anuncio sobre-oscuro" aria-label="Anuncios" data-intervalo={segundosPorFrase * 1000}>
+  <ul class="anuncio__lista contenedor" role="list">
+    {frases.map((f, i) => (
+      <li class:list={['anuncio__frase', { 'es-visible': i === 0 }]} aria-hidden={i === 0 ? 'false' : 'true'}>
+        <Estrella tamano="0.7rem" clase="anuncio__estrella" />
+        <span>{f.texto}</span>
+        {f.enlace && (
+          <a class="anuncio__enlace" href={f.enlace} tabindex={i === 0 ? undefined : '-1'}>{f.textoEnlace ?? 'Ver más'}</a>
+        )}
+      </li>
+    ))}
+  </ul>
+</aside>
+
+<style>
+  .anuncio { background: var(--profundo); color: var(--hueso); }
+  .anuncio__lista {
+    display: grid;          /* todas las frases en la misma celda: la altura no salta */
+    margin-block: 0;
+    list-style: none;
+    min-height: 36px;
+  }
+  .anuncio__frase {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0.45em;
+    padding-block: 0.5rem;
+    text-align: center;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    opacity: 0;
+    transform: translateY(6px);
+    visibility: hidden;
+    transition: opacity 0.6s var(--suave), transform 0.6s var(--suave), visibility 0s linear 0.6s;
+  }
+  .anuncio__frase.es-visible {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition: opacity 0.6s var(--suave), transform 0.6s var(--suave), visibility 0s;
+  }
+  .anuncio__frase :global(.anuncio__estrella) { color: var(--perla); }
+  .anuncio__enlace {
+    color: var(--perla);
+    font-weight: var(--peso-boton);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>
+
+<script>
+  // Rota las frases; se pausa al tocarla o enfocarla, y cuando la pestaña no se ve.
+  document.querySelectorAll<HTMLElement>('.anuncio').forEach((barra) => {
+    const frases = Array.from(barra.querySelectorAll<HTMLElement>('.anuncio__frase'));
+    if (frases.length < 2) return;
+    const intervalo = Number(barra.dataset.intervalo) || 4500;
+    let actual = 0;
+    let pausado = false;
+    const mostrar = (n: number) => frases.forEach((f, i) => {
+      const visible = i === n;
+      f.classList.toggle('es-visible', visible);
+      f.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      f.querySelectorAll('a').forEach((a) => (visible ? a.removeAttribute('tabindex') : a.setAttribute('tabindex', '-1')));
+    });
+    setInterval(() => {
+      if (pausado || document.hidden) return;
+      actual = (actual + 1) % frases.length;
+      mostrar(actual);
+    }, intervalo);
+    barra.addEventListener('pointerenter', () => (pausado = true));
+    barra.addEventListener('pointerleave', () => (pausado = false));
+    barra.addEventListener('focusin', () => (pausado = true));
+    barra.addEventListener('focusout', () => (pausado = false));
+  });
+</script>

@@ -1,0 +1,32 @@
+---
+// Punticos de metal (como Mejuri), hechos solo con la paleta:
+// oro = Amarillo Perla · plata = Blanco Hueso · rodio = Azul Noche suave.
+import metalesInfo from '../../data/metales.json';
+type Metal = 'plata' | 'oro' | 'rodio';
+interface Props { metales: Metal[]; conNombre?: boolean; clase?: string }
+const { metales, conNombre = false, clase = '' } = Astro.props;
+const nombres = metales.map((m) => metalesInfo[m].nombre).join(', ');
+---
+<span class:list={['puntos', clase]} role="img" aria-label={`Disponible en ${nombres}`}>
+  {metales.map((m) => (
+    <span class="puntos__item">
+      <span class={`punto punto--${m}`}></span>
+      {conNombre && <span class="puntos__nombre">{metalesInfo[m].corto}</span>}
+    </span>
+  ))}
+</span>
+
+<style>
+  .puntos { display: inline-flex; align-items: center; gap: var(--e-2); }
+  .puntos__item { display: inline-flex; align-items: center; gap: var(--e-1); font-size: var(--t-xs); color: var(--texto-suave); }
+  .punto {
+    width: 12px;
+    height: 12px;
+    border-radius: var(--r-circulo);
+    border: 1px solid var(--noche);
+    box-shadow: inset 0 0 0 1.5px var(--hueso);
+  }
+  .punto--oro { background: var(--metal-oro); }
+  .punto--plata { background: var(--metal-plata); }
+  .punto--rodio { background: var(--metal-rodio); }
+</style>

@@ -1,0 +1,431 @@
+{
+  "_instrucciones": "Productos de la tienda. Estos 12 son EJEMPLOS (placeholder: true): nombres, precios y micras deben reemplazarse por los reales. Precios en pesos sin puntos (89900 = $89.900). Metales posibles: plata, oro, rodio.",
+  "productos": [
+    {
+      "placeholder": true,
+      "slug": "mini-argollas-destello",
+      "nombre": "Mini argollas Destello",
+      "categoria": "aretes",
+      "subcategoria": "argollas",
+      "metales": [
+        "plata",
+        "oro",
+        "rodio"
+      ],
+      "precios": {
+        "plata": 89900,
+        "oro": 109900,
+        "rodio": 49900
+      },
+      "etiquetas": [
+        "Favorito"
+      ],
+      "descripcion": "Las argollas que no te quitas ni para dormir. Pequeñas, livianas y con ese brillo que se nota sin gritar.",
+      "micras": {
+        "oro": "[N] micras",
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/mini-argollas-destello-1.jpg",
+          "alt": "mini argollas Destello en la oreja, foto de producto",
+          "nota": "Producto solo: mini argollas Destello en la oreja sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+        },
+        {
+          "src": "/fotos/productos/mini-argollas-destello-2.jpg",
+          "alt": "mini argollas Destello en la oreja puesta",
+          "nota": "Puesta: mini argollas Destello en la oreja en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+        }
+      ]
+    },
+    {
+      "placeholder": true,
+      "slug": "topitos-luna",
+      "nombre": "Topitos Luna",
+      "categoria": "aretes",
+      "subcategoria": "topos",
+      "metales": [
+        "plata",
+        "oro"
+      ],
+      "precios": {
+        "plata": 59900,
+        "oro": 79900
+      },
+      "etiquetas": [],
+      "descripcion": "Un puntico de luz para el segundo o tercer hueco. Combinan con todo, hasta con tu peor lunes.",
+      "micras": {
+        "oro": "[N] micras"
+      },
+      "hipoalergenico": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/topitos-luna-1.jpg",
+          "alt": "topitos Luna, foto de producto",
+          "nota": "Producto solo: topitos Luna sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+        },
+        {
+          "src": "/fotos/productos/topitos-luna-2.jpg",
+          "alt": "topitos Luna puesta",
+          "nota": "Puesta: topitos Luna en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+        }
+      ]
+    },
+    {
+      "placeholder": true,
+      "slug": "ear-cuff-coqueta",
+      "nombre": "Ear cuff Coqueta",
+      "categoria": "aretes",
+      "subcategoria": "ear-cuffs",
+      "metales": [
+        "plata",
+        "oro",
+        "rodio"
+      ],
+      "precios": {
+        "plata": 69900,
+        "oro": 89900,
+        "rodio": 39900
+      },
+      "etiquetas": [
+        "Nuevo"
+      ],
+      "descripcion": "Sin perforar y con toda la actitud. Se ajusta en la oreja y se queda ahí.",
+      "micras": {
+        "oro": "[N] micras",
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/ear-cuff-coqueta-1.jpg",
+          "alt": "ear cuff Coqueta, foto de producto",
+          "nota": "Producto solo: ear cuff Coqueta sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+        },
+        {
+          "src": "/fotos/productos/ear-cuff-coqueta-2.jpg",
+          "alt": "ear cuff Coqueta puesta",
+          "nota": "Puesta: ear cuff Coqueta en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+        }
+      ]
+    },
+    {
+      "placeholder": true,
+      "slug": "cadena-ritual",
+      "nombre": "Cadena Ritual",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "plata",
+        "oro",
+        "rodio"
+      ],
+      "precios": {
+        "plata": 129900,
+        "oro": 159900,
+        "rodio": 69900
+      },
+      "etiquetas": [
+        "Favorito"
+      ],
+      "descripcion": "La base de todas las capas. Fina, resistente y lista para que le cuelgues lo que quieras.",
+      "micras": {
+        "oro": "[N] micras",
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/cadena-ritual-1.jpg",
+          "alt": "cadena Ritual en el cuello, foto de producto",
+          "nota": "Producto solo: cadena Ritual en el cuello sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+        },
+        {
+          "src": "/fotos/productos/cadena-ritual-2.jpg",
+          "alt": "cadena Ritual en el cuello puesta",
+          "nota": "Puesta: cadena Ritual en el cuello en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+        }
+      ]
+    },
+    {
+      "placeholder": true,
+      "slug": "dije-inicial",
+      "nombre": "Dije Inicial",
+      "categoria": "collares",
+      "subcategoria": "dijes",
+      "metales": [
+        "plata",
+        "oro"
+      ],
+      "precios": {
+        "plata": 99900,
+        "oro": 129900
+      },
+      "etiquetas": [],
+      "descripcion": "Tu letra, la de tu mamá o la de tu persona favorita. Un regalo que dice mucho con una sola letra.",
+      "micras": {
+        "oro": "[N] micras"
+      },
+      "hipoalergenico": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/dije-inicial-1.jpg",
+          "alt": "dije Inicial, foto de producto",
+          "nota": "Producto solo: dije Inicial sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+        },
+        {
+          "src": "/fotos/productos/dije-inicial-2.jpg",
+          "alt": "dije Inicial puesta",
+          "nota": "Puesta: dije Inicial en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+        }
+      ]
+    },
+    {
+      "placeholder": true,
+      "slug": "cadena-rolo",
+      "nombre": "Cadena Rolo",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "plata",
+        "rodio"
+      ],
+      "precios": {
+        "plata": 149900,
+        "rodio": 79900
+      },
+      "etiquetas": [],
+      "descripcion": "Eslabones redondos que juegan con la luz. Sola ya es un look; en capas, es otro nivel.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/cadena-rolo-1.jpg",
+          "alt": "cadena Rolo, foto de producto",
+          "nota": "Producto solo: cadena Rolo sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+        },
+        {
+          "src": "/fotos/productos/cadena-rolo-2.jpg",
+          "alt": "cadena Rolo puesta",
+          "nota": "Puesta: cadena Rolo en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+        }
+      ]
+    },
+    {
+      "placeholder": true,
+      "slug": "anillo-para-siempre",
+      "nombre": "Anillo Para Siempre",
+      "categoria": "anillos",
+      "subcategoria": "lisos",
+      "metales": [
+        "plata",
+        "oro",
+        "rodio"
+      ],
+      "precios": {
+        "plata": 79900,
+        "oro": 99900,
+        "rodio": 44900
+      },
+      "etiquetas": [
+        "Favorito"
+      ],
+      "descripcion": "Liso, delgado y fácil de apilar. El que te pones hoy y sigue ahí en cinco años.",
+      "micras": {
+        "oro": "[N] micras",
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/anillo-para-siempre-1.jpg",
+          "alt": "anillo Para Siempre en la mano, foto de producto",
+          "nota": "Producto solo: anillo Para Siempre en la mano sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+        },
+        {
+          "src": "/fotos/productos/anillo-para-siempre-2.jpg",
+          "alt": "anillo Para Siempre en la mano puesta",
+          "nota": "Puesta: anillo Para Siempre en la mano en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+        }
+      ]
+    },
+    {
+      "placeholder": true,
+      "slug": "midi-chispa",
+      "nombre": "Midi Chispa",
+      "categoria": "anillos",
+      "subcategoria": "midi",
+      "metales": [
+        "plata",
+        "oro"
+      ],
+      "precios": {
+        "plata": 64900,
+        "oro": 84900
+      },
+      "etiquetas": [],
+      "descripcion": "Para la falange de arriba. Chiquito, atrevido y con un destello que se ve en cada foto.",
+      "micras": {
+        "oro": "[N] micras"
+      },
+      "hipoalergenico": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/midi-chispa-1.jpg",
+          "alt": "anillo midi Chispa, foto de producto",
+          "nota": "Producto solo: anillo midi Chispa sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+        },
+        {
+          "src": "/fotos/productos/midi-chispa-2.jpg",
+          "alt": "anillo midi Chispa puesta",
+          "nota": "Puesta: anillo midi Chispa en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+        }
+      ]
+    },
+    {
+      "placeholder": true,
+      "slug": "tenis-brillo",
+      "nombre": "Pulsera Tenis Brillo",
+      "categoria": "pulseras",
+      "subcategoria": "tenis",
+      "metales": [
+        "plata",
+        "oro",
+        "rodio"
+      ],
+      "precios": {
+        "plata": 189900,
+        "oro": 229900,
+        "rodio": 99900
+      },
+      "etiquetas": [
+        "Nuevo"
+      ],
+      "descripcion": "Una fila de circones que brilla con cada movimiento. Elegante sin pedir permiso.",
+      "micras": {
+        "oro": "[N] micras",
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/tenis-brillo-1.jpg",
+          "alt": "pulsera Tenis Brillo en la muñeca, foto de producto",
+          "nota": "Producto solo: pulsera Tenis Brillo en la muñeca sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+        },
+        {
+          "src": "/fotos/productos/tenis-brillo-2.jpg",
+          "alt": "pulsera Tenis Brillo en la muñeca puesta",
+          "nota": "Puesta: pulsera Tenis Brillo en la muñeca en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+        }
+      ]
+    },
+    {
+      "placeholder": true,
+      "slug": "esclava-diaria",
+      "nombre": "Esclava Diaria",
+      "categoria": "pulseras",
+      "subcategoria": "esclavas",
+      "metales": [
+        "plata",
+        "oro"
+      ],
+      "precios": {
+        "plata": 119900,
+        "oro": 149900
+      },
+      "etiquetas": [],
+      "descripcion": "Rígida, fina y cómoda. Se mezcla con tu reloj y con todo lo que ya tienes.",
+      "micras": {
+        "oro": "[N] micras"
+      },
+      "hipoalergenico": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/esclava-diaria-1.jpg",
+          "alt": "esclava Diaria, foto de producto",
+          "nota": "Producto solo: esclava Diaria sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+        },
+        {
+          "src": "/fotos/productos/esclava-diaria-2.jpg",
+          "alt": "esclava Diaria puesta",
+          "nota": "Puesta: esclava Diaria en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+        }
+      ]
+    },
+    {
+      "placeholder": true,
+      "slug": "set-oreja-apilada",
+      "nombre": "Set Oreja Apilada",
+      "categoria": "sets",
+      "subcategoria": "sets-de-aretes",
+      "metales": [
+        "plata",
+        "oro",
+        "rodio"
+      ],
+      "precios": {
+        "plata": 179900,
+        "oro": 219900,
+        "rodio": 89900
+      },
+      "etiquetas": [
+        "Favorito"
+      ],
+      "descripcion": "Tres piezas pensadas para usarse juntas: argolla, topito y ear cuff. Cero esfuerzo, todo el brillo.",
+      "micras": {
+        "oro": "[N] micras",
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/set-oreja-apilada-1.jpg",
+          "alt": "set Oreja Apilada en la oreja, foto de producto",
+          "nota": "Producto solo: set Oreja Apilada en la oreja sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+        },
+        {
+          "src": "/fotos/productos/set-oreja-apilada-2.jpg",
+          "alt": "set Oreja Apilada en la oreja puesta",
+          "nota": "Puesta: set Oreja Apilada en la oreja en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+        }
+      ]
+    },
+    {
+      "placeholder": true,
+      "slug": "set-capas-dobles",
+      "nombre": "Set Capas Dobles",
+      "categoria": "sets",
+      "subcategoria": "sets-de-collares",
+      "metales": [
+        "plata",
+        "oro"
+      ],
+      "precios": {
+        "plata": 239900,
+        "oro": 289900
+      },
+      "etiquetas": [],
+      "descripcion": "Dos cadenas de largos distintos que ya vienen combinadas. Póntelas y listo, cero enredos.",
+      "micras": {
+        "oro": "[N] micras"
+      },
+      "hipoalergenico": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/set-capas-dobles-1.jpg",
+          "alt": "set Capas Dobles en el cuello, foto de producto",
+          "nota": "Producto solo: set Capas Dobles en el cuello sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+        },
+        {
+          "src": "/fotos/productos/set-capas-dobles-2.jpg",
+          "alt": "set Capas Dobles en el cuello puesta",
+          "nota": "Puesta: set Capas Dobles en el cuello en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+        }
+      ]
+    }
+  ]
+}

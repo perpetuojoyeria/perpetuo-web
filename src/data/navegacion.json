@@ -1,13 +1,15 @@
 {
-  "_instrucciones": "Menú principal. 'nota' es la frasecita cursiva que sale junto a cada opción en el menú del celular. 'destacado: true' pinta la opción con el amarillo perla (úsalo solo para la mystery box).",
+  "_instrucciones": "Menú principal. 'nota' es la frasecita que sale en el menú del celular. 'etiqueta' (opcional) pone un sello amarillo junto a la opción.",
   "menu": [
-    { "etiqueta": "Looks", "enlace": "/looks", "nota": "arma tus capas" },
-    { "etiqueta": "Plata", "enlace": "/plata", "nota": "925, el corazón" },
-    { "etiqueta": "Oro laminado", "enlace": "/oro-laminado", "nota": "el capricho" },
-    { "etiqueta": "Rodio", "enlace": "/rodio", "nota": "para empezar" },
-    { "etiqueta": "Mystery Box", "enlace": "/mystery-box", "nota": "edición del mes", "destacado": true }
+    { "texto": "Aretes", "enlace": "/aretes", "nota": "para las que apilan" },
+    { "texto": "Collares", "enlace": "/collares", "nota": "por capas, siempre" },
+    { "texto": "Anillos", "enlace": "/anillos", "nota": "uno nunca es suficiente" },
+    { "texto": "Pulseras", "enlace": "/pulseras", "nota": "el brillo de cada día" },
+    { "texto": "Sets", "enlace": "/sets", "nota": "ya combinados" },
+    { "texto": "Looks", "enlace": "/looks", "nota": "arma tus capas" },
+    { "texto": "Mystery Box", "enlace": "/mystery-box", "nota": "edición del mes", "etiqueta": "Del mes" }
   ],
   "cuenta": "/cuenta",
-  "carrito": "/carrito",
+  "bolsa": "/bolsa",
   "buscar": "/buscar"
 }

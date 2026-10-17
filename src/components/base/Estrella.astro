@@ -1,0 +1,19 @@
+---
+// La estrella de cuatro puntas del logo (archivo original recortado). Único ícono decorativo.
+// Toma el color del texto que la rodea.
+interface Props { tamano?: string; clase?: string }
+const { tamano = '1em', clase = '' } = Astro.props;
+---
+<span class:list={['estrella', clase]} style={`--tamano:${tamano}`} aria-hidden="true"></span>
+
+<style>
+  .estrella {
+    display: inline-block;
+    flex: none;
+    width: var(--tamano);
+    height: var(--tamano);
+    background: currentColor;
+    -webkit-mask: url('/logos/perpetuo-estrella.png') center / contain no-repeat;
+    mask: url('/logos/perpetuo-estrella.png') center / contain no-repeat;
+  }
+</style>
