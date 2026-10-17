@@ -1,0 +1,273 @@
+---
+// Looks Perpetuo: fotos de combinaciones con "brillos" tocables sobre cada pieza.
+// Al tocar un brillo aparece la pieza con su metal y precio. Debajo, la lista completa del look.
+// Se edita en src/data/looks.json (y los textos en home.json → looks).
+import Foto from '../base/Foto.astro';
+import Estrella from '../base/Estrella.astro';
+import Precio from '../base/Precio.astro';
+import { productos, precioDe, nombreMetal, type Metal } from '../../lib/productos';
+import datosLooks from '../../data/looks.json';
+import home from '../../data/home.json';
+
+const textos = home.looks;
+const looks = datosLooks.looks.map((look) => {
+  const piezas = look.puntos.map((pt, i) => {
+    const p = productos.find((x) => x.slug === pt.producto);
+    if (!p) throw new Error(`El look "${look.nombre}" usa un producto que no existe: ${pt.producto}`);
+    const metal = pt.metal as Metal;
+    return { ...pt, id: `${look.slug}-${i}`, producto: p, metal, precio: precioDe(p, metal) };
+  });
+  const total = piezas.reduce((suma, pz) => suma + pz.precio, 0);
+  return { ...look, piezas, total };
+});
+---
+<section class="looks seccion" aria-labelledby="looks-titulo">
+  <div class="contenedor looks__cabeza">
+    <div>
+      <h2 class="titulo-seccion" id="looks-titulo">{textos.titulo}</h2>
+      <p class="looks__frase">{textos.frase}</p>
+    </div>
+    <a class="enlace looks__todos" href={textos.enlace}>{textos.textoEnlace}</a>
+  </div>
+
+  <ul class="looks__carril" role="list">
+    {looks.map((look) => (
+      <li class="look" data-look>
+        <div class="look__foto">
+          <Foto src={look.foto} alt={`Look ${look.nombre}`} nota={look.nota} proporcion="4 / 5" />
+          {look.piezas.map((pz, i) => (
+            <button
+              class="look__punto"
+              type="button"
+              style={`left:${pz.x}%; top:${pz.y}%`}
+              aria-expanded="false"
+              aria-controls={`ficha-${pz.id}`}
+              aria-label={`Ver ${pz.producto.nombre} en ${nombreMetal(pz.metal)}`}
+              data-punto
+            >
+              <span aria-hidden="true">{i + 1}</span>
+            </button>
+          ))}
+          {look.piezas.map((pz) => (
+            <div
+              class:list={['look__ficha', { 'look__ficha--izq': pz.x > 50 }]}
+              id={`ficha-${pz.id}`}
+              style={`--x:${pz.x}%; --y:${pz.y}%`}
+              hidden
+              data-ficha
+            >
+              <p class="look__ficha-nombre">{pz.producto.nombre}</p>
+              <p class="look__ficha-metal">{nombreMetal(pz.metal)}</p>
+              <Precio valor={pz.precio} />
+              <a class="enlace look__ficha-ver" href={`/producto/${pz.producto.slug}?metal=${pz.metal}`}>Ver pieza</a>
+            </div>
+          ))}
+        </div>
+
+        <div class="look__info">
+          <h3 class="look__nombre">{look.nombre}</h3>
+          <p class="look__frase">{look.frase}</p>
+          <ol class="look__lista">
+            {look.piezas.map((pz) => (
+              <li>
+                <a href={`/producto/${pz.producto.slug}?metal=${pz.metal}`}>{pz.producto.nombre}</a>
+                <span class="look__lista-metal">{nombreMetal(pz.metal)}</span>
+                <Precio valor={pz.precio} />
+              </li>
+            ))}
+          </ol>
+          <p class="look__total">
+            <Estrella tamano="0.8rem" />
+            <span>El look completo</span>
+            <Precio valor={look.total} />
+          </p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .looks__cabeza {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--e-3) var(--e-5);
+    margin-bottom: var(--e-5);
+  }
+  .looks__frase { margin-top: var(--e-2); color: var(--texto-suave); }
+  .looks__todos { white-space: nowrap; }
+
+  /* Celular: carril que se desliza de lado. Computador: tres columnas. */
+  .looks__carril {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(84%, 380px);
+    gap: var(--e-4);
+    margin: 0;
+    padding: 0 var(--margen-der) var(--e-2) var(--margen);
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--margen);
+    scrollbar-width: none;
+  }
+  .looks__carril::-webkit-scrollbar { display: none; }
+  .look { scroll-snap-align: start; display: grid; gap: var(--e-4); align-content: start; min-width: 0; }
+
+  .look__foto { position: relative; border-radius: var(--r-tarjeta); overflow: hidden; }
+  .look__foto :global(.foto__marcador) { align-items: flex-end; }
+
+  .look__punto {
+    position: absolute;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    margin: -16px 0 0 -16px;
+    padding: 0;
+    border: 1.5px solid var(--noche);
+    border-radius: var(--r-circulo);
+    background: var(--perla);
+    color: var(--noche);
+    font-size: var(--t-xs);
+    font-weight: var(--peso-boton);
+    cursor: pointer;
+    box-shadow: var(--sombra-2);
+    transition: transform var(--rapido) var(--suave);
+  }
+  .look__punto::before {            /* halo que "late" para invitar a tocar */
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: inherit;
+    border: 1.5px solid var(--hueso);
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .look__punto::before { animation: latido 2.4s var(--suave) infinite; }
+  }
+  @keyframes latido { 0% { opacity: 0.9; transform: scale(0.8); } 70%, 100% { opacity: 0; transform: scale(1.5); } }
+  .look__punto:hover,
+  .look__punto[aria-expanded='true'] { transform: scale(1.12); background: var(--noche); color: var(--perla); }
+  /* área táctil de 44px aunque el punto mida 32 */
+  .look__punto::after { content: ''; position: absolute; inset: -6px; }
+
+  .look__ficha {
+    position: absolute;
+    z-index: 3;
+    top: clamp(8px, calc(var(--y) - 24px), calc(100% - 140px));
+    left: min(calc(var(--x) + 26px), calc(100% - 188px));
+    display: grid;
+    gap: 2px;
+    width: 180px;
+    padding: var(--e-3) var(--e-4);
+    border-radius: var(--r-chico);
+    background: var(--hueso);
+    box-shadow: var(--sombra-3);
+    font-size: var(--t-sm);
+  }
+  .look__ficha--izq { left: auto; right: max(8px, calc(100% - var(--x) + 26px)); }
+  .look__ficha-nombre {
+    font-family: var(--f-display);
+    font-variation-settings: var(--display-ajustes);
+    font-weight: var(--peso-display);
+    font-size: var(--t-md);
+    line-height: 1.15;
+  }
+  .look__ficha-metal { color: var(--texto-suave); font-size: var(--t-xs); }
+  .look__ficha-ver { margin-top: var(--e-1); font-size: var(--t-sm); }
+
+  .look__info { display: grid; gap: var(--e-2); }
+  .look__nombre { font-size: var(--t-lg); }
+  .look__frase { color: var(--texto-suave); font-size: var(--t-sm); }
+  .look__lista {
+    display: grid;
+    gap: var(--e-2);
+    margin: var(--e-2) 0 0;
+    padding: var(--e-3) 0 0;
+    border-top: var(--borde);
+    list-style: none;
+    counter-reset: pieza;
+    font-size: var(--t-sm);
+  }
+  .look__lista li {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: var(--e-2);
+    counter-increment: pieza;
+  }
+  .look__lista li::before {
+    content: counter(pieza);
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--noche);
+    border-radius: var(--r-circulo);
+    font-size: 0.6875rem;
+    font-weight: var(--peso-boton);
+    align-self: center;
+  }
+  .look__lista a { font-weight: var(--peso-medio); text-decoration: none; }
+  .look__lista a:hover { text-decoration: underline; }
+  .look__lista-metal { grid-column: 2; grid-row: 2; color: var(--texto-suave); font-size: var(--t-xs); margin-top: -4px; }
+  .look__lista :global(.precio) { grid-column: 3; grid-row: 1; }
+  .look__total {
+    display: flex;
+    align-items: center;
+    gap: var(--e-2);
+    margin-top: var(--e-2);
+    padding-top: var(--e-3);
+    border-top: var(--borde);
+    font-weight: var(--peso-medio);
+  }
+  .look__total :global(.precio) { margin-left: auto; }
+
+  @media (min-width: 900px) {
+    .looks__carril {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--e-6);
+      max-width: var(--ancho-max);
+      margin-inline: auto;
+      overflow: visible;
+    }
+  }
+</style>
+
+<script>
+  // Abre y cierra la ficha de cada brillo. Solo una abierta a la vez.
+  const puntos = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-punto]'));
+  const cerrarTodo = (excepto?: HTMLButtonElement) => {
+    puntos.forEach((p) => {
+      if (p === excepto) return;
+      p.setAttribute('aria-expanded', 'false');
+      const f = document.getElementById(p.getAttribute('aria-controls')!);
+      if (f) f.hidden = true;
+    });
+  };
+  puntos.forEach((punto) => {
+    punto.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const ficha = document.getElementById(punto.getAttribute('aria-controls')!);
+      if (!ficha) return;
+      const abrir = ficha.hidden;
+      cerrarTodo(punto);
+      ficha.hidden = !abrir;
+      punto.setAttribute('aria-expanded', String(abrir));
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!(e.target as HTMLElement).closest('[data-ficha]')) cerrarTodo();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const abierto = puntos.find((p) => p.getAttribute('aria-expanded') === 'true');
+    cerrarTodo();
+    abierto?.focus();
+  });
+</script>

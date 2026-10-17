@@ -1,0 +1,42 @@
+{
+  "_instrucciones": "Looks: combinaciones de piezas sobre una foto. Cada 'punto' es un brillo tocable: x y y son la posición en porcentaje sobre la foto (0,0 = esquina de arriba a la izquierda). 'producto' es el slug del producto y 'metal' el metal que se ve en la foto.",
+  "looks": [
+    {
+      "slug": "oreja-apilada",
+      "nombre": "Oreja apilada",
+      "frase": "Tres huecos, cero miedo.",
+      "foto": "/fotos/looks/oreja-apilada.jpg",
+      "nota": "Primer plano de oreja de perfil con argolla, topito y ear cuff en plata. Fondo Blanco Hueso, luz de ventana. Vertical 4:5.",
+      "puntos": [
+        { "producto": "ear-cuff-coqueta", "metal": "plata", "x": 58, "y": 24 },
+        { "producto": "topitos-luna", "metal": "plata", "x": 44, "y": 52 },
+        { "producto": "mini-argollas-destello", "metal": "plata", "x": 47, "y": 72 }
+      ]
+    },
+    {
+      "slug": "capas-de-domingo",
+      "nombre": "Capas de domingo",
+      "frase": "Mezclar metales también se vale.",
+      "foto": "/fotos/looks/capas-de-domingo.jpg",
+      "nota": "Cuello con tres cadenas en capas (dos en oro laminado, una en plata), camiseta blanca, fondo Azul Noche. Vertical 4:5.",
+      "puntos": [
+        { "producto": "cadena-ritual", "metal": "oro", "x": 50, "y": 30 },
+        { "producto": "dije-inicial", "metal": "oro", "x": 52, "y": 50 },
+        { "producto": "cadena-rolo", "metal": "plata", "x": 38, "y": 68 }
+      ]
+    },
+    {
+      "slug": "mano-con-todo",
+      "nombre": "Mano con todo",
+      "frase": "Más es más. Y se ve divino.",
+      "foto": "/fotos/looks/mano-con-todo.jpg",
+      "nota": "Mano y muñeca con anillos apilados, midi, esclava y pulsera tenis en oro laminado. Fondo Blanco Hueso. Vertical 4:5.",
+      "puntos": [
+        { "producto": "midi-chispa", "metal": "oro", "x": 40, "y": 20 },
+        { "producto": "anillo-para-siempre", "metal": "oro", "x": 55, "y": 38 },
+        { "producto": "tenis-brillo", "metal": "oro", "x": 42, "y": 66 },
+        { "producto": "esclava-diaria", "metal": "oro", "x": 60, "y": 78 }
+      ]
+    }
+  ]
+}

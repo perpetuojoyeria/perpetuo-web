@@ -3,13 +3,24 @@
 import Base from '../layouts/Base.astro';
 import BarraAnuncio from '../components/layout/BarraAnuncio.astro';
 import Encabezado from '../components/layout/Encabezado.astro';
+import Pie from '../components/layout/Pie.astro';
 import Hero from '../components/secciones/Hero.astro';
+import CuadriculaBloques from '../components/secciones/CuadriculaBloques.astro';
+import LooksPerpetuo from '../components/secciones/LooksPerpetuo.astro';
+import MysteryBoxMes from '../components/secciones/MysteryBoxMes.astro';
+import Favoritos from '../components/secciones/Favoritos.astro';
+import Confianza from '../components/secciones/Confianza.astro';
 ---
 <Base>
   <BarraAnuncio />
   <Encabezado />
   <main>
     <Hero />
-    <!-- Etapa 2: el resto del Home (cuadrícula, looks, mystery box, favoritos, confianza) -->
+    <CuadriculaBloques />
+    <LooksPerpetuo />
+    <MysteryBoxMes />
+    <Favoritos />
+    <Confianza />
   </main>
+  <Pie />
 </Base>

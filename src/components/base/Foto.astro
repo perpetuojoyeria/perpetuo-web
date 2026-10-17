@@ -7,7 +7,7 @@ interface Props {
   src?: string;
   alt: string;
   nota?: string;           // qué foto va aquí
-  proporcion?: string;     // '4 / 5', '1 / 1', '16 / 9'…
+  proporcion?: string;     // '4 / 5', '1 / 1', '16 / 9'… o 'llenar' para ocupar todo su contenedor
   redonda?: boolean;
   prioridad?: boolean;     // true solo para la primera foto visible (no espera para cargar)
   clase?: string;
@@ -15,7 +15,7 @@ interface Props {
 const { src, alt, nota, proporcion = '4 / 5', redonda = false, prioridad = false, clase = '' } = Astro.props;
 const existe = existeEnPublic(src);
 ---
-<div class:list={['foto', { 'foto--redonda': redonda }, clase]} style={`--proporcion:${proporcion}`}>
+<div class:list={['foto', { 'foto--redonda': redonda, 'foto--llenar': proporcion === 'llenar' }, clase]} style={proporcion === 'llenar' ? undefined : `--proporcion:${proporcion}`}>
   {existe ? (
     <img src={src} alt={alt} loading={prioridad ? 'eager' : 'lazy'} decoding="async" fetchpriority={prioridad ? 'high' : undefined} />
   ) : (
@@ -35,6 +35,7 @@ const existe = existeEnPublic(src);
     background: var(--linea-suave);
   }
   .foto--redonda { border-radius: var(--r-circulo); }
+  .foto--llenar { aspect-ratio: auto; height: 100%; }
   .foto img { width: 100%; height: 100%; object-fit: cover; }
   .foto__marcador {
     display: flex;

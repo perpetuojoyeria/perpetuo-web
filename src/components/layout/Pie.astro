@@ -1,0 +1,94 @@
+---
+// Footer: Azul Profundo, enlaces, WhatsApp visible, métodos de pago.
+// El logo va sobre un círculo Blanco Hueso para que se vea sin alterar el archivo original.
+import Logo from '../base/Logo.astro';
+import Estrella from '../base/Estrella.astro';
+import sitio from '../../data/sitio.json';
+import nav from '../../data/navegacion.json';
+
+const columnas = [
+  { titulo: 'Tienda', enlaces: nav.menu.map((m) => ({ texto: m.texto, enlace: m.enlace })) },
+  { titulo: 'Ayuda', enlaces: [
+    { texto: 'Nosotras', enlace: '/nosotras' },
+    { texto: 'Envíos y cambios', enlace: '/envios-y-cambios' },
+    { texto: 'Cuidados de la joya', enlace: '/cuidados' },
+    { texto: 'Contacto', enlace: '/contacto' },
+    { texto: 'Mi cuenta', enlace: '/cuenta' },
+  ] },
+];
+const anio = new Date().getFullYear();
+---
+<footer class="pie sobre-oscuro">
+  <div class="contenedor pie__interior">
+    <div class="pie__marca">
+      <a class="pie__logo" href="/" aria-label={`${sitio.nombre}, ir al inicio`}><Logo variantes={['monograma']} /></a>
+      <p class="pie__tagline">{sitio.tagline}</p>
+      <div class="pie__whatsapp">
+        <p>¿Dudas? Escríbenos por WhatsApp</p>
+        <a class="boton" href={`https://wa.me/${sitio.whatsapp}`} target="_blank" rel="noopener">{sitio.whatsappVisible}</a>
+      </div>
+    </div>
+
+    <nav class="pie__columnas" aria-label="Enlaces del pie de página">
+      {columnas.map((c) => (
+        <div>
+          <h2 class="pie__titulo">{c.titulo}</h2>
+          <ul role="list">
+            {c.enlaces.map((e) => <li><a href={e.enlace}>{e.texto}</a></li>)}
+          </ul>
+        </div>
+      ))}
+    </nav>
+  </div>
+
+  <div class="contenedor pie__base">
+    <p class="pie__pagos"><Estrella tamano="0.7rem" /><span>PSE · Tarjeta · Contraentrega · Addi · Sistecrédito · WhatsApp</span></p>
+    <p>© {anio} {sitio.nombre} · {sitio.ciudad} · Instagram {sitio.instagram}</p>
+  </div>
+</footer>
+
+<style>
+  .pie { background: var(--profundo); color: var(--hueso); padding-top: var(--e-8); }
+  .pie__interior { display: grid; gap: var(--e-7); }
+  .pie__marca { display: grid; gap: var(--e-4); justify-items: start; }
+  .pie__logo {
+    --alto-logo: 52px;
+    display: grid;
+    place-items: center;
+    width: 88px;
+    height: 88px;
+    border-radius: var(--r-circulo);
+    background: var(--hueso);
+  }
+  .pie__tagline {
+    font-family: var(--f-display);
+    font-variation-settings: var(--display-ajustes);
+    font-weight: var(--peso-display);
+    font-size: var(--t-2xl);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .pie__whatsapp { display: grid; gap: var(--e-2); justify-items: start; margin-top: var(--e-2); color: var(--hueso-70); font-size: var(--t-sm); }
+  .pie__columnas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-6) var(--e-4); }
+  .pie__titulo { font-family: var(--f-texto); font-size: var(--t-sm); font-weight: var(--peso-boton); color: var(--hueso-70); margin-bottom: var(--e-3); }
+  .pie__columnas ul { display: grid; gap: var(--e-1); margin: 0; padding: 0; list-style: none; }
+  .pie__columnas a { display: inline-block; padding-block: var(--e-1); text-decoration: none; }
+  .pie__columnas a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .pie__base {
+    display: grid;
+    gap: var(--e-2);
+    margin-top: var(--e-7);
+    padding-block: var(--e-5) calc(var(--e-5) + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--hueso-linea);
+    font-size: var(--t-xs);
+    color: var(--hueso-70);
+  }
+  .pie__pagos { display: flex; align-items: center; gap: var(--e-2); color: var(--hueso); font-weight: var(--peso-medio); }
+  .pie__pagos :global(.estrella) { color: var(--perla); }
+
+  @media (min-width: 900px) {
+    .pie__interior { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+    .pie__columnas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pie__base { grid-template-columns: 1fr auto; align-items: center; }
+  }
+</style>

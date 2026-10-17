@@ -1,0 +1,147 @@
+---
+// Mystery Box del mes: bloque oscuro con la caja, sello de precio, valor garantizado
+// y selector de metal (plata, oro laminado, rodio). Se edita en src/data/mystery-box.json.
+import Foto from '../base/Foto.astro';
+import SelloPrecio from '../base/SelloPrecio.astro';
+import Etiqueta from '../base/Etiqueta.astro';
+import Estrella from '../base/Estrella.astro';
+import { formatoCOP } from '../../lib/precio';
+import metales from '../../data/metales.json';
+import box from '../../data/mystery-box.json';
+
+type Metal = 'plata' | 'oro' | 'rodio';
+const inicial = box.versiones[0];
+const datos = Object.fromEntries(box.versiones.map((v) => [v.metal, {
+  nombre: v.nombre,
+  precio: formatoCOP(v.precio),
+  valor: formatoCOP(v.valorGarantizado),
+  piezas: `${v.piezas} piezas`,
+  enlace: `/mystery-box#${v.metal}`,
+}]));
+---
+<section class="secreto sobre-oscuro" aria-labelledby="secreto-titulo" data-secreto data-versiones={JSON.stringify(datos)}>
+  <div class="secreto__interior contenedor">
+    <div class="secreto__foto">
+      <Foto src={box.foto} alt="La mystery box del mes, cerrada" nota={box.nota} proporcion="4 / 5" />
+      <SelloPrecio valor={inicial.precio} texto="por" clase="secreto__sello" />
+    </div>
+
+    <div class="secreto__texto">
+      <p class="secreto__mes">
+        <Etiqueta texto={`Edición de ${box.mes}`} />
+        {box.placeholder && <Etiqueta texto="Ejemplo" variante="suave" />}
+      </p>
+      <h2 class="secreto__titulo" id="secreto-titulo">{box.titulo}</h2>
+      <p class="secreto__frase">{box.frase}</p>
+
+      <fieldset class="secreto__metales">
+        <legend class="solo-lector">Elige el metal de tu caja</legend>
+        {box.versiones.map((v, i) => (
+          <label class="secreto__metal">
+            <input type="radio" name="secreto-metal" value={v.metal} checked={i === 0} />
+            <span class={`punto punto--${v.metal}`} aria-hidden="true"></span>
+            {metales[v.metal as Metal].nombre}
+          </label>
+        ))}
+      </fieldset>
+
+      <div class="secreto__version" aria-live="polite">
+        <p class="secreto__nombre" data-campo="nombre">{inicial.nombre}</p>
+        <ul class="secreto__datos" role="list">
+          <li><Estrella tamano="0.75rem" /><span>Valor garantizado de <strong data-campo="valor">{formatoCOP(inicial.valorGarantizado)}</strong></span></li>
+          <li><Estrella tamano="0.75rem" /><span><span data-campo="piezas">{inicial.piezas} piezas</span> sorpresa</span></li>
+          <li><Estrella tamano="0.75rem" /><span>{box.modalidades[0]} o {box.modalidades[1].toLowerCase()}: tú decides</span></li>
+        </ul>
+      </div>
+
+      <div class="secreto__acciones">
+        <a class="boton" href={`/mystery-box#${inicial.metal}`} data-campo-enlace>Quiero la mía</a>
+        <a class="enlace" href="/mystery-box#como-funciona">Cómo funciona</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .secreto { background: var(--profundo); color: var(--hueso); padding-block: var(--seccion); }
+  .secreto__interior { display: grid; gap: var(--e-6); align-items: center; }
+
+  .secreto__foto { position: relative; max-width: 440px; width: 100%; justify-self: center; }
+  .secreto__foto :global(.foto) { border-radius: var(--r-bloque); background: rgb(251 251 244 / 0.06); }
+  .secreto__foto :global(.foto__marcador) {
+    background: repeating-linear-gradient(135deg, transparent 0 10px, rgb(251 251 244 / 0.05) 10px 11px);
+    align-items: flex-start;
+  }
+  .secreto__foto :global(.secreto__sello) { position: absolute; right: -8px; bottom: 24px; }
+
+  .secreto__texto { display: grid; gap: var(--e-4); justify-items: start; min-width: 0; }
+  .secreto__mes { display: flex; flex-wrap: wrap; gap: var(--e-2); }
+  .secreto__titulo { font-size: var(--t-2xl); }
+  .secreto__frase {
+    font-family: var(--f-display);
+    font-variation-settings: var(--display-ajustes);
+    font-style: italic;
+    font-size: var(--t-lg);
+    color: var(--hueso-70);
+  }
+
+  .secreto__metales { display: flex; flex-wrap: wrap; gap: var(--e-2); margin: var(--e-2) 0 0; padding: 0; border: 0; min-width: 0; }
+  .secreto__metal {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+    min-height: 44px;
+    padding: 0 var(--e-4);
+    border: 1px solid var(--hueso-linea);
+    border-radius: var(--r-pildora);
+    font-size: var(--t-sm);
+    font-weight: var(--peso-medio);
+    cursor: pointer;
+  }
+  .secreto__metal input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+  .secreto__metal:has(input:checked) { border-color: var(--perla); box-shadow: inset 0 0 0 1px var(--perla); }
+  .secreto__metal:has(input:focus-visible) { outline: 2px solid var(--perla); outline-offset: 3px; }
+  .punto { width: 14px; height: 14px; border-radius: var(--r-circulo); border: 1px solid var(--hueso); }
+  .punto--oro { background: var(--metal-oro); }
+  .punto--plata { background: var(--metal-plata); }
+  .punto--rodio { background: var(--metal-rodio); }
+
+  .secreto__version { display: grid; gap: var(--e-3); width: 100%; padding-block: var(--e-2); }
+  .secreto__nombre {
+    font-family: var(--f-display);
+    font-variation-settings: var(--display-ajustes);
+    font-weight: var(--peso-display);
+    font-size: var(--t-xl);
+    line-height: 1.1;
+  }
+  .secreto__datos { display: grid; gap: var(--e-2); margin: 0; padding: 0; list-style: none; color: var(--hueso-70); }
+  .secreto__datos li { display: flex; align-items: center; gap: var(--e-2); }
+  .secreto__datos :global(.estrella) { color: var(--perla); }
+  .secreto__datos strong { color: var(--hueso); font-weight: var(--peso-boton); }
+  .secreto__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-3) var(--e-5); margin-top: var(--e-2); }
+
+  @media (min-width: 900px) {
+    .secreto__interior { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--e-8); }
+    .secreto__foto :global(.secreto__sello) { right: -28px; bottom: 40px; transform: rotate(-8deg) scale(1.15); }
+  }
+</style>
+
+<script>
+  // Al elegir otro metal cambian el nombre, el sello de precio, el valor y el enlace.
+  document.querySelectorAll<HTMLElement>('[data-secreto]').forEach((seccion) => {
+    const versiones = JSON.parse(seccion.dataset.versiones || '{}');
+    const campo = (n: string) => seccion.querySelector<HTMLElement>(`[data-campo="${n}"]`);
+    const sello = seccion.querySelector<HTMLElement>('.sello__valor');
+    const enlace = seccion.querySelector<HTMLAnchorElement>('[data-campo-enlace]');
+    seccion.addEventListener('change', (e) => {
+      const v = versiones[(e.target as HTMLInputElement).value];
+      if (!v) return;
+      campo('nombre')!.textContent = v.nombre;
+      campo('valor')!.textContent = v.valor;
+      campo('piezas')!.textContent = v.piezas;
+      if (sello) sello.textContent = v.precio;
+      if (enlace) enlace.href = v.enlace;
+    });
+  });
+</script>

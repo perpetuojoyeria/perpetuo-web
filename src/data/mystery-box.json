@@ -1,0 +1,15 @@
+{
+  "_instrucciones": "Mystery Box del mes. Estos precios, valores y número de piezas son EJEMPLOS (placeholder: true): reemplázalos por los reales. Precios en pesos sin puntos.",
+  "placeholder": true,
+  "mes": "[MES]",
+  "titulo": "El secreto del mes",
+  "frase": "Nosotras la armamos. Tú solo la destapas.",
+  "foto": "/fotos/mystery-box/caja-del-mes.jpg",
+  "nota": "Caja Perpetuo entreabierta con papel de seda y un destello de joyas adentro, sin mostrar las piezas. Fondo Azul Profundo, luz lateral. Vertical 4:5.",
+  "modalidades": ["Una vez", "Cada mes"],
+  "versiones": [
+    { "metal": "plata", "nombre": "La Platica", "precio": 149900, "valorGarantizado": 220000, "piezas": 3 },
+    { "metal": "oro", "nombre": "Hora Dorada", "precio": 189900, "valorGarantizado": 280000, "piezas": 3 },
+    { "metal": "rodio", "nombre": "Rodiamante", "precio": 89900, "valorGarantizado": 130000, "piezas": 3 }
+  ]
+}

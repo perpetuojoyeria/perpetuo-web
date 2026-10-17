@@ -1,0 +1,57 @@
+---
+// Las favoritas: productos con la etiqueta "Favorito". Carril deslizable en celular, grilla en computador.
+import TarjetaProducto from '../base/TarjetaProducto.astro';
+import { favoritos } from '../../lib/productos';
+import home from '../../data/home.json';
+const textos = home.favoritos;
+const lista = favoritos().slice(0, 8);
+---
+<section class="favoritas seccion" aria-labelledby="favoritas-titulo">
+  <div class="contenedor favoritas__cabeza">
+    <div>
+      <h2 class="titulo-seccion" id="favoritas-titulo">{textos.titulo}</h2>
+      <p class="favoritas__frase">{textos.frase}</p>
+    </div>
+    <a class="enlace" href={textos.enlace}>{textos.textoEnlace}</a>
+  </div>
+  <ul class="favoritas__carril" role="list">
+    {lista.map((p) => <li><TarjetaProducto producto={p} /></li>)}
+  </ul>
+</section>
+
+<style>
+  .favoritas__cabeza {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--e-3) var(--e-5);
+    margin-bottom: var(--e-5);
+  }
+  .favoritas__frase { margin-top: var(--e-2); color: var(--texto-suave); }
+  .favoritas__carril {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(62%, 260px);
+    gap: var(--e-4);
+    margin: 0;
+    padding: 0 var(--margen-der) var(--e-2) var(--margen);
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--margen);
+    scrollbar-width: none;
+  }
+  .favoritas__carril::-webkit-scrollbar { display: none; }
+  .favoritas__carril > li { scroll-snap-align: start; min-width: 0; }
+  @media (min-width: 900px) {
+    .favoritas__carril {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--e-6) var(--e-5);
+      max-width: var(--ancho-max);
+      margin-inline: auto;
+      overflow: visible;
+    }
+  }
+</style>

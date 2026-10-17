@@ -13,7 +13,7 @@ Perpetuo es una marca colombiana de joyería (Medellín) en tres materiales que 
 ## DATOS DEL SITIO (src/data/sitio.json)
 - WhatsApp de pedidos ✔: 305 338 7593 (enlace: 573053387593)
 - Envío gratis desde ✔: $250.000
-- Dominio ✔: perpetuojoyeria.com (confirmar ortografía con la usuaria: escribió "Perpetujoyeria.com")
+- Dominio ✔: perpetuojoyeria.com
 - Publicación: Cloudflare Pages. NO usar Shopify.
 
 ## PALETA (solo estos 4 colores, no agregar otros)
@@ -87,4 +87,5 @@ Fotos con personalidad, luz natural, fondos lisos en la paleta, la mitad con la 
 - Si algo no está claro, preguntar antes de suponer.
 
 ## ESTADO
-- [ ] Etapa 1: tokens y componentes base (en revisión). Muestrario interno en /componentes (no sale en Google).
+- [x] Etapa 1: tokens y componentes base (aprobada). Muestrario interno en /componentes (no sale en Google). Dominio confirmado: perpetuojoyeria.com.
+- [ ] Etapa 2: Home (en revisión). Datos: home.json, looks.json, mystery-box.json (valores de ejemplo).

@@ -1,0 +1,27 @@
+{
+  "_instrucciones": "Textos y bloques del Home. 'tipo: foto' muestra una foto con el nombre encima; 'tipo: color' es un bloque de color sólido con texto (los 'moods'). 'nota' describe la foto que va ahí mientras no exista. 'area' es la posición en la cuadrícula: no la cambies sin avisar.",
+  "cuadricula": {
+    "titulo": "¿Qué te provoca hoy?",
+    "bloques": [
+      { "area": "aretes", "tipo": "foto", "titulo": "Aretes", "frase": "Para las que apilan.", "enlace": "/aretes", "foto": "/fotos/home/aretes.jpg", "nota": "Oreja de perfil con tres aretes apilados en plata, fondo Blanco Hueso, luz de ventana. Horizontal." },
+      { "area": "collares", "tipo": "foto", "titulo": "Collares", "frase": "Por capas, siempre.", "enlace": "/collares", "foto": "/fotos/home/collares.jpg", "nota": "Cuello y clavícula con dos cadenas en capas, encuadre vertical, fondo Azul Noche." },
+      { "area": "anillos", "tipo": "foto", "titulo": "Anillos", "enlace": "/anillos", "foto": "/fotos/home/anillos.jpg", "nota": "Mano con anillos apilados sosteniendo un café." },
+      { "area": "regalar", "tipo": "color", "color": "noche", "titulo": "Para regalar", "frase": "Con intención, no por cumplir.", "enlace": "/sets" },
+      { "area": "pulseras", "tipo": "foto", "titulo": "Pulseras", "enlace": "/pulseras", "foto": "/fotos/home/pulseras.jpg", "nota": "Muñeca con pulsera tenis y reloj, manga de saco." },
+      { "area": "sets", "tipo": "foto", "titulo": "Sets", "enlace": "/sets", "foto": "/fotos/home/sets.jpg", "nota": "Set de aretes en su empaque Perpetuo, vista desde arriba." },
+      { "area": "capas", "tipo": "color", "color": "profundo", "titulo": "Arma tus capas", "frase": "Te ayudamos a combinar.", "enlace": "/looks" }
+    ]
+  },
+  "looks": {
+    "titulo": "Looks Perpetuo",
+    "frase": "Toca cada brillo para ver qué es y cuánto cuesta.",
+    "enlace": "/looks",
+    "textoEnlace": "Ver todos los looks"
+  },
+  "favoritos": {
+    "titulo": "Las favoritas",
+    "frase": "Las que más se llevan (y se vuelven a llevar).",
+    "enlace": "/aretes",
+    "textoEnlace": "Ver todo"
+  }
+}
