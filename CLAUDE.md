@@ -47,7 +47,7 @@ Perpetuo es una marca colombiana de joyería (Medellín) en tres materiales que 
 
 ## FOTOGRAFÍA
 - Hero: anillo que atraviesa el título (mitad detrás y mitad delante de las letras, flota suave). ✔ A la usuaria le encanta el anillo de prueba v2 (banda plateada abombada, reflejos de estudio; script en herramientas/anillo-prueba.py). Hoy usa public/fotos/hero/anillo-prueba.png (aro liso de PRUEBA, generado solo para mostrar el efecto; no es un producto). Reemplazar por public/fotos/hero/anillo.png: foto real PNG sin fondo, anillo visto un poco desde arriba (óvalo), mínimo 1600 px.
-- Video del Hero ✔: generado con IA (Gemini) por la usuaria; original en material/videos/. Versiones: public/videos/hero.mp4 (celular, recorte vertical) y hero-escritorio.mp4 (computador, volteado en espejo para que la modelo quede a la derecha). Sin sonido. Ojo: las argollas del video no son piezas reales de Perpetuo; idealmente reemplazar por video con joyas propias antes del lanzamiento.
+- Video del Hero ✔: vertical 9:16 generado con IA (Gemini) por la usuaria (original en material/videos/hero-original-gemini-3.mp4). Un solo archivo public/videos/hero.mp4 para todo: en celular casi a pantalla completa; en computador como columna vertical a la derecha con el título y el anillo a la izquierda sobre Azul Noche (estilo portada). Sin sonido. Ojo: las joyas del video no son piezas reales de Perpetuo; idealmente reemplazar antes del lanzamiento.
 Fotos con personalidad, luz natural, fondos lisos en la paleta, la mitad con la joya puesta. Si falta una foto: espacio con la proporción correcta y nota de dirección de arte. NUNCA dibujar joyas falsas con CSS.
 
 ## VOZ
