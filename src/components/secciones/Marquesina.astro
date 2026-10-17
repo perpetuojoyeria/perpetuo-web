@@ -1,0 +1,49 @@
+---
+// Franja amarilla con frases que se mueven de lado (estilo Studs).
+// Las frases se editan en src/data/home.json → marquesina.
+import Estrella from '../base/Estrella.astro';
+import home from '../../data/home.json';
+interface Props { oscura?: boolean }
+const { oscura = false } = Astro.props;
+const frases = home.marquesina;
+---
+<div class:list={['marquesina', { 'marquesina--oscura': oscura }]}>
+  <p class="solo-lector">{frases.join('. ')}</p>
+  <div class="marquesina__pista" aria-hidden="true">
+    {[0, 1].map(() => (
+      <ul class="marquesina__grupo" role="list">
+        {frases.map((f) => (<li><span>{f}</span><Estrella tamano="0.9rem" /></li>))}
+      </ul>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquesina {
+    overflow: hidden;
+    background: var(--perla);
+    color: var(--noche);
+    border-block: var(--borde-fuerte);
+  }
+  .marquesina--oscura { background: var(--noche); color: var(--perla); border-color: var(--noche); }
+  .marquesina__pista { display: flex; width: max-content; }
+  .marquesina__grupo { display: flex; flex: none; margin: 0; padding: 0; list-style: none; }
+  .marquesina__grupo li {
+    display: flex;
+    align-items: center;
+    gap: var(--e-5);
+    padding: var(--e-3) var(--e-5) var(--e-3) 0;
+    font-family: var(--f-display);
+    font-stretch: var(--ancho-display);
+    font-weight: var(--peso-display);
+    font-size: clamp(1rem, 0.85rem + 0.8vw, 1.5rem);
+    text-transform: uppercase;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .marquesina__pista { animation: correr 32s linear infinite; }
+    .marquesina:hover .marquesina__pista { animation-play-state: paused; }
+  }
+  @keyframes correr { to { transform: translateX(-50%); } }
+</style>

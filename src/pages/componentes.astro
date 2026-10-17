@@ -33,7 +33,7 @@ const muestra = [productos[0], productos[3], productos[6], productos[10]];
   <main class="muestrario contenedor">
     <header class="muestrario__cabeza">
       <p class="antetitulo">Etapa 1 · sistema de diseño</p>
-      <h1>Los ladrillos de Perpetuo</h1>
+      <h1 class="muestrario__h1">Los ladrillos de Perpetuo</h1>
       <p class="muestrario__intro">Todo lo que ves aquí sale de un solo archivo de tokens. Las páginas se arman combinando estas piezas.</p>
     </header>
 
@@ -55,7 +55,7 @@ const muestra = [productos[0], productos[3], productos[6], productos[10]];
     <!-- Tipografía -->
     <section class="bloque" aria-labelledby="t-tipo">
       <h2 id="t-tipo">Tipografía</h2>
-      <p class="nota">Fraunces con curvas suaves para títulos; Jost para todo lo demás. Nada en mayúsculas sostenidas.</p>
+      <p class="nota">Archivo extra gruesa y ancha para títulos cortos en mayúscula; Jost para todo lo demás.</p>
       <div class="tipos">
         <p class="tipo-3xl">Brillo que se queda.</p>
         <p class="tipo-2xl">Arma tu oreja apilada</p>
@@ -163,10 +163,10 @@ const muestra = [productos[0], productos[3], productos[6], productos[10]];
     <section class="bloque" aria-labelledby="t-forma">
       <h2 id="t-forma">Bordes y sombras</h2>
       <div class="formas">
-        <div class="forma" style="border-radius: var(--r-chico)">12px · campos</div>
-        <div class="forma" style="border-radius: var(--r-tarjeta)">24px · tarjetas</div>
-        <div class="forma" style="border-radius: var(--r-bloque); box-shadow: var(--sombra-2)">28px · bloques</div>
-        <div class="forma" style="border-radius: var(--r-pildora); box-shadow: var(--sombra-3)">píldora</div>
+        <div class="forma">Rectas · fotos y bloques</div>
+        <div class="forma" style="border-radius: var(--r-chico)">4px · campos</div>
+        <div class="forma" style="border-radius: var(--r-pildora)">Píldora · botones</div>
+        <div class="forma" style="box-shadow: var(--sombra-2)">Sombra dura · stickers</div>
       </div>
     </section>
   </main>
@@ -182,31 +182,31 @@ const muestra = [productos[0], productos[3], productos[6], productos[10]];
   .nota { font-size: var(--t-sm); color: var(--texto-suave); margin-top: calc(var(--e-3) * -1); }
   .fila { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-4); }
   .fila--chips { gap: var(--e-2); }
-  .panel-oscuro { padding: var(--e-6); border-radius: var(--r-bloque); background: var(--profundo); }
+  .panel-oscuro { padding: var(--e-6); background: var(--profundo); }
 
   .colores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-4); margin: 0; padding: 0; list-style: none; }
   .color { display: grid; gap: var(--e-1); min-width: 0; }
   .color .nota { margin: 0; }
-  .color__muestra { height: 96px; border-radius: var(--r-tarjeta); border: var(--borde); }
+  .color__muestra { height: 96px; border: var(--borde); }
 
   .tipos { display: grid; gap: var(--e-4); }
-  .tipo-3xl, .tipo-2xl, .tipo-xl, .tipo-italica {
+  .tipo-3xl, .tipo-2xl, .tipo-xl {
     font-family: var(--f-display);
-    font-variation-settings: var(--display-ajustes);
+    font-stretch: var(--ancho-display);
     font-weight: var(--peso-display);
     line-height: var(--interlinea-titulo);
-    letter-spacing: -0.01em;
+    text-transform: uppercase;
   }
-  .tipo-3xl { font-size: var(--t-3xl); letter-spacing: -0.02em; }
+  .tipo-3xl { font-size: var(--t-3xl); }
   .tipo-2xl { font-size: var(--t-2xl); }
   .tipo-xl { font-size: var(--t-xl); }
-  .tipo-italica { font-size: var(--t-lg); font-style: italic; }
+  .tipo-italica { font-size: var(--t-md); font-weight: var(--peso-medio); }
   .tipo-texto { max-width: var(--ancho-texto); }
   .tipo-boton { font-weight: var(--peso-boton); }
 
   .estrellas { display: inline-flex; align-items: center; gap: var(--e-3); }
 
-  .grilla { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-6) var(--e-4); }
+  .grilla { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--junta); background: var(--linea); }
   .fotos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-4); align-items: start; }
   .fotos > :global(:last-child) { grid-column: 1 / -1; }
   .fotos :global(.foto) { border-radius: var(--r-tarjeta); }

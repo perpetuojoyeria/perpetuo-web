@@ -33,15 +33,19 @@ img, svg, video { display: block; max-width: 100%; }
 a { color: inherit; }
 button, input, select, textarea { font: inherit; color: inherit; }
 
-h1, h2, h3, h4 {
-  margin: 0;
+h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
+
+/* Títulos cortos: Archivo extra gruesa, ancha y en MAYÚSCULAS (estilo Studs) */
+h1, h2, .titular {
   font-family: var(--f-display);
   font-weight: var(--peso-display);
-  font-variation-settings: var(--display-ajustes);
+  font-stretch: var(--ancho-display);
   line-height: var(--interlinea-titulo);
-  letter-spacing: -0.01em;
-  text-wrap: balance;
+  letter-spacing: var(--espaciado-titulo);
+  text-transform: uppercase;
 }
+/* Subtítulos y nombres de producto: Jost, en minúscula normal */
+h3, h4 { font-family: var(--f-texto); font-weight: var(--peso-boton); line-height: 1.25; }
 p { margin: 0; text-wrap: pretty; }
 
 :focus-visible {
@@ -70,11 +74,26 @@ p { margin: 0; text-wrap: pretty; }
 
 /* Encabezado de sección: título + frase corta + enlace opcional */
 .titulo-seccion { font-size: var(--t-xl); }
+
+/* Ancho completo, sin márgenes laterales (fotos de borde a borde) */
+.borde-a-borde { width: 100%; }
 .antetitulo {
-  font-size: var(--t-sm);
-  font-weight: var(--peso-medio);
-  color: var(--texto-suave);
+  font-size: var(--t-xs);
+  font-weight: var(--peso-boton);
+  letter-spacing: var(--espaciado-etiqueta);
+  text-transform: uppercase;
 }
+
+/* Cabecera de sección: título a la izquierda, enlace a la derecha */
+.cabeza-seccion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--e-2) var(--e-5);
+  margin-bottom: var(--e-5);
+}
+.cabeza-seccion p { margin-top: var(--e-2); color: var(--texto-suave); }
 
 /* ——— Botones: píldora, color sólido, letra gruesa ——— */
 .boton {
@@ -136,3 +155,6 @@ p { margin: 0; text-wrap: pretty; }
 
 /* Lo que tiene el atributo hidden nunca se muestra */
 [hidden] { display: none !important; }
+
+/* Margen lateral simple (para alinear títulos con las fotos de borde a borde) */
+.relleno { padding-left: var(--margen); padding-right: var(--margen-der); }

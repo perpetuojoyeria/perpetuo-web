@@ -1,10 +1,9 @@
 ---
-// Mystery Box del mes: bloque oscuro con la caja, sello de precio, valor garantizado
-// y selector de metal (plata, oro laminado, rodio). Se edita en src/data/mystery-box.json.
+// Mystery Box del mes: gran bloque Amarillo Perla con la foto de borde a borde,
+// sello de precio, valor garantizado y selector de metal. Se edita en src/data/mystery-box.json.
 import Foto from '../base/Foto.astro';
 import SelloPrecio from '../base/SelloPrecio.astro';
 import Etiqueta from '../base/Etiqueta.astro';
-import Estrella from '../base/Estrella.astro';
 import { formatoCOP } from '../../lib/precio';
 import metales from '../../data/metales.json';
 import box from '../../data/mystery-box.json';
@@ -19,71 +18,81 @@ const datos = Object.fromEntries(box.versiones.map((v) => [v.metal, {
   enlace: `/mystery-box#${v.metal}`,
 }]));
 ---
-<section class="secreto sobre-oscuro" aria-labelledby="secreto-titulo" data-secreto data-versiones={JSON.stringify(datos)}>
-  <div class="secreto__interior contenedor">
-    <div class="secreto__foto">
-      <Foto src={box.foto} alt="La mystery box del mes, cerrada" nota={box.nota} proporcion="4 / 5" />
-      <SelloPrecio valor={inicial.precio} texto="por" clase="secreto__sello" />
-    </div>
+<section class="secreto" aria-labelledby="secreto-titulo" data-secreto data-versiones={JSON.stringify(datos)}>
+  <div class="secreto__foto">
+    <Foto src={box.foto} alt="La mystery box del mes, cerrada" nota={box.nota} proporcion="llenar" />
+    <SelloPrecio valor={inicial.precio} texto="por" clase="secreto__sello" />
+  </div>
 
-    <div class="secreto__texto">
-      <p class="secreto__mes">
-        <Etiqueta texto={`Edición de ${box.mes}`} />
-        {box.placeholder && <Etiqueta texto="Ejemplo" variante="suave" />}
-      </p>
-      <h2 class="secreto__titulo" id="secreto-titulo">{box.titulo}</h2>
-      <p class="secreto__frase">{box.frase}</p>
+  <div class="secreto__texto">
+    <p class="secreto__mes">
+      <Etiqueta texto={`Edición de ${box.mes}`} variante="oscura" />
+      {box.placeholder && <Etiqueta texto="Ejemplo" variante="suave" />}
+    </p>
+    <h2 class="secreto__titulo" id="secreto-titulo">{box.titulo}</h2>
+    <p class="secreto__frase">{box.frase}</p>
 
-      <fieldset class="secreto__metales">
-        <legend class="solo-lector">Elige el metal de tu caja</legend>
-        {box.versiones.map((v, i) => (
-          <label class="secreto__metal">
-            <input type="radio" name="secreto-metal" value={v.metal} checked={i === 0} />
-            <span class={`punto punto--${v.metal}`} aria-hidden="true"></span>
-            {metales[v.metal as Metal].nombre}
-          </label>
-        ))}
-      </fieldset>
+    <fieldset class="secreto__metales">
+      <legend class="solo-lector">Elige el metal de tu caja</legend>
+      {box.versiones.map((v, i) => (
+        <label class="secreto__metal">
+          <input type="radio" name="secreto-metal" value={v.metal} checked={i === 0} />
+          <span class={`punto punto--${v.metal}`} aria-hidden="true"></span>
+          {metales[v.metal as Metal].nombre}
+        </label>
+      ))}
+    </fieldset>
 
-      <div class="secreto__version" aria-live="polite">
-        <p class="secreto__nombre" data-campo="nombre">{inicial.nombre}</p>
-        <ul class="secreto__datos" role="list">
-          <li><Estrella tamano="0.75rem" /><span>Valor garantizado de <strong data-campo="valor">{formatoCOP(inicial.valorGarantizado)}</strong></span></li>
-          <li><Estrella tamano="0.75rem" /><span><span data-campo="piezas">{inicial.piezas} piezas</span> sorpresa</span></li>
-          <li><Estrella tamano="0.75rem" /><span>{box.modalidades[0]} o {box.modalidades[1].toLowerCase()}: tú decides</span></li>
-        </ul>
+    <dl class="secreto__datos" aria-live="polite">
+      <div class="secreto__dato secreto__dato--nombre">
+        <dt>Tu caja</dt>
+        <dd data-campo="nombre">{inicial.nombre}</dd>
       </div>
-
-      <div class="secreto__acciones">
-        <a class="boton" href={`/mystery-box#${inicial.metal}`} data-campo-enlace>Quiero la mía</a>
-        <a class="enlace" href="/mystery-box#como-funciona">Cómo funciona</a>
+      <div class="secreto__dato">
+        <dt>Valor garantizado</dt>
+        <dd data-campo="valor">{formatoCOP(inicial.valorGarantizado)}</dd>
       </div>
+      <div class="secreto__dato">
+        <dt>Trae</dt>
+        <dd data-campo="piezas">{inicial.piezas} piezas</dd>
+      </div>
+      <div class="secreto__dato">
+        <dt>Pídela</dt>
+        <dd>{box.modalidades[0]} o {box.modalidades[1].toLowerCase()}</dd>
+      </div>
+    </dl>
+
+    <div class="secreto__acciones">
+      <a class="boton boton--oscuro" href={`/mystery-box#${inicial.metal}`} data-campo-enlace>Quiero la mía</a>
+      <a class="enlace" href="/mystery-box#como-funciona">Cómo funciona</a>
     </div>
   </div>
 </section>
 
 <style>
-  .secreto { background: var(--profundo); color: var(--hueso); padding-block: var(--seccion); }
-  .secreto__interior { display: grid; gap: var(--e-6); align-items: center; }
-
-  .secreto__foto { position: relative; max-width: 440px; width: 100%; justify-self: center; }
-  .secreto__foto :global(.foto) { border-radius: var(--r-bloque); background: rgb(251 251 244 / 0.06); }
-  .secreto__foto :global(.foto__marcador) {
-    background: repeating-linear-gradient(135deg, transparent 0 10px, rgb(251 251 244 / 0.05) 10px 11px);
-    align-items: flex-start;
+  .secreto {
+    display: grid;
+    background: var(--perla);
+    color: var(--noche);
+    border-block: var(--borde-fuerte);
   }
-  .secreto__foto :global(.secreto__sello) { position: absolute; right: -8px; bottom: 24px; }
+  .secreto__foto { position: relative; aspect-ratio: 1 / 1; max-width: 100%; border-bottom: var(--borde-fuerte); }
+  .secreto__foto :global(.foto) { background: var(--profundo); }
+  .secreto__foto :global(.foto__marcador) { background: var(--profundo); align-items: flex-start; }
+  .secreto__foto :global(.foto__nota) { color: var(--hueso-70); }
+  .secreto__foto :global(.secreto__sello) { position: absolute; right: var(--e-4); bottom: var(--e-4); }
 
-  .secreto__texto { display: grid; gap: var(--e-4); justify-items: start; min-width: 0; }
+  .secreto__texto {
+    display: grid;
+    gap: var(--e-4);
+    justify-items: start;
+    align-content: center;
+    min-width: 0;
+    padding: var(--e-6) var(--margen-der) var(--e-7) var(--margen);
+  }
   .secreto__mes { display: flex; flex-wrap: wrap; gap: var(--e-2); }
-  .secreto__titulo { font-size: var(--t-2xl); }
-  .secreto__frase {
-    font-family: var(--f-display);
-    font-variation-settings: var(--display-ajustes);
-    font-style: italic;
-    font-size: var(--t-lg);
-    color: var(--hueso-70);
-  }
+  .secreto__titulo { font-size: var(--t-2xl); max-width: 9ch; }
+  .secreto__frase { font-size: var(--t-md); font-weight: var(--peso-medio); }
 
   .secreto__metales { display: flex; flex-wrap: wrap; gap: var(--e-2); margin: var(--e-2) 0 0; padding: 0; border: 0; min-width: 0; }
   .secreto__metal {
@@ -93,37 +102,50 @@ const datos = Object.fromEntries(box.versiones.map((v) => [v.metal, {
     gap: var(--e-2);
     min-height: 44px;
     padding: 0 var(--e-4);
-    border: 1px solid var(--hueso-linea);
+    border: var(--borde-fuerte);
     border-radius: var(--r-pildora);
+    background: var(--hueso);
     font-size: var(--t-sm);
-    font-weight: var(--peso-medio);
+    font-weight: var(--peso-boton);
     cursor: pointer;
   }
   .secreto__metal input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
-  .secreto__metal:has(input:checked) { border-color: var(--perla); box-shadow: inset 0 0 0 1px var(--perla); }
-  .secreto__metal:has(input:focus-visible) { outline: 2px solid var(--perla); outline-offset: 3px; }
-  .punto { width: 14px; height: 14px; border-radius: var(--r-circulo); border: 1px solid var(--hueso); }
+  .secreto__metal:has(input:checked) { background: var(--noche); color: var(--hueso); }
+  .secreto__metal:has(input:focus-visible) { outline: 2px solid var(--noche); outline-offset: 3px; }
+  .punto { width: 14px; height: 14px; border-radius: var(--r-circulo); border: 1px solid var(--noche); }
+  .secreto__metal:has(input:checked) .punto { border-color: var(--hueso); }
   .punto--oro { background: var(--metal-oro); }
   .punto--plata { background: var(--metal-plata); }
   .punto--rodio { background: var(--metal-rodio); }
 
-  .secreto__version { display: grid; gap: var(--e-3); width: 100%; padding-block: var(--e-2); }
-  .secreto__nombre {
+  .secreto__datos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    margin: var(--e-2) 0 0;
+    border-top: var(--borde-fuerte);
+  }
+  .secreto__dato { padding: var(--e-3) var(--e-2) var(--e-3) 0; border-bottom: var(--borde); min-width: 0; }
+  .secreto__dato--nombre, .secreto__dato:last-child { grid-column: 1 / -1; }
+  .secreto__dato dt { font-size: 0.6875rem; font-weight: var(--peso-boton); letter-spacing: var(--espaciado-etiqueta); text-transform: uppercase; }
+  .secreto__dato dd { margin: var(--e-1) 0 0; font-weight: var(--peso-boton); }
+  .secreto__dato--nombre dd {
     font-family: var(--f-display);
-    font-variation-settings: var(--display-ajustes);
+    font-stretch: var(--ancho-display);
     font-weight: var(--peso-display);
     font-size: var(--t-xl);
-    line-height: 1.1;
+    line-height: 1;
+    text-transform: uppercase;
   }
-  .secreto__datos { display: grid; gap: var(--e-2); margin: 0; padding: 0; list-style: none; color: var(--hueso-70); }
-  .secreto__datos li { display: flex; align-items: center; gap: var(--e-2); }
-  .secreto__datos :global(.estrella) { color: var(--perla); }
-  .secreto__datos strong { color: var(--hueso); font-weight: var(--peso-boton); }
   .secreto__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-3) var(--e-5); margin-top: var(--e-2); }
 
   @media (min-width: 900px) {
-    .secreto__interior { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--e-8); }
-    .secreto__foto :global(.secreto__sello) { right: -28px; bottom: 40px; transform: rotate(-8deg) scale(1.15); }
+    .secreto { grid-template-columns: 1fr 1fr; }
+    .secreto__datos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .secreto__dato:last-child { grid-column: auto; }
+    .secreto__foto { aspect-ratio: auto; min-height: 640px; border-bottom: 0; border-right: var(--borde-fuerte); }
+    .secreto__foto :global(.secreto__sello) { right: var(--e-6); bottom: var(--e-6); transform: rotate(-8deg) scale(1.2); }
+    .secreto__texto { padding: var(--e-8) clamp(2rem, 5vw, 5rem); }
   }
 </style>
 

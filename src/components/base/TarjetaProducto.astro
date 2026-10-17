@@ -1,5 +1,6 @@
 ---
-// Tarjeta de producto: foto, etiqueta, nombre, precio, punticos de metal y "Agregar +".
+// Tarjeta de producto estilo Studs: foto cuadrada de borde a borde, esquinas rectas,
+// etiqueta tipo sticker, "Agregar +" sobre la foto y datos debajo.
 import Foto from './Foto.astro';
 import Etiqueta from './Etiqueta.astro';
 import Precio from './Precio.astro';
@@ -15,92 +16,79 @@ const fotoPuesta = p.fotos[1];
 const url = `/producto/${p.slug}`;
 ---
 <article class="tarjeta">
-  <a class="tarjeta__foto" href={url} tabindex="-1" aria-hidden="true">
-    <Foto src={foto?.src} alt="" nota={foto?.nota} proporcion="4 / 5" prioridad={prioridad} />
-    {fotoPuesta && (
-      <span class="tarjeta__foto-puesta">
-        <Foto src={fotoPuesta.src} alt="" nota={fotoPuesta.nota} proporcion="4 / 5" />
-      </span>
-    )}
-  </a>
-  <div class="tarjeta__sellos">
-    {p.etiquetas.map((t) => <Etiqueta texto={t} />)}
-    {p.placeholder && <Etiqueta texto="Ejemplo" variante="suave" />}
+  <div class="tarjeta__foto">
+    <a href={url} tabindex="-1" aria-hidden="true">
+      <Foto src={foto?.src} alt="" nota={foto?.nota} proporcion="1 / 1" prioridad={prioridad} />
+      {fotoPuesta && (
+        <span class="tarjeta__foto-puesta">
+          <Foto src={fotoPuesta.src} alt="" nota={fotoPuesta.nota} proporcion="1 / 1" />
+        </span>
+      )}
+    </a>
+    <div class="tarjeta__sellos">
+      {p.etiquetas.map((t) => <Etiqueta texto={t} />)}
+      {p.placeholder && <Etiqueta texto="Ejemplo" variante="suave" />}
+    </div>
+    <button
+      class="boton boton--chico tarjeta__agregar"
+      type="button"
+      data-agregar
+      data-slug={p.slug}
+      data-nombre={p.nombre}
+      data-metal={metal}
+      data-precio={precio}
+      aria-label={`Agregar ${p.nombre} en ${nombreMetal(metal)} a la bolsa`}
+    >Agregar +</button>
   </div>
 
   <div class="tarjeta__info">
     <h3 class="tarjeta__nombre"><a href={url}>{p.nombre}</a></h3>
-    <Precio valor={precio} />
-    <PuntosMetal metales={p.metales} />
+    <div class="tarjeta__fila">
+      <Precio valor={precio} />
+      <PuntosMetal metales={p.metales} />
+    </div>
   </div>
-
-  <button
-    class="boton boton--chico tarjeta__agregar"
-    type="button"
-    data-agregar
-    data-slug={p.slug}
-    data-nombre={p.nombre}
-    data-metal={metal}
-    data-precio={precio}
-    aria-label={`Agregar ${p.nombre} en ${nombreMetal(metal)} a la bolsa`}
-  >Agregar +</button>
 </article>
 
 <style>
-  .tarjeta {
-    position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "foto" "info" "boton";
-    align-content: start;
-    gap: var(--e-3);
-    min-width: 0;
-  }
-  /* Con espacio, el botón se pone al lado del precio */
-  @media (min-width: 900px) {
-    .tarjeta {
-      grid-template-columns: minmax(0, 1fr) auto;
-      grid-template-areas: "foto foto" "info boton";
-      align-items: end;
-      gap: var(--e-3) var(--e-2);
-    }
-  }
-  .tarjeta__foto {
-    grid-area: foto;
-    position: relative;
-    display: block;
-    border-radius: var(--r-tarjeta);
-    overflow: hidden;
-    isolation: isolate;
-    text-decoration: none;
-  }
-  /* En computador, al pasar el mouse se ve la foto con la joya puesta */
-  .tarjeta__foto-puesta {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity var(--medio) var(--suave);
-  }
-  @media (hover: hover) {
-    .tarjeta:hover .tarjeta__foto-puesta { opacity: 1; }
-  }
+  .tarjeta { display: grid; align-content: start; min-width: 0; background: var(--hueso); }
+  .tarjeta__foto { position: relative; overflow: hidden; }
+  .tarjeta__foto > a { display: block; text-decoration: none; }
+  /* La nota de la foto va arriba, debajo de las etiquetas, para no chocar con el botón */
+  .tarjeta__foto :global(.foto__marcador) { align-items: flex-start; padding-top: 38px; }
+  .tarjeta__foto :global(.foto img) { transition: transform 0.6s var(--suave); }
+  .tarjeta:hover .tarjeta__foto :global(.foto img) { transform: scale(1.03); }
+  /* En computador, al pasar el mouse se ve la joya puesta */
+  .tarjeta__foto-puesta { position: absolute; inset: 0; opacity: 0; transition: opacity var(--medio) var(--suave); }
+  @media (hover: hover) { .tarjeta:hover .tarjeta__foto-puesta { opacity: 1; } }
+
   .tarjeta__sellos {
     position: absolute;
-    top: var(--e-3);
-    left: var(--e-3);
+    top: var(--e-2);
+    left: var(--e-2);
     display: flex;
     flex-wrap: wrap;
     gap: var(--e-1);
     pointer-events: none;
   }
-  .tarjeta__info { grid-area: info; display: grid; gap: var(--e-1); min-width: 0; }
-  .tarjeta__nombre {
-    font-size: var(--t-md);
-    line-height: 1.2;
+  .tarjeta__agregar {
+    position: absolute;
+    right: var(--e-2);
+    bottom: var(--e-2);
+    min-height: 36px;
+    padding-inline: var(--e-3);
+    font-size: 0.8125rem;
   }
+  .tarjeta__info { display: grid; gap: var(--e-1); padding: var(--e-3) var(--e-3) var(--e-4); }
+  .tarjeta__nombre { font-size: var(--t-sm); font-weight: var(--peso-medio); line-height: 1.3; }
   .tarjeta__nombre a { text-decoration: none; }
-  .tarjeta__nombre a::after { content: ''; position: absolute; inset: 0 0 64px 0; } /* toda la foto es tocable */
-  .tarjeta__nombre a:focus-visible { outline: none; }
-  .tarjeta:has(.tarjeta__nombre a:focus-visible) .tarjeta__foto { outline: 2px solid var(--noche); outline-offset: 3px; }
-  .tarjeta__agregar { grid-area: boton; justify-self: start; position: relative; z-index: 1; padding-inline: var(--e-4); }
+  .tarjeta__nombre a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .tarjeta__fila { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--e-2); font-size: var(--t-sm); }
+
+  @media (min-width: 900px) {
+    .tarjeta__agregar { opacity: 0; transform: translateY(6px); transition: opacity var(--rapido), transform var(--rapido); }
+    .tarjeta:hover .tarjeta__agregar,
+    .tarjeta__agregar:focus-visible { opacity: 1; transform: none; }
+  }
+  @media (hover: none) { .tarjeta__agregar { opacity: 1 !important; transform: none !important; } }
 </style>

@@ -10,11 +10,13 @@ const { texto, variante = 'destacada', clase = '' } = Astro.props;
   .etiqueta {
     display: inline-flex;
     align-items: center;
-    min-height: 24px;
-    padding: 0 var(--e-3);
-    border-radius: var(--r-pildora);
-    font-size: var(--t-xs);
+    min-height: 22px;
+    padding: 0 var(--e-2);
+    border-radius: var(--r-etiqueta);
+    font-size: 0.6875rem;
     font-weight: var(--peso-boton);
+    letter-spacing: var(--espaciado-etiqueta);
+    text-transform: uppercase;
     line-height: 1;
     white-space: nowrap;
   }

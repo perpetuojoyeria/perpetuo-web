@@ -43,18 +43,18 @@ const existe = existeEnPublic(src);
     width: 100%;
     height: 100%;
     padding: var(--e-3);
-    background:
-      repeating-linear-gradient(135deg, transparent 0 10px, var(--linea-suave) 10px 11px),
-      var(--linea-suave);
+    background: var(--linea-suave);
   }
+  /* Nota de dirección de arte: texto pequeño en la esquina, sin caja */
   .foto__nota {
-    max-width: 30ch;
-    padding: var(--e-2) var(--e-3);
-    border: 1px dashed var(--noche-30);
-    border-radius: var(--r-chico);
-    background: var(--hueso);
-    font-size: 0.7rem;
-    line-height: 1.4;
+    max-width: 34ch;
+    font-size: 0.6875rem;
+    line-height: 1.35;
     color: var(--texto-suave);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
+  .foto__nota::before { content: 'Foto: '; font-weight: var(--peso-boton); }
 </style>

@@ -2,10 +2,10 @@
 // Sello redondo de precio (Mystery Box, ofertas). Amarillo Perla con texto Azul Noche.
 import { formatoCOP } from '../../lib/precio';
 import Estrella from './Estrella.astro';
-interface Props { valor: number; texto?: string; clase?: string }
-const { valor, texto = 'por', clase = '' } = Astro.props;
+interface Props { valor: number; texto?: string; oscuro?: boolean; clase?: string }
+const { valor, texto = 'por', oscuro = false, clase = '' } = Astro.props;
 ---
-<span class:list={['sello', clase]}>
+<span class:list={['sello', { 'sello--oscuro': oscuro }, clase]}>
   <Estrella tamano="0.9rem" />
   <span class="sello__texto">{texto}</span>
   <strong class="sello__valor">{formatoCOP(valor)}</strong>
@@ -17,7 +17,7 @@ const { valor, texto = 'por', clase = '' } = Astro.props;
     place-items: center;
     align-content: center;
     gap: 2px;
-    width: 104px;
+    width: 116px;
     aspect-ratio: 1;
     border: var(--borde-fuerte);
     border-radius: var(--r-circulo);
@@ -28,9 +28,13 @@ const { valor, texto = 'por', clase = '' } = Astro.props;
     box-shadow: var(--sombra-2);
   }
   .sello__texto { font-size: var(--t-xs); line-height: 1; }
+  .sello--oscuro { background: var(--profundo); color: var(--perla); border-color: var(--profundo); }
+  .sello__texto { text-transform: uppercase; letter-spacing: var(--espaciado-etiqueta); font-weight: var(--peso-boton); }
   .sello__valor {
-    font-size: 1.05rem;
-    font-weight: 700;
+    font-family: var(--f-display);
+    font-stretch: var(--ancho-display);
+    font-size: 1rem;
+    font-weight: var(--peso-display);
     line-height: 1.1;
     font-variant-numeric: tabular-nums;
   }

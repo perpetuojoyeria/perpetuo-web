@@ -22,12 +22,12 @@ const looks = datosLooks.looks.map((look) => {
 });
 ---
 <section class="looks seccion" aria-labelledby="looks-titulo">
-  <div class="contenedor looks__cabeza">
+  <div class="relleno cabeza-seccion">
     <div>
       <h2 class="titulo-seccion" id="looks-titulo">{textos.titulo}</h2>
-      <p class="looks__frase">{textos.frase}</p>
+      <p>{textos.frase}</p>
     </div>
-    <a class="enlace looks__todos" href={textos.enlace}>{textos.textoEnlace}</a>
+    <a class="enlace" href={textos.enlace}>{textos.textoEnlace}</a>
   </div>
 
   <ul class="looks__carril" role="list">
@@ -88,35 +88,25 @@ const looks = datosLooks.looks.map((look) => {
 </section>
 
 <style>
-  .looks__cabeza {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--e-3) var(--e-5);
-    margin-bottom: var(--e-5);
-  }
-  .looks__frase { margin-top: var(--e-2); color: var(--texto-suave); }
-  .looks__todos { white-space: nowrap; }
 
   /* Celular: carril que se desliza de lado. Computador: tres columnas. */
   .looks__carril {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: min(84%, 380px);
-    gap: var(--e-4);
+    grid-auto-columns: min(86%, 420px);
+    gap: var(--junta);
     margin: 0;
-    padding: 0 var(--margen-der) var(--e-2) var(--margen);
+    padding: 0 0 var(--e-2);
     list-style: none;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--margen);
     scrollbar-width: none;
   }
   .looks__carril::-webkit-scrollbar { display: none; }
-  .look { scroll-snap-align: start; display: grid; gap: var(--e-4); align-content: start; min-width: 0; }
+  .look { scroll-snap-align: start; display: grid; gap: var(--e-4); align-content: start; min-width: 0; padding-bottom: var(--e-2); }
+  .look__info { padding-inline: var(--e-4); }
 
-  .look__foto { position: relative; border-radius: var(--r-tarjeta); overflow: hidden; }
+  .look__foto { position: relative; overflow: hidden; }
   .look__foto :global(.foto__marcador) { align-items: flex-end; }
 
   .look__punto {
@@ -170,18 +160,12 @@ const looks = datosLooks.looks.map((look) => {
     font-size: var(--t-sm);
   }
   .look__ficha--izq { left: auto; right: max(8px, calc(100% - var(--x) + 26px)); }
-  .look__ficha-nombre {
-    font-family: var(--f-display);
-    font-variation-settings: var(--display-ajustes);
-    font-weight: var(--peso-display);
-    font-size: var(--t-md);
-    line-height: 1.15;
-  }
+  .look__ficha-nombre { font-weight: var(--peso-boton); font-size: var(--t-base); line-height: 1.2; }
   .look__ficha-metal { color: var(--texto-suave); font-size: var(--t-xs); }
   .look__ficha-ver { margin-top: var(--e-1); font-size: var(--t-sm); }
 
   .look__info { display: grid; gap: var(--e-2); }
-  .look__nombre { font-size: var(--t-lg); }
+  .look__nombre { font-family: var(--f-display); font-stretch: var(--ancho-display); font-weight: var(--peso-display); font-size: var(--t-lg); line-height: 1; text-transform: uppercase; }
   .look__frase { color: var(--texto-suave); font-size: var(--t-sm); }
   .look__lista {
     display: grid;
@@ -231,9 +215,6 @@ const looks = datosLooks.looks.map((look) => {
     .looks__carril {
       grid-auto-flow: row;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: var(--e-6);
-      max-width: var(--ancho-max);
-      margin-inline: auto;
       overflow: visible;
     }
   }

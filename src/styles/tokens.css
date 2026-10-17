@@ -33,11 +33,9 @@
   --metal-rodio: var(--noche-30);
 
   /* ——— Tipografía: dos familias ——— */
-  --f-display: 'Fraunces Variable', 'Fraunces', 'Georgia', 'Times New Roman', serif;
-  --f-texto: 'Jost Variable', 'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;
-
-  /* Fraunces con curvas suaves (eje SOFT): más coqueta, menos seria */
-  --display-ajustes: 'SOFT' 100, 'WONK' 0;
+  --f-display: 'Archivo Variable', 'Archivo', 'Arial Black', 'Helvetica Neue', sans-serif;  /* títulos gruesos y anchos */
+  --f-texto: 'Jost Variable', 'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;    /* todo lo demás */
+  --ancho-display: 118%;   /* Archivo un poco expandida: más presencia, estilo Studs */
 
   /* Escala (celular primero; crece suave en pantallas grandes) */
   --t-xs: 0.75rem;     /* 12 · etiquetas */
@@ -45,17 +43,19 @@
   --t-base: 1rem;      /* 16 · texto */
   --t-md: 1.125rem;    /* 18 · nombres de producto */
   --t-lg: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);   /* subtítulos */
-  --t-xl: clamp(1.6rem, 1.25rem + 1.5vw, 2.25rem);  /* títulos de sección */
-  --t-2xl: clamp(2.1rem, 1.4rem + 3vw, 3.5rem);     /* títulos grandes */
-  --t-3xl: clamp(2.6rem, 1.5rem + 5vw, 5rem);       /* hero */
+  --t-xl: clamp(1.75rem, 1.2rem + 2.4vw, 3rem);     /* títulos de sección */
+  --t-2xl: clamp(2.4rem, 1.4rem + 4.5vw, 5rem);     /* títulos grandes */
+  --t-3xl: clamp(3rem, 1.4rem + 7.5vw, 8.5rem);     /* hero */
 
   --peso-texto: 400;
   --peso-medio: 500;
   --peso-boton: 600;
-  --peso-display: 500;
+  --peso-display: 860;
 
   --interlinea: 1.55;
-  --interlinea-titulo: 1.05;
+  --interlinea-titulo: 0.9;
+  --espaciado-titulo: -0.01em;
+  --espaciado-etiqueta: 0.06em;  /* etiquetas pequeñas en mayúscula */
 
   /* ——— Espaciado (escala de 4 en 4) ——— */
   --e-1: 0.25rem;   /* 4 */
@@ -72,21 +72,23 @@
   --margen-der: max(16px, env(safe-area-inset-right, 0px));
   --ancho-max: 1280px;
   --ancho-texto: 62ch;
-  --seccion: clamp(3rem, 2rem + 4vw, 6rem);   /* espacio entre secciones */
+  --seccion: clamp(2.5rem, 1.6rem + 3vw, 4.5rem);   /* espacio entre secciones */
+  --junta: 3px;   /* espacio entre fotos pegadas (estilo Studs) */
 
   /* ——— Bordes ——— */
   --r-pildora: 999px;   /* botones, chips, etiquetas */
-  --r-tarjeta: 24px;    /* tarjetas de producto */
-  --r-bloque: 28px;     /* bloques grandes del home */
-  --r-chico: 12px;      /* campos, avisos */
+  --r-tarjeta: 0;       /* fotos y tarjetas: esquinas rectas */
+  --r-bloque: 0;        /* bloques grandes: esquinas rectas */
+  --r-chico: 4px;       /* campos, avisos, fichas */
+  --r-etiqueta: 2px;    /* etiquetas tipo sticker */
   --r-circulo: 50%;     /* fotos de chips */
   --borde: 1px solid var(--linea);
   --borde-fuerte: 1.5px solid var(--noche);
 
   /* ——— Sombras (siempre en azul de la marca, nunca gris) ——— */
-  --sombra-1: 0 1px 2px rgb(35 42 68 / 0.06), 0 2px 8px rgb(35 42 68 / 0.05);
-  --sombra-2: 0 6px 24px -10px rgb(35 42 68 / 0.28);
-  --sombra-3: 0 18px 48px -18px rgb(35 42 68 / 0.4);
+  --sombra-1: 0 1px 0 rgb(35 42 68 / 0.12);
+  --sombra-2: 0 2px 0 rgb(35 42 68 / 0.9);          /* sombra dura tipo sticker */
+  --sombra-3: 0 10px 30px -12px rgb(35 42 68 / 0.45); /* solo para fichas flotantes */
 
   /* ——— Movimiento ——— */
   --suave: cubic-bezier(0.22, 1, 0.36, 1);

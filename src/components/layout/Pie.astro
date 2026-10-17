@@ -62,11 +62,12 @@ const anio = new Date().getFullYear();
   }
   .pie__tagline {
     font-family: var(--f-display);
-    font-variation-settings: var(--display-ajustes);
+    font-stretch: var(--ancho-display);
     font-weight: var(--peso-display);
     font-size: var(--t-2xl);
-    line-height: 1;
-    letter-spacing: -0.02em;
+    line-height: 0.9;
+    text-transform: uppercase;
+    max-width: 10ch;
   }
   .pie__whatsapp { display: grid; gap: var(--e-2); justify-items: start; margin-top: var(--e-2); color: var(--hueso-70); font-size: var(--t-sm); }
   .pie__columnas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-6) var(--e-4); }

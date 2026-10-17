@@ -19,22 +19,23 @@ Perpetuo es una marca colombiana de joyería (Medellín) en tres materiales que 
 ## PALETA (solo estos 4 colores, no agregar otros)
 - Azul Noche #2E416C: texto principal y bloques fuertes.
 - Azul Profundo #232A44: fondos oscuros, footer, sellos.
-- Amarillo Perla #FFFDCB: SOLO botones, sellos de precio y etiquetas destacadas. NUNCA como fondo general ni de bandas.
+- Amarillo Perla #FFFDCB: botones, sellos de precio, etiquetas y ✔ (cambio v3) bandas y bloques puntuales de fondo (franja que se mueve, bloque Mystery Box, algunos bloques de categoría). NUNCA como fondo general de la página.
 - Blanco Hueso #FBFBF4: fondo principal.
 - Se permiten transparencias de estos mismos colores (líneas, sombras, velos).
 - Amarillo Perla y Blanco Hueso casi no contrastan: un botón amarillo sobre fondo claro lleva borde Azul Noche. Texto sobre amarillo siempre en Azul Noche.
 - Punticos de metal (sin agregar colores): oro laminado = Amarillo Perla con borde; plata = Blanco Hueso con borde; rodio = Azul Noche suave (gris azulado). Siempre con nombre accesible.
 - El logo tiene un tono violeta propio: no se toca, pero el diseño solo usa los 4 colores.
 
-## TIPOGRAFÍA ✔ (opción B, más juvenil)
-- Fraunces (variable, eje SOFT): títulos y frases con personalidad. En minúscula normal (tipo oración), nunca en mayúsculas sostenidas.
-- Jost: textos, precios, menú y botones. Botones en Jost gruesa (600), estilo Studs.
+## TIPOGRAFÍA ✔ (cambio v3: estilo Studs)
+- Archivo (variable, ancho y extra gruesa, 800-900): títulos. ✔ Títulos cortos (1 a 4 palabras) en MAYÚSCULAS gruesas. Fraunces quedó descartada ("se veía hecha por IA").
+- Jost: textos, precios, menú, nombres de producto y botones (botones en 600). En minúscula normal.
 - Solo estas dos familias en todo el sitio.
-- NADA de textos de promoción en mayúsculas. No cambiar una sola palabra del título a cursiva/serif como "decoración".
+- Textos largos, precios y nombres de producto nunca en mayúsculas. No cambiar una sola palabra del título a cursiva/serif como "decoración".
 
 ## SELLOS VISUALES
 - La estrella de cuatro puntas del logo es el único ícono decorativo (archivo: public/logos/perpetuo-estrella.png, recortado del original). Nada de corazones, brillos genéricos ni emojis.
-- Botones tipo píldora, color sólido, letra gruesa. Tarjetas con esquinas de 24px.
+- Botones tipo píldora, color sólido, letra gruesa. ✔ (v3) Fotos, tarjetas y bloques con ESQUINAS RECTAS, de borde a borde y casi sin espacio entre ellas (estilo Studs).
+- Usar la estrella con moderación (franja que se mueve, sellos). Evitar el "look de plantilla IA": nada de tarjetas redondeadas con sombra suave, cajas punteadas, degradados ni exceso de aire.
 - Chips de subcategoría con foto en círculo y borde fino.
 - Logo: public/logos/perpetuo-monograma.png (monograma recortado sin fondo). Originales en public/logos/originales. Falta versión horizontal y versión clara para fondos oscuros. Nunca redibujar ni reescribir el logotipo.
 
@@ -88,4 +89,4 @@ Fotos con personalidad, luz natural, fondos lisos en la paleta, la mitad con la 
 
 ## ESTADO
 - [x] Etapa 1: tokens y componentes base (aprobada). Muestrario interno en /componentes (no sale en Google). Dominio confirmado: perpetuojoyeria.com.
-- [ ] Etapa 2: Home (en revisión). Datos: home.json, looks.json, mystery-box.json (valores de ejemplo).
+- [ ] Etapa 2: Home. Primera versión RECHAZADA ("se ve hecha por Claude"). Rediseño v3 estilo Studs en revisión. Datos: home.json, looks.json, mystery-box.json (valores de ejemplo).
