@@ -25,6 +25,7 @@ const textoDe = (p: (typeof productos)[number]) => {
   </CabezaPagina>
 
   <p class="buscar__estado relleno" aria-live="polite" data-estado></p>
+  <h2 class="solo-lector">Resultados</h2>
   <ul class="buscar__grilla" role="list" data-resultados>
     {productos.map((p) => <li data-texto={textoDe(p)} hidden><TarjetaProducto producto={p} /></li>)}
   </ul>

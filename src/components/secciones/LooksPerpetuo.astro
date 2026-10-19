@@ -12,6 +12,7 @@ import home from '../../data/home.json';
 interface Props { pagina?: boolean }   // pagina = true en /looks: sin título propio y una debajo de otra en celular
 const { pagina = false } = Astro.props;
 const textos = home.looks;
+const TituloLook = pagina ? 'h2' : 'h3';
 const looks = datosLooks.looks.map((look) => {
   const piezas = look.puntos.map((pt, i) => {
     const p = productos.find((x) => x.slug === pt.producto);
@@ -69,7 +70,7 @@ const looks = datosLooks.looks.map((look) => {
         </div>
 
         <div class="look__info">
-          <h3 class="look__nombre">{look.nombre}</h3>
+          <TituloLook class="look__nombre">{look.nombre}</TituloLook>
           <p class="look__frase">{look.frase}</p>
           <ol class="look__lista">
             {look.piezas.map((pz) => (

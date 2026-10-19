@@ -54,6 +54,7 @@ const metalesDisponibles = (['plata', 'oro', 'rodio'] as const).filter((m) => li
       </div>
     </div>
 
+    <h2 class="solo-lector">Piezas</h2>
     <ul class="catalogo__grilla" role="list">
       {lista.map((p, i) => <li data-item><TarjetaProducto producto={p} prioridad={i < 4} /></li>)}
     </ul>

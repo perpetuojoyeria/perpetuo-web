@@ -12,7 +12,7 @@
   --perla: #FFFDCB;      /* SOLO botones, sellos de precio y etiquetas. Nunca fondo general */
 
   /* Transparencias de esos mismos colores (no son colores nuevos) */
-  --noche-70: rgb(46 65 108 / 0.7);   /* texto secundario */
+  --noche-70: rgb(46 65 108 / 0.78);  /* texto secundario (78%: pasa contraste AA en Hueso y Perla) */
   --noche-30: rgb(46 65 108 / 0.3);   /* rodio en los punticos */
   --linea: rgb(46 65 108 / 0.18);     /* bordes finos */
   --linea-suave: rgb(46 65 108 / 0.08);
