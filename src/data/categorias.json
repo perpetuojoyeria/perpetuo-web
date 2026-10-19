@@ -1,31 +1,51 @@
 {
-  "_instrucciones": "Categorías del catálogo y sus subcategorías (los chips con foto). 'nota' describe la foto que va en cada chip mientras no exista.",
+  "_instrucciones": "Categorías del catálogo y sus subcategorías (los chips con foto). 'nota' describe la foto que va en cada chip mientras no exista. Si una categoría tiene menos de 2 subcategorías, no se muestran los circulitos.",
   "categorias": [
-    { "slug": "aretes", "nombre": "Aretes", "frase": "Para las que apilan.",
+    {
+      "slug": "aretes",
+      "nombre": "Aretes",
+      "frase": "Para las que apilan.",
+      "subcategorias": []
+    },
+    {
+      "slug": "collares",
+      "nombre": "Collares",
+      "frase": "Por capas, siempre.",
       "subcategorias": [
-        { "slug": "argollas", "nombre": "Argollas", "nota": "Argollas puestas, oreja de perfil" },
-        { "slug": "topos", "nombre": "Topos", "nota": "Topitos sobre fondo liso" },
-        { "slug": "ear-cuffs", "nombre": "Ear cuffs", "nota": "Ear cuff en la parte alta de la oreja" }
-      ] },
-    { "slug": "collares", "nombre": "Collares", "frase": "Por capas, siempre.",
-      "subcategorias": [
-        { "slug": "cadenas", "nombre": "Cadenas", "nota": "Cadenas finas en el cuello" },
-        { "slug": "dijes", "nombre": "Dijes", "nota": "Dije de cerca en la mano" }
-      ] },
-    { "slug": "anillos", "nombre": "Anillos", "frase": "Uno nunca es suficiente.",
-      "subcategorias": [
-        { "slug": "lisos", "nombre": "Lisos", "nota": "Anillos lisos apilados en un dedo" },
-        { "slug": "midi", "nombre": "Midi", "nota": "Anillo midi en la falange" }
-      ] },
-    { "slug": "pulseras", "nombre": "Pulseras", "frase": "El brillo de cada día.",
-      "subcategorias": [
-        { "slug": "tenis", "nombre": "Tenis", "nota": "Pulsera tenis en la muñeca" },
-        { "slug": "esclavas", "nombre": "Esclavas", "nota": "Esclavas combinadas con reloj" }
-      ] },
-    { "slug": "sets", "nombre": "Sets", "frase": "Ya vienen combinados.",
-      "subcategorias": [
-        { "slug": "sets-de-aretes", "nombre": "De aretes", "nota": "Oreja con tres piezas apiladas" },
-        { "slug": "sets-de-collares", "nombre": "De collares", "nota": "Dos cadenas en capas" }
-      ] }
+        {
+          "slug": "cadenas",
+          "nombre": "Cadenas",
+          "nota": "Cadenas finas en el cuello"
+        },
+        {
+          "slug": "gargantillas",
+          "nombre": "Gargantillas",
+          "nota": "Gargantilla de piedras en el cuello"
+        },
+        {
+          "slug": "dijes",
+          "nombre": "Dijes",
+          "nota": "Dije de cerca en la mano"
+        }
+      ]
+    },
+    {
+      "slug": "anillos",
+      "nombre": "Anillos",
+      "frase": "Uno nunca es suficiente.",
+      "subcategorias": []
+    },
+    {
+      "slug": "pulseras",
+      "nombre": "Pulseras",
+      "frase": "El brillo de cada día.",
+      "subcategorias": []
+    },
+    {
+      "slug": "sets",
+      "nombre": "Sets",
+      "frase": "Ya vienen combinados.",
+      "subcategorias": []
+    }
   ]
 }

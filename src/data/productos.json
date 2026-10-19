@@ -1,429 +1,983 @@
 {
-  "_instrucciones": "Productos de la tienda. Estos 12 son EJEMPLOS (placeholder: true): nombres, precios y micras deben reemplazarse por los reales. Precios en pesos sin puntos (89900 = $89.900). Metales posibles: plata, oro, rodio.",
+  "_instrucciones": "Productos reales, sacados del inventario (solo los disponibles). Precios en pesos sin puntos (20000 = $20.000). Metales: plata, oro, rodio. Cuando vendas una pieza única, cambia \"disponible\" a false y desaparece de la página. \"medida\" es el largo o la talla. \"hipoalergenico\": true/false (null = por confirmar). Las fotos van en public/fotos/productos con el nombre de \"src\".",
   "productos": [
     {
-      "placeholder": true,
-      "slug": "mini-argollas-destello",
-      "nombre": "Mini argollas Destello",
-      "categoria": "aretes",
-      "subcategoria": "argollas",
+      "slug": "pulsera-trio-rodio",
+      "nombre": "Pulsera trío",
+      "referencia": "Pulsera trio",
+      "categoria": "pulseras",
+      "subcategoria": null,
       "metales": [
-        "plata",
-        "oro",
         "rodio"
       ],
       "precios": {
-        "plata": 89900,
-        "oro": 109900,
-        "rodio": 49900
+        "rodio": 32000
       },
-      "etiquetas": [
-        "Favorito"
-      ],
-      "descripcion": "Las argollas que no te quitas ni para dormir. Pequeñas, livianas y con ese brillo que se nota sin gritar.",
-      "micras": {
-        "oro": "[N] micras",
-        "rodio": "[N] micras"
-      },
-      "hipoalergenico": true,
-      "fotos": [
-        {
-          "src": "/fotos/productos/mini-argollas-destello-1.jpg",
-          "alt": "mini argollas Destello en la oreja, foto de producto",
-          "nota": "Producto solo: mini argollas Destello en la oreja sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
-        },
-        {
-          "src": "/fotos/productos/mini-argollas-destello-2.jpg",
-          "alt": "mini argollas Destello en la oreja puesta",
-          "nota": "Puesta: mini argollas Destello en la oreja en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
-        }
-      ]
-    },
-    {
-      "placeholder": true,
-      "slug": "topitos-luna",
-      "nombre": "Topitos Luna",
-      "categoria": "aretes",
-      "subcategoria": "topos",
-      "metales": [
-        "plata",
-        "oro"
-      ],
-      "precios": {
-        "plata": 59900,
-        "oro": 79900
-      },
+      "medida": null,
       "etiquetas": [],
-      "descripcion": "Un puntico de luz para el segundo o tercer hueco. Combinan con todo, hasta con tu peor lunes.",
+      "descripcion": "Para mezclar con las que ya tienes.",
       "micras": {
-        "oro": "[N] micras"
+        "rodio": "[N] micras"
       },
-      "hipoalergenico": true,
+      "hipoalergenico": null,
+      "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/topitos-luna-1.jpg",
-          "alt": "topitos Luna, foto de producto",
-          "nota": "Producto solo: topitos Luna sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+          "src": "/fotos/productos/pulsera-trio-rodio-1.jpg",
+          "alt": "Pulsera trío en rodio",
+          "nota": "Producto solo: Pulsera trío (rodio) sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/topitos-luna-2.jpg",
-          "alt": "topitos Luna puesta",
-          "nota": "Puesta: topitos Luna en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+          "src": "/fotos/productos/pulsera-trio-rodio-2.jpg",
+          "alt": "Pulsera trío puesto",
+          "nota": "Puesta: Pulsera trío en la modelo, encuadre cerrado."
         }
       ]
     },
     {
-      "placeholder": true,
-      "slug": "ear-cuff-coqueta",
-      "nombre": "Ear cuff Coqueta",
-      "categoria": "aretes",
-      "subcategoria": "ear-cuffs",
+      "slug": "pulsera-d-rodio",
+      "nombre": "Pulsera D",
+      "referencia": "Pulsera D",
+      "categoria": "pulseras",
+      "subcategoria": null,
       "metales": [
-        "plata",
-        "oro",
         "rodio"
       ],
       "precios": {
-        "plata": 69900,
-        "oro": 89900,
-        "rodio": 39900
+        "rodio": 27000
       },
-      "etiquetas": [
-        "Nuevo"
-      ],
-      "descripcion": "Sin perforar y con toda la actitud. Se ajusta en la oreja y se queda ahí.",
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para mezclar con las que ya tienes.",
       "micras": {
-        "oro": "[N] micras",
         "rodio": "[N] micras"
       },
-      "hipoalergenico": true,
+      "hipoalergenico": null,
+      "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/ear-cuff-coqueta-1.jpg",
-          "alt": "ear cuff Coqueta, foto de producto",
-          "nota": "Producto solo: ear cuff Coqueta sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+          "src": "/fotos/productos/pulsera-d-rodio-1.jpg",
+          "alt": "Pulsera D en rodio",
+          "nota": "Producto solo: Pulsera D (rodio) sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/ear-cuff-coqueta-2.jpg",
-          "alt": "ear cuff Coqueta puesta",
-          "nota": "Puesta: ear cuff Coqueta en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+          "src": "/fotos/productos/pulsera-d-rodio-2.jpg",
+          "alt": "Pulsera D puesto",
+          "nota": "Puesta: Pulsera D en la modelo, encuadre cerrado."
         }
       ]
     },
     {
-      "placeholder": true,
-      "slug": "cadena-ritual",
-      "nombre": "Cadena Ritual",
+      "slug": "gargantilla-piedras-pequenas-rodio",
+      "nombre": "Gargantilla piedras pequeñas",
+      "referencia": "Gargantilla piedras pequeños",
+      "categoria": "collares",
+      "subcategoria": "gargantillas",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 26000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/gargantilla-piedras-pequenas-rodio-1.jpg",
+          "alt": "Gargantilla piedras pequeñas en rodio",
+          "nota": "Producto solo: Gargantilla piedras pequeñas (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/gargantilla-piedras-pequenas-rodio-2.jpg",
+          "alt": "Gargantilla piedras pequeñas puesto",
+          "nota": "Puesta: Gargantilla piedras pequeñas en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "gargantilla-piedras-grandes-rodio",
+      "nombre": "Gargantilla piedras grandes",
+      "referencia": "Gargantilla piedras grandes",
+      "categoria": "collares",
+      "subcategoria": "gargantillas",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 30000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/gargantilla-piedras-grandes-rodio-1.jpg",
+          "alt": "Gargantilla piedras grandes en rodio",
+          "nota": "Producto solo: Gargantilla piedras grandes (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/gargantilla-piedras-grandes-rodio-2.jpg",
+          "alt": "Gargantilla piedras grandes puesto",
+          "nota": "Puesta: Gargantilla piedras grandes en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "gargantilla-piedra-rosada-rodio",
+      "nombre": "Gargantilla piedra rosada",
+      "referencia": "Gargantilla piedra rosada",
+      "categoria": "collares",
+      "subcategoria": "gargantillas",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 35000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/gargantilla-piedra-rosada-rodio-1.jpg",
+          "alt": "Gargantilla piedra rosada en rodio",
+          "nota": "Producto solo: Gargantilla piedra rosada (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/gargantilla-piedra-rosada-rodio-2.jpg",
+          "alt": "Gargantilla piedra rosada puesto",
+          "nota": "Puesta: Gargantilla piedra rosada en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "collar-plano-rodio",
+      "nombre": "Collar plano",
+      "referencia": "Collar plano",
       "categoria": "collares",
       "subcategoria": "cadenas",
       "metales": [
-        "plata",
-        "oro",
         "rodio"
       ],
       "precios": {
-        "plata": 129900,
-        "oro": 159900,
-        "rodio": 69900
+        "rodio": 20000
       },
-      "etiquetas": [
-        "Favorito"
-      ],
-      "descripcion": "La base de todas las capas. Fina, resistente y lista para que le cuelgues lo que quieras.",
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
       "micras": {
-        "oro": "[N] micras",
         "rodio": "[N] micras"
       },
-      "hipoalergenico": true,
+      "hipoalergenico": null,
+      "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/cadena-ritual-1.jpg",
-          "alt": "cadena Ritual en el cuello, foto de producto",
-          "nota": "Producto solo: cadena Ritual en el cuello sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+          "src": "/fotos/productos/collar-plano-rodio-1.jpg",
+          "alt": "Collar plano en rodio",
+          "nota": "Producto solo: Collar plano (rodio) sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/cadena-ritual-2.jpg",
-          "alt": "cadena Ritual en el cuello puesta",
-          "nota": "Puesta: cadena Ritual en el cuello en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+          "src": "/fotos/productos/collar-plano-rodio-2.jpg",
+          "alt": "Collar plano puesto",
+          "nota": "Puesta: Collar plano en la modelo, encuadre cerrado."
+        }
+      ],
+      "cantidad": 2
+    },
+    {
+      "slug": "collar-cedh-plata",
+      "nombre": "Collar CEDH",
+      "referencia": "CEDH",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "plata"
+      ],
+      "precios": {
+        "plata": 75000
+      },
+      "medida": "40 cm",
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {},
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/collar-cedh-plata-1.jpg",
+          "alt": "Collar CEDH en plata",
+          "nota": "Producto solo: Collar CEDH (plata) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/collar-cedh-plata-2.jpg",
+          "alt": "Collar CEDH puesto",
+          "nota": "Puesta: Collar CEDH en la modelo, encuadre cerrado."
+        }
+      ],
+      "_nota": "Nombre provisional: en el inventario solo aparece la referencia CEDH. Cámbialo por un nombre bonito."
+    },
+    {
+      "slug": "cadena-cubana-plata",
+      "nombre": "Cadena Cubana",
+      "referencia": "Cubana",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "plata"
+      ],
+      "precios": {
+        "plata": 140000
+      },
+      "medida": "45 cm",
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {},
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/cadena-cubana-plata-1.jpg",
+          "alt": "Cadena Cubana en plata",
+          "nota": "Producto solo: Cadena Cubana (plata) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/cadena-cubana-plata-2.jpg",
+          "alt": "Cadena Cubana puesto",
+          "nota": "Puesta: Cadena Cubana en la modelo, encuadre cerrado."
         }
       ]
     },
     {
-      "placeholder": true,
-      "slug": "dije-inicial",
-      "nombre": "Dije Inicial",
+      "slug": "collar-lazo-plata",
+      "nombre": "Collar Lazo",
+      "referencia": "Lazo",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "plata"
+      ],
+      "precios": {
+        "plata": 150000
+      },
+      "medida": "45 cm",
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {},
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/collar-lazo-plata-1.jpg",
+          "alt": "Collar Lazo en plata",
+          "nota": "Producto solo: Collar Lazo (plata) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/collar-lazo-plata-2.jpg",
+          "alt": "Collar Lazo puesto",
+          "nota": "Puesta: Collar Lazo en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "pulsera-lazo-plata",
+      "nombre": "Pulsera Lazo",
+      "referencia": "Lazo",
+      "categoria": "pulseras",
+      "subcategoria": null,
+      "metales": [
+        "plata"
+      ],
+      "precios": {
+        "plata": 100000
+      },
+      "medida": "20 cm",
+      "etiquetas": [],
+      "descripcion": "Para mezclar con las que ya tienes.",
+      "micras": {},
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/pulsera-lazo-plata-1.jpg",
+          "alt": "Pulsera Lazo en plata",
+          "nota": "Producto solo: Pulsera Lazo (plata) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/pulsera-lazo-plata-2.jpg",
+          "alt": "Pulsera Lazo puesto",
+          "nota": "Puesta: Pulsera Lazo en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "dije-virgen-moneda-plata",
+      "nombre": "Dije virgen moneda",
+      "referencia": "Dije virgen moneda",
       "categoria": "collares",
       "subcategoria": "dijes",
       "metales": [
-        "plata",
-        "oro"
+        "plata"
       ],
       "precios": {
-        "plata": 99900,
-        "oro": 129900
+        "plata": 55000
       },
+      "medida": null,
       "etiquetas": [],
-      "descripcion": "Tu letra, la de tu mamá o la de tu persona favorita. Un regalo que dice mucho con una sola letra.",
-      "micras": {
-        "oro": "[N] micras"
-      },
-      "hipoalergenico": true,
+      "descripcion": "Para colgarle a tu cadena favorita.",
+      "micras": {},
+      "hipoalergenico": null,
+      "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/dije-inicial-1.jpg",
-          "alt": "dije Inicial, foto de producto",
-          "nota": "Producto solo: dije Inicial sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+          "src": "/fotos/productos/dije-virgen-moneda-plata-1.jpg",
+          "alt": "Dije virgen moneda en plata",
+          "nota": "Producto solo: Dije virgen moneda (plata) sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/dije-inicial-2.jpg",
-          "alt": "dije Inicial puesta",
-          "nota": "Puesta: dije Inicial en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+          "src": "/fotos/productos/dije-virgen-moneda-plata-2.jpg",
+          "alt": "Dije virgen moneda puesto",
+          "nota": "Puesta: Dije virgen moneda en la modelo, encuadre cerrado."
         }
       ]
     },
     {
-      "placeholder": true,
-      "slug": "cadena-rolo",
-      "nombre": "Cadena Rolo",
+      "slug": "dije-virgen-diamante-plata",
+      "nombre": "Dije virgen diamante",
+      "referencia": "Dije virgen diamante",
+      "categoria": "collares",
+      "subcategoria": "dijes",
+      "metales": [
+        "plata"
+      ],
+      "precios": {
+        "plata": 75000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para colgarle a tu cadena favorita.",
+      "micras": {},
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/dije-virgen-diamante-plata-1.jpg",
+          "alt": "Dije virgen diamante en plata",
+          "nota": "Producto solo: Dije virgen diamante (plata) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/dije-virgen-diamante-plata-2.jpg",
+          "alt": "Dije virgen diamante puesto",
+          "nota": "Puesta: Dije virgen diamante en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "anillo-diamante-plata",
+      "nombre": "Anillo diamante",
+      "referencia": "Anillo diamante",
+      "categoria": "anillos",
+      "subcategoria": null,
+      "metales": [
+        "plata"
+      ],
+      "precios": {
+        "plata": 68000
+      },
+      "medida": "Talla 7",
+      "etiquetas": [],
+      "descripcion": "Para apilar o lucir solo.",
+      "micras": {},
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/anillo-diamante-plata-1.jpg",
+          "alt": "Anillo diamante en plata",
+          "nota": "Producto solo: Anillo diamante (plata) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/anillo-diamante-plata-2.jpg",
+          "alt": "Anillo diamante puesto",
+          "nota": "Puesta: Anillo diamante en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "cadena-delgada-plata",
+      "nombre": "Cadena delgada",
+      "referencia": "Cadena delgada",
       "categoria": "collares",
       "subcategoria": "cadenas",
       "metales": [
-        "plata",
-        "rodio"
+        "plata"
       ],
       "precios": {
-        "plata": 149900,
-        "rodio": 79900
+        "plata": 90000
       },
+      "medida": "60 cm",
       "etiquetas": [],
-      "descripcion": "Eslabones redondos que juegan con la luz. Sola ya es un look; en capas, es otro nivel.",
-      "micras": {
-        "rodio": "[N] micras"
-      },
-      "hipoalergenico": true,
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {},
+      "hipoalergenico": null,
+      "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/cadena-rolo-1.jpg",
-          "alt": "cadena Rolo, foto de producto",
-          "nota": "Producto solo: cadena Rolo sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+          "src": "/fotos/productos/cadena-delgada-plata-1.jpg",
+          "alt": "Cadena delgada en plata",
+          "nota": "Producto solo: Cadena delgada (plata) sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/cadena-rolo-2.jpg",
-          "alt": "cadena Rolo puesta",
-          "nota": "Puesta: cadena Rolo en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+          "src": "/fotos/productos/cadena-delgada-plata-2.jpg",
+          "alt": "Cadena delgada puesto",
+          "nota": "Puesta: Cadena delgada en la modelo, encuadre cerrado."
         }
       ]
     },
     {
-      "placeholder": true,
-      "slug": "anillo-para-siempre",
-      "nombre": "Anillo Para Siempre",
+      "slug": "collar-ihaco-oro",
+      "nombre": "Collar IHACO",
+      "referencia": "IHACO",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "oro"
+      ],
+      "precios": {
+        "oro": 150000
+      },
+      "medida": "45 cm",
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {
+        "oro": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/collar-ihaco-oro-1.jpg",
+          "alt": "Collar IHACO en oro laminado",
+          "nota": "Producto solo: Collar IHACO (oro laminado) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/collar-ihaco-oro-2.jpg",
+          "alt": "Collar IHACO puesto",
+          "nota": "Puesta: Collar IHACO en la modelo, encuadre cerrado."
+        }
+      ],
+      "_nota": "Nombre provisional: en el inventario solo aparece la referencia IHACO. Cámbialo por un nombre bonito."
+    },
+    {
+      "slug": "aretes-difo-oro",
+      "nombre": "Aretes DIFO",
+      "referencia": "DIFO",
+      "categoria": "aretes",
+      "subcategoria": null,
+      "metales": [
+        "oro"
+      ],
+      "precios": {
+        "oro": 100000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para tu oreja apilada o para usar solos.",
+      "micras": {
+        "oro": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/aretes-difo-oro-1.jpg",
+          "alt": "Aretes DIFO en oro laminado",
+          "nota": "Producto solo: Aretes DIFO (oro laminado) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/aretes-difo-oro-2.jpg",
+          "alt": "Aretes DIFO puesto",
+          "nota": "Puesta: Aretes DIFO en la modelo, encuadre cerrado."
+        }
+      ],
+      "_nota": "Nombre provisional: en el inventario solo aparece la referencia DIFO. Cámbialo por un nombre bonito."
+    },
+    {
+      "slug": "aretes-fhho-oro",
+      "nombre": "Aretes FHHO",
+      "referencia": "FHHO",
+      "categoria": "aretes",
+      "subcategoria": null,
+      "metales": [
+        "oro"
+      ],
+      "precios": {
+        "oro": 137000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para tu oreja apilada o para usar solos.",
+      "micras": {
+        "oro": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/aretes-fhho-oro-1.jpg",
+          "alt": "Aretes FHHO en oro laminado",
+          "nota": "Producto solo: Aretes FHHO (oro laminado) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/aretes-fhho-oro-2.jpg",
+          "alt": "Aretes FHHO puesto",
+          "nota": "Puesta: Aretes FHHO en la modelo, encuadre cerrado."
+        }
+      ],
+      "_nota": "Nombre provisional: en el inventario solo aparece la referencia FHHO. Cámbialo por un nombre bonito."
+    },
+    {
+      "slug": "anillo-ghie-oro",
+      "nombre": "Anillo GHIE",
+      "referencia": "GHIE",
       "categoria": "anillos",
-      "subcategoria": "lisos",
+      "subcategoria": null,
       "metales": [
-        "plata",
-        "oro",
-        "rodio"
-      ],
-      "precios": {
-        "plata": 79900,
-        "oro": 99900,
-        "rodio": 44900
-      },
-      "etiquetas": [
-        "Favorito"
-      ],
-      "descripcion": "Liso, delgado y fácil de apilar. El que te pones hoy y sigue ahí en cinco años.",
-      "micras": {
-        "oro": "[N] micras",
-        "rodio": "[N] micras"
-      },
-      "hipoalergenico": true,
-      "fotos": [
-        {
-          "src": "/fotos/productos/anillo-para-siempre-1.jpg",
-          "alt": "anillo Para Siempre en la mano, foto de producto",
-          "nota": "Producto solo: anillo Para Siempre en la mano sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
-        },
-        {
-          "src": "/fotos/productos/anillo-para-siempre-2.jpg",
-          "alt": "anillo Para Siempre en la mano puesta",
-          "nota": "Puesta: anillo Para Siempre en la mano en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
-        }
-      ]
-    },
-    {
-      "placeholder": true,
-      "slug": "midi-chispa",
-      "nombre": "Midi Chispa",
-      "categoria": "anillos",
-      "subcategoria": "midi",
-      "metales": [
-        "plata",
         "oro"
       ],
       "precios": {
-        "plata": 64900,
-        "oro": 84900
+        "oro": 130000
       },
+      "medida": "Talla 7",
       "etiquetas": [],
-      "descripcion": "Para la falange de arriba. Chiquito, atrevido y con un destello que se ve en cada foto.",
+      "descripcion": "Para apilar o lucir solo.",
       "micras": {
         "oro": "[N] micras"
       },
-      "hipoalergenico": true,
+      "hipoalergenico": null,
+      "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/midi-chispa-1.jpg",
-          "alt": "anillo midi Chispa, foto de producto",
-          "nota": "Producto solo: anillo midi Chispa sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+          "src": "/fotos/productos/anillo-ghie-oro-1.jpg",
+          "alt": "Anillo GHIE en oro laminado",
+          "nota": "Producto solo: Anillo GHIE (oro laminado) sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/midi-chispa-2.jpg",
-          "alt": "anillo midi Chispa puesta",
-          "nota": "Puesta: anillo midi Chispa en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+          "src": "/fotos/productos/anillo-ghie-oro-2.jpg",
+          "alt": "Anillo GHIE puesto",
+          "nota": "Puesta: Anillo GHIE en la modelo, encuadre cerrado."
         }
-      ]
+      ],
+      "_nota": "Nombre provisional: en el inventario solo aparece la referencia GHIE. Cámbialo por un nombre bonito."
     },
     {
-      "placeholder": true,
-      "slug": "tenis-brillo",
-      "nombre": "Pulsera Tenis Brillo",
-      "categoria": "pulseras",
-      "subcategoria": "tenis",
+      "slug": "topos-circulo-oro",
+      "nombre": "Topos círculo",
+      "referencia": "Topos circulo",
+      "categoria": "aretes",
+      "subcategoria": null,
       "metales": [
-        "plata",
-        "oro",
-        "rodio"
-      ],
-      "precios": {
-        "plata": 189900,
-        "oro": 229900,
-        "rodio": 99900
-      },
-      "etiquetas": [
-        "Nuevo"
-      ],
-      "descripcion": "Una fila de circones que brilla con cada movimiento. Elegante sin pedir permiso.",
-      "micras": {
-        "oro": "[N] micras",
-        "rodio": "[N] micras"
-      },
-      "hipoalergenico": true,
-      "fotos": [
-        {
-          "src": "/fotos/productos/tenis-brillo-1.jpg",
-          "alt": "pulsera Tenis Brillo en la muñeca, foto de producto",
-          "nota": "Producto solo: pulsera Tenis Brillo en la muñeca sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
-        },
-        {
-          "src": "/fotos/productos/tenis-brillo-2.jpg",
-          "alt": "pulsera Tenis Brillo en la muñeca puesta",
-          "nota": "Puesta: pulsera Tenis Brillo en la muñeca en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
-        }
-      ]
-    },
-    {
-      "placeholder": true,
-      "slug": "esclava-diaria",
-      "nombre": "Esclava Diaria",
-      "categoria": "pulseras",
-      "subcategoria": "esclavas",
-      "metales": [
-        "plata",
         "oro"
       ],
       "precios": {
-        "plata": 119900,
-        "oro": 149900
+        "oro": 70000
       },
+      "medida": null,
       "etiquetas": [],
-      "descripcion": "Rígida, fina y cómoda. Se mezcla con tu reloj y con todo lo que ya tienes.",
+      "descripcion": "Para tu oreja apilada o para usar solos.",
       "micras": {
         "oro": "[N] micras"
       },
-      "hipoalergenico": true,
+      "hipoalergenico": null,
+      "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/esclava-diaria-1.jpg",
-          "alt": "esclava Diaria, foto de producto",
-          "nota": "Producto solo: esclava Diaria sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+          "src": "/fotos/productos/topos-circulo-oro-1.jpg",
+          "alt": "Topos círculo en oro laminado",
+          "nota": "Producto solo: Topos círculo (oro laminado) sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/esclava-diaria-2.jpg",
-          "alt": "esclava Diaria puesta",
-          "nota": "Puesta: esclava Diaria en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+          "src": "/fotos/productos/topos-circulo-oro-2.jpg",
+          "alt": "Topos círculo puesto",
+          "nota": "Puesta: Topos círculo en la modelo, encuadre cerrado."
         }
       ]
     },
     {
-      "placeholder": true,
-      "slug": "set-oreja-apilada",
-      "nombre": "Set Oreja Apilada",
-      "categoria": "sets",
-      "subcategoria": "sets-de-aretes",
+      "slug": "cadena-sol-rodio",
+      "nombre": "Cadena sol",
+      "referencia": "Cadena sol",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
       "metales": [
-        "plata",
-        "oro",
         "rodio"
       ],
       "precios": {
-        "plata": 179900,
-        "oro": 219900,
-        "rodio": 89900
+        "rodio": 20000
       },
-      "etiquetas": [
-        "Favorito"
-      ],
-      "descripcion": "Tres piezas pensadas para usarse juntas: argolla, topito y ear cuff. Cero esfuerzo, todo el brillo.",
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
       "micras": {
-        "oro": "[N] micras",
         "rodio": "[N] micras"
       },
-      "hipoalergenico": true,
+      "hipoalergenico": null,
+      "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/set-oreja-apilada-1.jpg",
-          "alt": "set Oreja Apilada en la oreja, foto de producto",
-          "nota": "Producto solo: set Oreja Apilada en la oreja sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+          "src": "/fotos/productos/cadena-sol-rodio-1.jpg",
+          "alt": "Cadena sol en rodio",
+          "nota": "Producto solo: Cadena sol (rodio) sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/set-oreja-apilada-2.jpg",
-          "alt": "set Oreja Apilada en la oreja puesta",
-          "nota": "Puesta: set Oreja Apilada en la oreja en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+          "src": "/fotos/productos/cadena-sol-rodio-2.jpg",
+          "alt": "Cadena sol puesto",
+          "nota": "Puesta: Cadena sol en la modelo, encuadre cerrado."
         }
       ]
     },
     {
-      "placeholder": true,
-      "slug": "set-capas-dobles",
-      "nombre": "Set Capas Dobles",
-      "categoria": "sets",
-      "subcategoria": "sets-de-collares",
+      "slug": "dije-caballito-de-mar-rodio",
+      "nombre": "Dije caballito de mar",
+      "referencia": "Dije caballo mar",
+      "categoria": "collares",
+      "subcategoria": "dijes",
       "metales": [
-        "plata",
-        "oro"
+        "rodio"
       ],
       "precios": {
-        "plata": 239900,
-        "oro": 289900
+        "rodio": 10000
       },
+      "medida": null,
       "etiquetas": [],
-      "descripcion": "Dos cadenas de largos distintos que ya vienen combinadas. Póntelas y listo, cero enredos.",
+      "descripcion": "Para colgarle a tu cadena favorita.",
       "micras": {
-        "oro": "[N] micras"
+        "rodio": "[N] micras"
       },
-      "hipoalergenico": true,
+      "hipoalergenico": null,
+      "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/set-capas-dobles-1.jpg",
-          "alt": "set Capas Dobles en el cuello, foto de producto",
-          "nota": "Producto solo: set Capas Dobles en el cuello sobre fondo liso Blanco Hueso, luz natural de ventana, sombra suave."
+          "src": "/fotos/productos/dije-caballito-de-mar-rodio-1.jpg",
+          "alt": "Dije caballito de mar en rodio",
+          "nota": "Producto solo: Dije caballito de mar (rodio) sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/set-capas-dobles-2.jpg",
-          "alt": "set Capas Dobles en el cuello puesta",
-          "nota": "Puesta: set Capas Dobles en el cuello en la modelo, encuadre cerrado, piel natural, fondo liso Azul Noche."
+          "src": "/fotos/productos/dije-caballito-de-mar-rodio-2.jpg",
+          "alt": "Dije caballito de mar puesto",
+          "nota": "Puesta: Dije caballito de mar en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "cadena-cereza-rodio",
+      "nombre": "Cadena cereza",
+      "referencia": "Cadena cereza",
+      "categoria": "collares",
+      "subcategoria": "dijes",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 20000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para colgarle a tu cadena favorita.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/cadena-cereza-rodio-1.jpg",
+          "alt": "Cadena cereza en rodio",
+          "nota": "Producto solo: Cadena cereza (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/cadena-cereza-rodio-2.jpg",
+          "alt": "Cadena cereza puesto",
+          "nota": "Puesta: Cadena cereza en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "cadena-eslabones-mini-rodio",
+      "nombre": "Cadena eslabones mini",
+      "referencia": "Cadena eslabones mini",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 20000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/cadena-eslabones-mini-rodio-1.jpg",
+          "alt": "Cadena eslabones mini en rodio",
+          "nota": "Producto solo: Cadena eslabones mini (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/cadena-eslabones-mini-rodio-2.jpg",
+          "alt": "Cadena eslabones mini puesto",
+          "nota": "Puesta: Cadena eslabones mini en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "cadena-eslabones-mediana-rodio",
+      "nombre": "Cadena eslabones mediana",
+      "referencia": "Cadena eslabones mediana",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 32000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/cadena-eslabones-mediana-rodio-1.jpg",
+          "alt": "Cadena eslabones mediana en rodio",
+          "nota": "Producto solo: Cadena eslabones mediana (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/cadena-eslabones-mediana-rodio-2.jpg",
+          "alt": "Cadena eslabones mediana puesto",
+          "nota": "Puesta: Cadena eslabones mediana en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "dije-avion-rodio",
+      "nombre": "Dije avión",
+      "referencia": "Dije avion",
+      "categoria": "collares",
+      "subcategoria": "dijes",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 12000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para colgarle a tu cadena favorita.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/dije-avion-rodio-1.jpg",
+          "alt": "Dije avión en rodio",
+          "nota": "Producto solo: Dije avión (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/dije-avion-rodio-2.jpg",
+          "alt": "Dije avión puesto",
+          "nota": "Puesta: Dije avión en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "dije-serpiente-rodio",
+      "nombre": "Dije serpiente",
+      "referencia": "Dije serpiente",
+      "categoria": "collares",
+      "subcategoria": "dijes",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 12000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para colgarle a tu cadena favorita.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/dije-serpiente-rodio-1.jpg",
+          "alt": "Dije serpiente en rodio",
+          "nota": "Producto solo: Dije serpiente (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/dije-serpiente-rodio-2.jpg",
+          "alt": "Dije serpiente puesto",
+          "nota": "Puesta: Dije serpiente en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "dije-inicial-rodio",
+      "nombre": "Dije inicial",
+      "referencia": "Dije inicial",
+      "categoria": "collares",
+      "subcategoria": "dijes",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 12000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para colgarle a tu cadena favorita.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/dije-inicial-rodio-1.jpg",
+          "alt": "Dije inicial en rodio",
+          "nota": "Producto solo: Dije inicial (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/dije-inicial-rodio-2.jpg",
+          "alt": "Dije inicial puesto",
+          "nota": "Puesta: Dije inicial en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "dije-llaves-rodio",
+      "nombre": "Dije llaves",
+      "referencia": "Dije llaves",
+      "categoria": "collares",
+      "subcategoria": "dijes",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 12000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para colgarle a tu cadena favorita.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/dije-llaves-rodio-1.jpg",
+          "alt": "Dije llaves en rodio",
+          "nota": "Producto solo: Dije llaves (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/dije-llaves-rodio-2.jpg",
+          "alt": "Dije llaves puesto",
+          "nota": "Puesta: Dije llaves en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "dije-oso-rodio",
+      "nombre": "Dije oso",
+      "referencia": "Dije oso",
+      "categoria": "collares",
+      "subcategoria": "dijes",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 25000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para colgarle a tu cadena favorita.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/dije-oso-rodio-1.jpg",
+          "alt": "Dije oso en rodio",
+          "nota": "Producto solo: Dije oso (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/dije-oso-rodio-2.jpg",
+          "alt": "Dije oso puesto",
+          "nota": "Puesta: Dije oso en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "dije-cereza-rodio",
+      "nombre": "Dije cereza",
+      "referencia": "Dije cereza",
+      "categoria": "collares",
+      "subcategoria": "dijes",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 12000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para colgarle a tu cadena favorita.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/dije-cereza-rodio-1.jpg",
+          "alt": "Dije cereza en rodio",
+          "nota": "Producto solo: Dije cereza (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/dije-cereza-rodio-2.jpg",
+          "alt": "Dije cereza puesto",
+          "nota": "Puesta: Dije cereza en la modelo, encuadre cerrado."
         }
       ]
     }

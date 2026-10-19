@@ -37,10 +37,12 @@ const metalesDisponibles = (['plata', 'oro', 'rodio'] as const).filter((m) => li
     </header>
 
     <!-- Subcategorías: chips con foto -->
-    <div class="catalogo__chips" role="group" aria-label="Tipo de pieza">
-      <ChipFoto texto="Todo" valor="todo" activo nota={`Todos los ${categoria.nombre.toLowerCase()}`} />
-      {categoria.subcategorias.map((s) => <ChipFoto texto={s.nombre} valor={s.slug} nota={s.nota} />)}
-    </div>
+    {categoria.subcategorias.length > 1 && (
+      <div class="catalogo__chips" role="group" aria-label="Tipo de pieza">
+        <ChipFoto texto="Todo" valor="todo" activo nota={`Todos los ${categoria.nombre.toLowerCase()}`} />
+        {categoria.subcategorias.map((s) => <ChipFoto texto={s.nombre} valor={s.slug} nota={s.nota} />)}
+      </div>
+    )}
 
     <!-- Barra de filtros -->
     <div class="catalogo__barra relleno">

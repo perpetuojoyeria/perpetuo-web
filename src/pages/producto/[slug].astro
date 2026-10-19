@@ -116,7 +116,8 @@ const mensajeWhatsApp = encodeURIComponent(`¡Hola Perpetuo! Tengo una pregunta 
           <dl class="amamos__datos">
             <div><dt>Material</dt><dd data-dato="material">{datosMetal[metal].material}</dd></div>
             <div><dt>Baño</dt><dd data-dato="bano">{datosMetal[metal].bano}</dd></div>
-            <div class="amamos__ancho"><dt>Hipoalergénico</dt><dd>{p.hipoalergenico ? 'Sí, apto para piel sensible' : 'No'}</dd></div>
+            {(p as { medida?: string | null }).medida && <div class="amamos__ancho"><dt>Medida</dt><dd>{(p as { medida?: string }).medida}</dd></div>}
+            <div class="amamos__ancho"><dt>Hipoalergénico</dt><dd>{p.hipoalergenico == null ? '[POR CONFIRMAR]' : p.hipoalergenico ? 'Sí, apto para piel sensible' : 'No'}</dd></div>
             <div class="amamos__ancho"><dt>Cuidados</dt><dd>{politicas.cuidados} <a class="enlace" href="/cuidados">Ver la guía completa</a></dd></div>
           </dl>
         </section>
