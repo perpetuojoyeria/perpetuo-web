@@ -201,8 +201,8 @@
       "cantidad": 2
     },
     {
-      "slug": "collar-cedh-plata",
-      "nombre": "Collar CEDH",
+      "slug": "collar-luna-plata",
+      "nombre": "Collar Luna",
       "referencia": "CEDH",
       "categoria": "collares",
       "subcategoria": "cadenas",
@@ -220,17 +220,16 @@
       "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/collar-cedh-plata-1.jpg",
-          "alt": "Collar CEDH en plata",
-          "nota": "Producto solo: Collar CEDH (plata) sobre fondo liso, luz natural."
+          "src": "/fotos/productos/collar-luna-plata-1.jpg",
+          "alt": "Collar Luna en plata",
+          "nota": "Producto solo: Collar Luna sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/collar-cedh-plata-2.jpg",
-          "alt": "Collar CEDH puesto",
-          "nota": "Puesta: Collar CEDH en la modelo, encuadre cerrado."
+          "src": "/fotos/productos/collar-luna-plata-2.jpg",
+          "alt": "Collar Luna puesto",
+          "nota": "Puesta: Collar Luna en la modelo, encuadre cerrado."
         }
-      ],
-      "_nota": "Nombre provisional: en el inventario solo aparece la referencia CEDH. Cámbialo por un nombre bonito."
+      ]
     },
     {
       "slug": "cadena-cubana-plata",
@@ -450,8 +449,8 @@
       ]
     },
     {
-      "slug": "collar-ihaco-oro",
-      "nombre": "Collar IHACO",
+      "slug": "collar-destello-oro",
+      "nombre": "Collar Destello",
       "referencia": "IHACO",
       "categoria": "collares",
       "subcategoria": "cadenas",
@@ -471,21 +470,20 @@
       "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/collar-ihaco-oro-1.jpg",
-          "alt": "Collar IHACO en oro laminado",
-          "nota": "Producto solo: Collar IHACO (oro laminado) sobre fondo liso, luz natural."
+          "src": "/fotos/productos/collar-destello-oro-1.jpg",
+          "alt": "Collar Destello en oro laminado",
+          "nota": "Producto solo: Collar Destello sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/collar-ihaco-oro-2.jpg",
-          "alt": "Collar IHACO puesto",
-          "nota": "Puesta: Collar IHACO en la modelo, encuadre cerrado."
+          "src": "/fotos/productos/collar-destello-oro-2.jpg",
+          "alt": "Collar Destello puesto",
+          "nota": "Puesta: Collar Destello en la modelo, encuadre cerrado."
         }
-      ],
-      "_nota": "Nombre provisional: en el inventario solo aparece la referencia IHACO. Cámbialo por un nombre bonito."
+      ]
     },
     {
-      "slug": "aretes-difo-oro",
-      "nombre": "Aretes DIFO",
+      "slug": "aretes-brisa-oro",
+      "nombre": "Aretes Brisa",
       "referencia": "DIFO",
       "categoria": "aretes",
       "subcategoria": null,
@@ -505,21 +503,20 @@
       "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/aretes-difo-oro-1.jpg",
-          "alt": "Aretes DIFO en oro laminado",
-          "nota": "Producto solo: Aretes DIFO (oro laminado) sobre fondo liso, luz natural."
+          "src": "/fotos/productos/aretes-brisa-oro-1.jpg",
+          "alt": "Aretes Brisa en oro laminado",
+          "nota": "Producto solo: Aretes Brisa sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/aretes-difo-oro-2.jpg",
-          "alt": "Aretes DIFO puesto",
-          "nota": "Puesta: Aretes DIFO en la modelo, encuadre cerrado."
+          "src": "/fotos/productos/aretes-brisa-oro-2.jpg",
+          "alt": "Aretes Brisa puesto",
+          "nota": "Puesta: Aretes Brisa en la modelo, encuadre cerrado."
         }
-      ],
-      "_nota": "Nombre provisional: en el inventario solo aparece la referencia DIFO. Cámbialo por un nombre bonito."
+      ]
     },
     {
-      "slug": "aretes-fhho-oro",
-      "nombre": "Aretes FHHO",
+      "slug": "aretes-capricho-oro",
+      "nombre": "Aretes Capricho",
       "referencia": "FHHO",
       "categoria": "aretes",
       "subcategoria": null,
@@ -539,21 +536,20 @@
       "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/aretes-fhho-oro-1.jpg",
-          "alt": "Aretes FHHO en oro laminado",
-          "nota": "Producto solo: Aretes FHHO (oro laminado) sobre fondo liso, luz natural."
+          "src": "/fotos/productos/aretes-capricho-oro-1.jpg",
+          "alt": "Aretes Capricho en oro laminado",
+          "nota": "Producto solo: Aretes Capricho sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/aretes-fhho-oro-2.jpg",
-          "alt": "Aretes FHHO puesto",
-          "nota": "Puesta: Aretes FHHO en la modelo, encuadre cerrado."
+          "src": "/fotos/productos/aretes-capricho-oro-2.jpg",
+          "alt": "Aretes Capricho puesto",
+          "nota": "Puesta: Aretes Capricho en la modelo, encuadre cerrado."
         }
-      ],
-      "_nota": "Nombre provisional: en el inventario solo aparece la referencia FHHO. Cámbialo por un nombre bonito."
+      ]
     },
     {
-      "slug": "anillo-ghie-oro",
-      "nombre": "Anillo GHIE",
+      "slug": "anillo-para-siempre-oro",
+      "nombre": "Anillo Para Siempre",
       "referencia": "GHIE",
       "categoria": "anillos",
       "subcategoria": null,
@@ -573,17 +569,16 @@
       "disponible": true,
       "fotos": [
         {
-          "src": "/fotos/productos/anillo-ghie-oro-1.jpg",
-          "alt": "Anillo GHIE en oro laminado",
-          "nota": "Producto solo: Anillo GHIE (oro laminado) sobre fondo liso, luz natural."
+          "src": "/fotos/productos/anillo-para-siempre-oro-1.jpg",
+          "alt": "Anillo Para Siempre en oro laminado",
+          "nota": "Producto solo: Anillo Para Siempre sobre fondo liso, luz natural."
         },
         {
-          "src": "/fotos/productos/anillo-ghie-oro-2.jpg",
-          "alt": "Anillo GHIE puesto",
-          "nota": "Puesta: Anillo GHIE en la modelo, encuadre cerrado."
+          "src": "/fotos/productos/anillo-para-siempre-oro-2.jpg",
+          "alt": "Anillo Para Siempre puesto",
+          "nota": "Puesta: Anillo Para Siempre en la modelo, encuadre cerrado."
         }
-      ],
-      "_nota": "Nombre provisional: en el inventario solo aparece la referencia GHIE. Cámbialo por un nombre bonito."
+      ]
     },
     {
       "slug": "topos-circulo-oro",

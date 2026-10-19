@@ -6,16 +6,16 @@
       "nombre": "Oreja apilada",
       "frase": "Tres huecos, puro brillo.",
       "foto": "/fotos/looks/oreja-apilada.jpg",
-      "nota": "Primer plano de oreja de perfil con los Aretes DIFO, Aretes FHHO y Topos círculo en oro laminado. Fondo liso claro, luz de ventana. Vertical 4:5.",
+      "nota": "Primer plano de oreja de perfil con los Aretes Brisa, Aretes Capricho y Topos círculo en oro laminado. Fondo liso claro, luz de ventana. Vertical 4:5.",
       "puntos": [
         {
-          "producto": "aretes-difo-oro",
+          "producto": "aretes-brisa-oro",
           "metal": "oro",
           "x": 58,
           "y": 24
         },
         {
-          "producto": "aretes-fhho-oro",
+          "producto": "aretes-capricho-oro",
           "metal": "oro",
           "x": 44,
           "y": 52
@@ -60,7 +60,7 @@
       "nombre": "Mano con todo",
       "frase": "Mezclar metales también se vale.",
       "foto": "/fotos/looks/mano-con-todo.jpg",
-      "nota": "Mano y muñeca con el Anillo diamante, el Anillo GHIE, la Pulsera Lazo y la Pulsera trío, mezclando metales. Fondo claro. Vertical 4:5.",
+      "nota": "Mano y muñeca con el Anillo diamante, el Anillo Para Siempre, la Pulsera Lazo y la Pulsera trío, mezclando metales. Fondo claro. Vertical 4:5.",
       "puntos": [
         {
           "producto": "anillo-diamante-plata",
@@ -69,7 +69,7 @@
           "y": 20
         },
         {
-          "producto": "anillo-ghie-oro",
+          "producto": "anillo-para-siempre-oro",
           "metal": "oro",
           "x": 55,
           "y": 38
