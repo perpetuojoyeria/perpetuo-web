@@ -1,0 +1,8 @@
+# Permite que Google y los demás buscadores lean el sitio, menos las páginas privadas.
+User-agent: *
+Disallow: /bolsa
+Disallow: /cuenta
+Disallow: /buscar
+Disallow: /componentes
+
+Sitemap: https://perpetuojoyeria.com/sitemap-index.xml

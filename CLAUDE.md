@@ -94,4 +94,5 @@ Fotos con personalidad, luz natural, fondos lisos en la paleta, la mitad con la 
 - [x] Etapa 2: Home (aprobada, v3 estilo Studs). Primera versión fue rechazada ("se ve hecha por Claude"). Datos: home.json, looks.json, mystery-box.json (valores de ejemplo). La usuaria tiene fotos reales de un anillo (solitario con circones laterales y uno con esmeralda); no sirvieron para el Hero (anillo metido en terciopelo, pequeño) — posible uso en catálogo.
 - [x] Etapa 3: Catálogo y Ficha (aprobada). Rutas: /aretes, /collares, /anillos, /pulseras, /sets y /producto/[slug]. Textos de envío/cambios/garantía/cuidados en src/data/politicas.json.
 - [x] Etapa 4: Mystery Box (aprobada). Página /mystery-box.
-- [ ] Etapa 5: Bolsa (en revisión). Textos en src/data/bolsa.json. Página /bolsa, lógica en src/lib/bolsa.ts y src/lib/checkout. Pendiente ofrecido: página /looks.
+- [x] Etapa 5: Bolsa (aprobada). Textos en src/data/bolsa.json. Página /bolsa, lógica en src/lib/bolsa.ts y src/lib/checkout.
+- [ ] Etapa 6: Cuenta + páginas informativas + SEO + Cloudflare (en revisión). Páginas: /cuenta (maqueta, cuenta.json), /nosotras, /cuidados, /envios-y-cambios, /contacto (paginas.json), /looks, /buscar, 404. Plantilla src/layouts/Tienda.astro. Direcciones sin barra final (build.format file). Guía de publicación: PUBLICAR.md. Imagen para compartir: public/fotos/compartir.jpg.

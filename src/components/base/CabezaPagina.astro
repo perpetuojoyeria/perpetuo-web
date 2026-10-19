@@ -1,0 +1,31 @@
+---
+// Cabeza de las páginas internas: migas, título gigante y frase. Opcional: una franja amarilla de fondo.
+interface Props { titulo: string; frase?: string; amarilla?: boolean; migas?: boolean }
+const { titulo, frase, amarilla = false, migas = true } = Astro.props;
+---
+<header class:list={['cabeza-pagina', { 'cabeza-pagina--amarilla': amarilla }]}>
+  <div class="relleno cabeza-pagina__interior">
+    {migas && (
+      <nav class="migas" aria-label="Estás aquí">
+        <a href="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">{titulo}</span>
+      </nav>
+    )}
+    <h1 class="cabeza-pagina__titulo">{titulo}</h1>
+    {frase && <p class="cabeza-pagina__frase">{frase}</p>}
+    <slot />
+  </div>
+</header>
+
+<style>
+  .cabeza-pagina__interior { display: grid; gap: var(--e-3); justify-items: start; padding-block: var(--e-5) var(--e-6); }
+  .cabeza-pagina--amarilla { background: var(--perla); border-bottom: var(--borde-fuerte); }
+  .cabeza-pagina--amarilla .cabeza-pagina__interior { padding-bottom: var(--e-7); }
+  .migas { display: flex; flex-wrap: wrap; gap: var(--e-2); font-size: var(--t-xs); color: var(--texto-suave); }
+  .migas a { text-decoration: none; }
+  .migas a:hover { text-decoration: underline; }
+  .cabeza-pagina__titulo { font-size: var(--t-3xl); max-width: 100%; overflow-wrap: break-word; }
+  .cabeza-pagina__frase { font-size: var(--t-lg); font-weight: var(--peso-medio); max-width: 40ch; }
+  @media (min-width: 900px) {
+    .cabeza-pagina__interior { padding-block: var(--e-7) var(--e-7); }
+  }
+</style>

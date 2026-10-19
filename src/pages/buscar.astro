@@ -1,0 +1,88 @@
+---
+// Buscar: filtra las piezas en el navegador (son pocas, no hace falta servidor).
+// Busca en nombre, categoría, subcategoría, metal y descripción, sin importar tildes ni mayúsculas.
+import Tienda from '../layouts/Tienda.astro';
+import CabezaPagina from '../components/base/CabezaPagina.astro';
+import TarjetaProducto from '../components/base/TarjetaProducto.astro';
+import ChipFoto from '../components/base/ChipFoto.astro';
+import categorias from '../data/categorias.json';
+import metales from '../data/metales.json';
+import { productos } from '../lib/productos';
+
+const textoDe = (p: (typeof productos)[number]) => {
+  const cat = categorias.categorias.find((c) => c.slug === p.categoria);
+  const sub = cat?.subcategorias.find((s) => s.slug === p.subcategoria);
+  return [p.nombre, cat?.nombre, sub?.nombre, p.descripcion, ...p.metales.map((m) => metales[m].nombre)].join(' ');
+};
+---
+<Tienda titulo="Buscar" indexar={false}>
+  <CabezaPagina titulo="Buscar" migas={false}>
+    <form class="buscador" role="search" action="/buscar" method="get" data-buscador>
+      <label class="solo-lector" for="buscar-q">¿Qué brillo buscas?</label>
+      <input id="buscar-q" name="q" type="search" placeholder="Argollas, cadenas, oro…" autocomplete="off" />
+      <button class="boton boton--oscuro" type="submit">Buscar</button>
+    </form>
+  </CabezaPagina>
+
+  <p class="buscar__estado relleno" aria-live="polite" data-estado></p>
+  <ul class="buscar__grilla" role="list" data-resultados>
+    {productos.map((p) => <li data-texto={textoDe(p)} hidden><TarjetaProducto producto={p} /></li>)}
+  </ul>
+
+  <section class="buscar__sugerencias relleno" data-sugerencias aria-labelledby="sugerencias-titulo">
+    <h2 class="buscar__sub" id="sugerencias-titulo">O mira por categoría</h2>
+    <div class="buscar__chips">
+      {categorias.categorias.map((c) => <ChipFoto texto={c.nombre} enlace={`/${c.slug}`} nota={c.nombre} />)}
+    </div>
+  </section>
+</Tienda>
+
+<style>
+  .buscador { display: flex; gap: var(--e-2); width: 100%; max-width: 40rem; margin-top: var(--e-2); }
+  .buscador .boton { flex: none; }
+  .buscador input { flex: 1 1 0; width: 100%; min-width: 0; min-height: 52px; padding: 0 var(--e-4); border: var(--borde-fuerte); border-radius: var(--r-pildora); background: var(--hueso); color: var(--noche); font: inherit; font-size: var(--t-md); }
+  .buscador input:focus-visible { outline: 2px solid var(--noche); outline-offset: 2px; }
+  .buscar__estado { padding-block: var(--e-3); font-weight: var(--peso-medio); }
+  .buscar__estado:empty { display: none; }
+  .buscar__grilla { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 0; padding: 0; list-style: none; }
+  .buscar__grilla > li { min-width: 0; background: var(--hueso); box-shadow: 0 0 0 1px var(--linea); }
+  .buscar__sugerencias { display: grid; gap: var(--e-4); padding-block: var(--e-7); }
+  .buscar__sub { font-size: var(--t-md); }
+  .buscar__chips { display: flex; flex-wrap: wrap; gap: var(--e-4); }
+  @media (min-width: 900px) {
+    .buscar__grilla { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+</style>
+
+<script>
+  const limpiar = (t: string) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const form = document.querySelector<HTMLFormElement>('[data-buscador]')!;
+  const input = form.querySelector<HTMLInputElement>('input')!;
+  const items = Array.from(document.querySelectorAll<HTMLElement>('[data-resultados] > li'));
+  const estado = document.querySelector<HTMLElement>('[data-estado]')!;
+  const sugerencias = document.querySelector<HTMLElement>('[data-sugerencias]')!;
+
+  const buscar = (q: string) => {
+    const palabras = limpiar(q).split(/\s+/).filter(Boolean);
+    let n = 0;
+    items.forEach((li) => {
+      const texto = limpiar(li.dataset.texto || '');
+      const ok = palabras.length > 0 && palabras.every((p) => texto.includes(p));
+      li.hidden = !ok;
+      if (ok) n++;
+    });
+    estado.textContent = !palabras.length ? '' : n
+      ? `${n} ${n === 1 ? 'pieza' : 'piezas'} para “${q.trim()}”`
+      : `Nada para “${q.trim()}”… todavía. Prueba con otra palabra o mira por categoría.`;
+    sugerencias.hidden = n > 0;
+    const url = palabras.length ? `?q=${encodeURIComponent(q.trim())}` : location.pathname;
+    history.replaceState(null, '', url);
+  };
+
+  const inicial = new URLSearchParams(location.search).get('q') || '';
+  input.value = inicial;
+  buscar(inicial);
+  if (!inicial) input.focus();
+  form.addEventListener('submit', (e) => { e.preventDefault(); buscar(input.value); });
+  input.addEventListener('input', () => buscar(input.value));
+</script>

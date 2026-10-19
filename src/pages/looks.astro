@@ -1,0 +1,17 @@
+---
+// Looks: todas las combinaciones de src/data/looks.json, con brillos tocables y "Agregar el look completo".
+import Tienda from '../layouts/Tienda.astro';
+import CabezaPagina from '../components/base/CabezaPagina.astro';
+import LooksPerpetuo from '../components/secciones/LooksPerpetuo.astro';
+import FranjaConfianza from '../components/base/FranjaConfianza.astro';
+import home from '../data/home.json';
+---
+<Tienda titulo="Looks" descripcion="Combinaciones de aretes, collares, anillos y pulseras para armar tus capas. Toca cada brillo para ver la pieza y su precio.">
+  <CabezaPagina titulo="Looks" frase={home.looks.frase} />
+  <LooksPerpetuo pagina />
+  <section class="looks-confianza" aria-label="Compra tranquila"><FranjaConfianza /></section>
+</Tienda>
+
+<style>
+  .looks-confianza { padding-top: var(--seccion); }
+</style>

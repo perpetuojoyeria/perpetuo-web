@@ -1,0 +1,127 @@
+---
+// Contacto: WhatsApp primero (es por donde llega la gente), Instagram, correo y horario.
+// El formulario no guarda nada: arma el mensaje y abre WhatsApp.
+import Tienda from '../layouts/Tienda.astro';
+import CabezaPagina from '../components/base/CabezaPagina.astro';
+import paginas from '../data/paginas.json';
+import sitio from '../data/sitio.json';
+
+const t = paginas.contacto;
+const motivos = ['Un pedido', 'Un cambio o garantía', 'La Mystery Box', 'Un regalo', 'Otra cosa'];
+const instagramListo = !sitio.instagram.startsWith('[');
+const correoListo = !t.correo.startsWith('[');
+---
+<Tienda titulo={t.titulo} descripcion={`${t.frase} WhatsApp ${sitio.whatsappVisible}. ${sitio.nombre}, ${sitio.ciudad}.`}>
+  <CabezaPagina titulo={t.titulo} frase={t.frase} />
+
+  <div class="contacto">
+    <section class="canales" aria-label="Dónde encontrarnos">
+      <a class="canal canal--whatsapp sobre-oscuro" href={`https://wa.me/${sitio.whatsapp}`} target="_blank" rel="noopener">
+        <span class="canal__tipo">WhatsApp</span>
+        <span class="canal__valor">{sitio.whatsappVisible}</span>
+        <span class="canal__nota">{t.tiempoRespuesta}</span>
+      </a>
+      {instagramListo ? (
+        <a class="canal" href={`https://instagram.com/${sitio.instagram.replace('@', '')}`} target="_blank" rel="noopener">
+          <span class="canal__tipo">Instagram</span>
+          <span class="canal__valor">{sitio.instagram}</span>
+        </a>
+      ) : (
+        <div class="canal"><span class="canal__tipo">Instagram</span><span class="canal__valor canal__valor--chico">{sitio.instagram}</span></div>
+      )}
+      {correoListo ? (
+        <a class="canal" href={`mailto:${t.correo}`}><span class="canal__tipo">Correo</span><span class="canal__valor canal__valor--chico">{t.correo}</span></a>
+      ) : (
+        <div class="canal"><span class="canal__tipo">Correo</span><span class="canal__valor canal__valor--chico">{t.correo}</span></div>
+      )}
+      <div class="canal">
+        <span class="canal__tipo">Horario</span>
+        <span class="canal__nota">{t.horario}</span>
+        <span class="canal__nota">{sitio.ciudad}</span>
+      </div>
+    </section>
+
+    <section class="mensaje relleno" aria-labelledby="mensaje-titulo">
+      <h2 class="titulo-seccion" id="mensaje-titulo">Escríbenos</h2>
+      <form class="mensaje__form" data-mensaje data-whatsapp={sitio.whatsapp} novalidate>
+        <fieldset class="motivos">
+          <legend>¿Sobre qué?</legend>
+          <div class="motivos__lista">
+            {motivos.map((m, i) => (
+              <label class="motivo"><input type="radio" name="motivo" value={m} checked={i === 0} /><span>{m}</span></label>
+            ))}
+          </div>
+        </fieldset>
+        <div class="campo">
+          <label for="contacto-nombre">Tu nombre</label>
+          <input id="contacto-nombre" name="nombre" type="text" autocomplete="name" />
+        </div>
+        <div class="campo">
+          <label for="contacto-texto">Tu mensaje</label>
+          <textarea id="contacto-texto" name="texto" rows="4" required aria-describedby="contacto-error"></textarea>
+          <p class="campo__error" id="contacto-error" data-error hidden>Escríbenos algo cortico para saber cómo ayudarte.</p>
+        </div>
+        <button class="boton boton--oscuro" type="submit">Enviar por WhatsApp</button>
+        <p class="mensaje__nota">Se abre WhatsApp con tu mensaje listo. Aquí no guardamos nada.</p>
+      </form>
+    </section>
+  </div>
+</Tienda>
+
+<style>
+  .contacto { display: grid; border-top: var(--borde); }
+  .canales { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--junta); background: var(--noche); }
+  .canal { display: grid; gap: var(--e-1); align-content: start; padding: var(--e-5) var(--e-4); background: var(--hueso); color: var(--noche); text-decoration: none; min-width: 0; }
+  .canal:nth-child(odd) { padding-left: var(--margen); }
+  .canal:last-child { grid-column: 1 / -1; padding-left: var(--margen); }
+  .canal--whatsapp { grid-column: 1 / -1; padding: var(--e-6) var(--margen-der) var(--e-6) var(--margen); background: var(--profundo); color: var(--hueso); }
+  a.canal:hover .canal__valor { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
+  .canal__tipo { font-size: 0.6875rem; font-weight: var(--peso-boton); letter-spacing: var(--espaciado-etiqueta); text-transform: uppercase; opacity: 0.75; }
+  .canal__valor { font-family: var(--f-display); font-stretch: var(--ancho-display); font-weight: var(--peso-display); font-size: var(--t-xl); line-height: 1; overflow-wrap: anywhere; }
+  .canal--whatsapp .canal__valor { font-size: var(--t-2xl); color: var(--perla); }
+  .canal__valor--chico { font-family: var(--f-texto); font-stretch: normal; font-weight: var(--peso-boton); font-size: var(--t-sm); line-height: 1.4; }
+  .canal__nota { font-size: var(--t-sm); opacity: 0.85; }
+
+  .mensaje { display: grid; gap: var(--e-5); align-content: start; padding-block: var(--e-6) var(--e-7); }
+  .mensaje__form { display: grid; gap: var(--e-4); justify-items: start; max-width: 36rem; }
+  .motivos { margin: 0; padding: 0; border: 0; min-width: 0; }
+  .motivos legend { margin-bottom: var(--e-2); font-weight: var(--peso-boton); }
+  .motivos__lista { display: flex; flex-wrap: wrap; gap: var(--e-2); }
+  .motivo { position: relative; display: inline-flex; align-items: center; min-height: 40px; padding: 0 var(--e-4); border: var(--borde-fuerte); border-radius: var(--r-pildora); font-size: var(--t-sm); font-weight: var(--peso-boton); cursor: pointer; }
+  .motivo input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+  .motivo:has(input:checked) { background: var(--noche); color: var(--hueso); }
+  .motivo:has(input:focus-visible) { outline: 2px solid var(--noche); outline-offset: 2px; }
+  .campo { display: grid; gap: var(--e-1); width: 100%; }
+  .campo label { font-size: var(--t-sm); font-weight: var(--peso-boton); }
+  .campo input, .campo textarea { width: 100%; min-height: 48px; padding: var(--e-3); border: var(--borde-fuerte); border-radius: var(--r-chico); background: var(--hueso); color: var(--noche); font: inherit; }
+  .campo input:focus-visible, .campo textarea:focus-visible { outline: 2px solid var(--noche); outline-offset: 2px; }
+  .campo textarea[aria-invalid='true'] { border-width: 2.5px; }
+  .campo__error { font-size: var(--t-xs); font-weight: var(--peso-boton); }
+  .campo__error::before { content: '× '; }
+  .mensaje__nota { font-size: var(--t-xs); color: var(--texto-suave); }
+
+  @media (min-width: 900px) {
+    .contacto { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); align-items: stretch; border-bottom: var(--borde); }
+    .canal { padding: var(--e-6) var(--e-5); }
+    .canal--whatsapp { padding: var(--e-7) var(--e-6) var(--e-7) var(--margen); }
+    .mensaje { padding: var(--e-7) var(--e-7); }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-mensaje]');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const datos = new FormData(form);
+    const texto = String(datos.get('texto') || '').trim();
+    const area = form.elements.namedItem('texto') as HTMLTextAreaElement;
+    const error = form.querySelector<HTMLElement>('[data-error]')!;
+    area.setAttribute('aria-invalid', String(!texto));
+    error.hidden = !!texto;
+    if (!texto) { area.focus(); return; }
+    const nombre = String(datos.get('nombre') || '').trim();
+    const mensaje = [`¡Hola, Perpetuo!${nombre ? ` Soy ${nombre}.` : ''}`, `Te escribo por: ${datos.get('motivo')}`, '', texto].join('\n');
+    const url = `https://wa.me/${form.dataset.whatsapp}?text=${encodeURIComponent(mensaje)}`;
+    Object.assign(document.createElement('a'), { href: url, target: '_blank', rel: 'noopener' }).click();
+  });
+</script>

@@ -1,6 +1,7 @@
 ---
 // Home: aquí se ensamblan las secciones en orden.
 import Base from '../layouts/Base.astro';
+import sitio from '../data/sitio.json';
 import BarraAnuncio from '../components/layout/BarraAnuncio.astro';
 import Encabezado from '../components/layout/Encabezado.astro';
 import Pie from '../components/layout/Pie.astro';
@@ -11,8 +12,24 @@ import LooksPerpetuo from '../components/secciones/LooksPerpetuo.astro';
 import MysteryBoxMes from '../components/secciones/MysteryBoxMes.astro';
 import Favoritos from '../components/secciones/Favoritos.astro';
 import Confianza from '../components/secciones/Confianza.astro';
+// Datos de la tienda para Google (aparece con nombre, logo y teléfono)
+const tienda = {
+  '@context': 'https://schema.org',
+  '@type': 'JewelryStore',
+  name: sitio.nombre,
+  slogan: sitio.tagline,
+  description: sitio.descripcion,
+  url: `https://${sitio.dominio}/`,
+  logo: `https://${sitio.dominio}/logos/perpetuo-monograma.png`,
+  image: `https://${sitio.dominio}${sitio.imagenCompartir}`,
+  telephone: `+${sitio.whatsapp}`,
+  address: { '@type': 'PostalAddress', addressLocality: 'Medellín', addressCountry: 'CO' },
+  currenciesAccepted: 'COP',
+  paymentAccepted: 'PSE, Tarjeta, Contraentrega, Addi, Sistecrédito',
+};
 ---
 <Base>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(tienda)} />
   <BarraAnuncio />
   <Encabezado />
   <main>

@@ -1,0 +1,60 @@
+{
+  "_instrucciones": "Textos de las páginas Nosotras, Cuidados, Envíos y cambios, Contacto y la página de error. Cambia lo que está entre [CORCHETES] por los datos reales. Los textos de envío, cambios y garantía salen de politicas.json para que digan lo mismo en todo el sitio.",
+  "nosotras": {
+    "titulo": "Nosotras",
+    "frase": "Hechas en Medellín, pensadas para tus capas.",
+    "historia": [
+      "[CÓMO EMPEZÓ PERPETUO: quién eres, cuándo y por qué empezaste. 2 o 3 frases.]",
+      "[QUÉ TE MUEVE: por qué joyas para todos los días y no solo para ocasiones especiales.]"
+    ],
+    "foto": "/fotos/nosotras/fundadora.jpg",
+    "notaFoto": "La fundadora en su mesa de trabajo, con varias piezas puestas por capas. Luz natural, fondo liso Blanco Hueso. Vertical 4:5.",
+    "escalera": {
+      "titulo": "Tres metales, una escalera",
+      "texto": "Para que el brillo te quede a la medida del momento.",
+      "pasos": [
+        { "metal": "rodio", "nombre": "Rodio", "titulo": "Para empezar", "texto": "Tu primera pieza, el regalo de último minuto o el capricho del martes." },
+        { "metal": "plata", "nombre": "Plata 925", "titulo": "El corazón", "texto": "La que te pones todos los días y ya ni te la quitas." },
+        { "metal": "oro", "nombre": "Oro laminado", "titulo": "El capricho", "texto": "Para cuando quieres darte (o dar) algo con más brillo." }
+      ]
+    },
+    "cierre": "Joyas para usar, no para guardar."
+  },
+  "cuidados": {
+    "titulo": "Cuidados",
+    "frase": "Un ritual cortico para que el brillo se quede.",
+    "reglas": [
+      { "titulo": "Lo último en ponerte", "texto": "Primero perfume, crema y maquillaje. Después la joya." },
+      { "titulo": "Lo primero en quitarte", "texto": "Antes de bañarte, nadar, hacer ejercicio o dormir." },
+      { "titulo": "Seca y separada", "texto": "Guárdala seca, en su bolsita, lejos de las demás para que no se rayen." },
+      { "titulo": "Paño suave", "texto": "Límpiala con un paño suave y seco. Nada de cepillos ni químicos." }
+    ],
+    "metales": [
+      { "metal": "plata", "nombre": "Plata 925", "texto": "Con el tiempo la plata se oscurece un poquito: es normal y pasa más rápido si no la usas. Frótala con un paño para plata y vuelve a brillar. [RECOMENDACIÓN DE PRODUCTO DE LIMPIEZA, SI TIENES UNA]" },
+      { "metal": "oro", "nombre": "Oro laminado", "texto": "Tiene una capa de oro de [N] micras. Evita el agua con cloro, el perfume directo y los productos de limpieza para que dure más." },
+      { "metal": "rodio", "nombre": "Rodio", "texto": "El baño de rodio le da ese blanco brillante. Trátala con cariño: sin roces fuertes ni químicos. [CUÁNTO DURA EL BAÑO CON BUEN USO]" }
+    ]
+  },
+  "envios": {
+    "titulo": "Envíos y cambios",
+    "frase": "Lo claro, claro. Sin letra pequeña.",
+    "costo": "Envío gratis desde $250.000. Por debajo, el envío cuesta [COSTO DE ENVÍO] y te lo confirmamos por WhatsApp.",
+    "contraentrega": "Contraentrega disponible en [CIUDADES CON CONTRAENTREGA].",
+    "comoCambiar": [
+      "Escríbenos por WhatsApp con tu número de pedido y una foto de la pieza.",
+      "Te confirmamos el cambio y cómo enviarla.",
+      "Cuando la recibimos, te mandamos la nueva. [QUIÉN PAGA EL ENVÍO DEL CAMBIO]"
+    ]
+  },
+  "contacto": {
+    "titulo": "Contacto",
+    "frase": "Escríbenos. Respondemos como amigas, no como robot.",
+    "horario": "[HORARIO DE ATENCIÓN, por ejemplo lunes a sábado de 9 a. m. a 6 p. m.]",
+    "correo": "[CORREO DE CONTACTO]",
+    "tiempoRespuesta": "Normalmente respondemos en [TIEMPO DE RESPUESTA]."
+  },
+  "error": {
+    "titulo": "Se nos perdió",
+    "frase": "Esta página no existe (o se fue de viaje con un arete sin su pareja)."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "_instrucciones": "MAQUETA de Mi cuenta: TODOS estos datos son de ejemplo para mostrar cómo se vería. Cuando haya cuentas de verdad, estos datos saldrán de cada clienta. Mientras tanto, los botones abren WhatsApp con el mensaje listo.",
+  "ejemplo": true,
+  "nombre": "Valentina",
+  "suscripcion": {
+    "metal": "oro",
+    "estado": "Activa",
+    "desde": "Junio",
+    "proximoCobro": "5 de noviembre",
+    "proximoEnvio": "Entre el 12 y el 15 de noviembre",
+    "direccion": "Medellín · Cra. [DIRECCIÓN DE EJEMPLO]"
+  },
+  "historial": [
+    { "mes": "Octubre", "metal": "oro", "estado": "En camino" },
+    { "mes": "Septiembre", "metal": "oro", "estado": "Entregada" },
+    { "mes": "Agosto", "metal": "plata", "estado": "Entregada" },
+    { "mes": "Julio", "metal": "plata", "estado": "Saltada" },
+    { "mes": "Junio", "metal": "plata", "estado": "Entregada" }
+  ],
+  "cancelar": {
+    "titulo": "¿Segura?",
+    "texto": "Te vamos a extrañar (y a la edición del próximo mes también). Si es por plata o por tiempo, puedes pausar o saltar un mes en vez de cancelar.",
+    "si": "Sí, cancelar",
+    "no": "Mejor me quedo"
+  }
+}

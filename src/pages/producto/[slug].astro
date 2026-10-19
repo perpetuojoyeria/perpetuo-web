@@ -36,6 +36,24 @@ const datosMetal = Object.fromEntries(p.metales.map((m) => [m, {
 }]));
 
 // "Combínalo con": piezas de otras categorías que vienen en el mismo metal
+// Datos del producto para Google (nombre, foto, precio por metal)
+const datosGoogle = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: p.nombre,
+  description: p.descripcion,
+  image: p.fotos.map((f) => `https://${sitio.dominio}${f.src}`),
+  brand: { '@type': 'Brand', name: sitio.nombre },
+  category: categoria.nombre,
+  offers: p.metales.map((m) => ({
+    '@type': 'Offer',
+    name: `${p.nombre} en ${metales[m].nombre}`,
+    price: precioDe(p, m),
+    priceCurrency: 'COP',
+    availability: 'https://schema.org/InStock',
+    url: `https://${sitio.dominio}/producto/${p.slug}${m === p.metales[0] ? '' : `?metal=${m}`}`,
+  })),
+};
 const combinan = productos
   .filter((x) => x.categoria !== p.categoria && (x.metales as string[]).includes(metal))
   .slice(0, 4);
@@ -43,6 +61,7 @@ const combinan = productos
 const mensajeWhatsApp = encodeURIComponent(`¡Hola Perpetuo! Tengo una pregunta sobre ${p.nombre}.`);
 ---
 <Base titulo={p.nombre} descripcion={`${p.nombre} en ${p.metales.map((m) => metales[m].nombre).join(', ')}. ${p.descripcion}`} imagen={p.fotos[0]?.src}>
+  {!p.placeholder && <script type="application/ld+json" slot="head" set:html={JSON.stringify(datosGoogle)} />}
   <BarraAnuncio />
   <Encabezado />
   <main class="ficha" data-ficha data-slug={p.slug} data-nombre={p.nombre} data-precios={JSON.stringify(p.precios)} data-datos-metal={JSON.stringify(datosMetal)}>

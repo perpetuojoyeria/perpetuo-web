@@ -9,6 +9,8 @@ import { productos, precioDe, nombreMetal, type Metal } from '../../lib/producto
 import datosLooks from '../../data/looks.json';
 import home from '../../data/home.json';
 
+interface Props { pagina?: boolean }   // pagina = true en /looks: sin título propio y una debajo de otra en celular
+const { pagina = false } = Astro.props;
 const textos = home.looks;
 const looks = datosLooks.looks.map((look) => {
   const piezas = look.puntos.map((pt, i) => {
@@ -21,14 +23,16 @@ const looks = datosLooks.looks.map((look) => {
   return { ...look, piezas, total };
 });
 ---
-<section class="looks seccion" aria-labelledby="looks-titulo">
-  <div class="relleno cabeza-seccion">
-    <div>
-      <h2 class="titulo-seccion" id="looks-titulo">{textos.titulo}</h2>
-      <p>{textos.frase}</p>
+<section class:list={['looks', { seccion: !pagina, 'looks--pagina': pagina }]} aria-labelledby={pagina ? undefined : 'looks-titulo'} aria-label={pagina ? 'Looks' : undefined}>
+  {!pagina && (
+    <div class="relleno cabeza-seccion">
+      <div>
+        <h2 class="titulo-seccion" id="looks-titulo">{textos.titulo}</h2>
+        <p>{textos.frase}</p>
+      </div>
+      <a class="enlace" href={textos.enlace}>{textos.textoEnlace}</a>
     </div>
-    <a class="enlace" href={textos.enlace}>{textos.textoEnlace}</a>
-  </div>
+  )}
 
   <ul class="looks__carril" role="list">
     {looks.map((look) => (
@@ -81,6 +85,11 @@ const looks = datosLooks.looks.map((look) => {
             <span>El look completo</span>
             <Precio valor={look.total} />
           </p>
+          <button class="boton boton--oscuro boton--chico look__agregar" type="button"
+            data-agregar-look data-nombre={`Look ${look.nombre}`}
+            data-piezas={JSON.stringify(look.piezas.map((pz) => ({ slug: pz.producto.slug, nombre: pz.producto.nombre, metal: pz.metal, precio: pz.precio })))}>
+            Agregar el look completo
+          </button>
         </div>
       </li>
     ))}
@@ -211,7 +220,15 @@ const looks = datosLooks.looks.map((look) => {
   }
   .look__total :global(.precio) { margin-left: auto; }
 
+  .look__agregar { justify-self: start; margin-top: var(--e-2); }
+
+  /* En /looks: una debajo de otra en celular */
+  .looks--pagina .looks__carril { grid-auto-flow: row; grid-auto-columns: auto; gap: var(--e-7); overflow: visible; }
+  .looks--pagina .look__info { padding-inline: var(--margen); }
+
   @media (min-width: 900px) {
+    .looks--pagina .looks__carril { gap: var(--junta); }
+    .looks--pagina .look__info { padding-inline: var(--e-4); }
     .looks__carril {
       grid-auto-flow: row;
       grid-template-columns: repeat(3, minmax(0, 1fr));

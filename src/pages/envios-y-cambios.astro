@@ -1,0 +1,69 @@
+---
+// Envíos, cambios y garantía. Usa los mismos textos de la ficha (politicas.json) para que todo diga lo mismo.
+import Tienda from '../layouts/Tienda.astro';
+import CabezaPagina from '../components/base/CabezaPagina.astro';
+import politicas from '../data/politicas.json';
+import paginas from '../data/paginas.json';
+import box from '../data/mystery-box.json';
+import sitio from '../data/sitio.json';
+import { formatoCOP } from '../lib/precio';
+
+const t = paginas.envios;
+const bloques = [
+  { id: 'envios', titulo: 'Envíos', parrafos: [politicas.envio, t.costo, t.contraentrega] },
+  { id: 'cambios', titulo: 'Cambios', parrafos: [politicas.cambios], pasos: t.comoCambiar },
+  { id: 'garantia', titulo: 'Garantía', parrafos: [politicas.garantia] },
+  { id: 'mystery-box', titulo: 'Mystery Box', parrafos: [box.sinCambio.texto] },
+];
+---
+<Tienda titulo={t.titulo} descripcion={`Envíos, cambios y garantía de ${sitio.nombre}. Envío gratis desde ${formatoCOP(sitio.envioGratisDesde)}.`}>
+  <CabezaPagina titulo={t.titulo} frase={t.frase}>
+    <nav class="saltos" aria-label="En esta página">
+      {bloques.map((b) => <a class="boton boton--borde boton--chico" href={`#${b.id}`}>{b.titulo}</a>)}
+    </nav>
+  </CabezaPagina>
+
+  <div class="sello-envio relleno">
+    <p><strong>Envío gratis desde {formatoCOP(sitio.envioGratisDesde)}</strong> · {politicas.envio.split('.')[0]}.</p>
+  </div>
+
+  <div class="bloques">
+    {bloques.map((b) => (
+      <section class="bloque relleno" id={b.id} aria-labelledby={`${b.id}-titulo`}>
+        <h2 class="bloque__titulo titulo-seccion" id={`${b.id}-titulo`}>{b.titulo}</h2>
+        <div class="bloque__texto">
+          {b.parrafos.map((p) => <p>{p}</p>)}
+          {b.pasos && (
+            <>
+              <h3 class="bloque__sub">Cómo hacer un cambio</h3>
+              <ol class="bloque__pasos">{b.pasos.map((p) => <li>{p}</li>)}</ol>
+            </>
+          )}
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <section class="ayuda sobre-oscuro" aria-label="Ayuda">
+    <div class="relleno ayuda__interior">
+      <p class="ayuda__titulo">¿Algo no quedó claro?</p>
+      <a class="boton" href={`https://wa.me/${sitio.whatsapp}?text=${encodeURIComponent('¡Hola, Perpetuo! Tengo una pregunta sobre envíos o cambios.')}`} target="_blank" rel="noopener">Escríbenos al {sitio.whatsappVisible}</a>
+    </div>
+  </section>
+</Tienda>
+
+<style>
+  .saltos { display: flex; flex-wrap: wrap; gap: var(--e-2); margin-top: var(--e-2); }
+  .sello-envio { padding-block: var(--e-3); background: var(--perla); border-block: var(--borde-fuerte); font-size: var(--t-sm); }
+  .bloque { display: grid; gap: var(--e-4); padding-block: var(--e-6); border-bottom: var(--borde); scroll-margin-top: 110px; }
+  .bloque__texto { display: grid; gap: var(--e-3); max-width: 46rem; }
+  .bloque__sub { margin-top: var(--e-2); font-size: var(--t-md); }
+  .bloque__pasos { display: grid; gap: var(--e-2); margin: 0; padding-left: 1.4em; }
+  .bloque__pasos li::marker { font-weight: var(--peso-boton); }
+  .ayuda { padding-block: var(--e-7); background: var(--profundo); color: var(--hueso); }
+  .ayuda__interior { display: grid; gap: var(--e-4); justify-items: start; }
+  .ayuda__titulo { font-family: var(--f-display); font-stretch: var(--ancho-display); font-weight: var(--peso-display); font-size: var(--t-xl); line-height: 1; text-transform: uppercase; }
+  @media (min-width: 900px) {
+    .bloque { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); padding-block: var(--e-7); }
+  }
+</style>

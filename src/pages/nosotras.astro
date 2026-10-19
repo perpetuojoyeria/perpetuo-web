@@ -1,0 +1,76 @@
+---
+// Nosotras: historia (con marcadores), la escalera de los 3 metales y cierre. Textos en src/data/paginas.json.
+import Tienda from '../layouts/Tienda.astro';
+import CabezaPagina from '../components/base/CabezaPagina.astro';
+import Foto from '../components/base/Foto.astro';
+import Estrella from '../components/base/Estrella.astro';
+import paginas from '../data/paginas.json';
+import sitio from '../data/sitio.json';
+
+const t = paginas.nosotras;
+---
+<Tienda titulo={t.titulo} descripcion={`${t.frase} Conoce la historia de ${sitio.nombre}, joyería en rodio, plata 925 y oro laminado.`}>
+  <CabezaPagina titulo={t.titulo} frase={t.frase} />
+
+  <section class="historia" aria-label="Nuestra historia">
+    <div class="historia__foto"><Foto src={t.foto} alt="La fundadora de Perpetuo" nota={t.notaFoto} proporcion="4 / 5" prioridad /></div>
+    <div class="historia__texto relleno">
+      {t.historia.map((parrafo) => <p>{parrafo}</p>)}
+      <p class="historia__firma"><Estrella tamano="0.8rem" /> Desde {sitio.ciudad}</p>
+    </div>
+  </section>
+
+  <section class="escalera seccion" aria-labelledby="escalera-titulo">
+    <div class="relleno">
+      <h2 class="titulo-seccion" id="escalera-titulo">{t.escalera.titulo}</h2>
+      <p class="escalera__texto">{t.escalera.texto}</p>
+    </div>
+    <ol class="escalera__lista" role="list">
+      {t.escalera.pasos.map((p, i) => (
+        <li class:list={['escalon', `escalon--${p.metal}`]}>
+          <span class="escalon__numero" aria-hidden="true">{i + 1}</span>
+          <p class="escalon__metal"><span class={`punto punto--${p.metal}`} aria-hidden="true"></span>{p.nombre}</p>
+          <h3 class="escalon__titulo">{p.titulo}</h3>
+          <p class="escalon__texto">{p.texto}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="cierre sobre-oscuro" aria-label="Cierre">
+    <p class="cierre__frase relleno">{t.cierre}</p>
+    <div class="cierre__botones relleno">
+      <a class="boton" href="/aretes">Ver las joyas</a>
+      <a class="boton boton--borde" href="/mystery-box">Ver la Mystery Box</a>
+    </div>
+  </section>
+</Tienda>
+
+<style>
+  .historia { display: grid; border-top: var(--borde); }
+  .historia__texto { display: grid; gap: var(--e-4); align-content: center; padding-block: var(--e-6); font-size: var(--t-md); max-width: 46rem; }
+  .historia__firma { display: inline-flex; align-items: center; gap: var(--e-2); font-size: var(--t-sm); font-weight: var(--peso-boton); }
+
+  .escalera__texto { margin: var(--e-2) 0 var(--e-5); color: var(--texto-suave); }
+  .escalera__lista { display: grid; gap: var(--junta); margin: 0; padding: 0; list-style: none; background: var(--noche); }
+  .escalon { display: grid; gap: var(--e-2); align-content: start; padding: var(--e-5) var(--margen-der) var(--e-6) var(--margen); }
+  .escalon--rodio { background: var(--hueso); }
+  .escalon--plata { background: var(--hueso); }
+  .escalon--oro { background: var(--perla); }
+  .escalon__numero { font-family: var(--f-display); font-stretch: var(--ancho-display); font-weight: var(--peso-display); font-size: var(--t-2xl); line-height: 0.85; }
+  .escalon__metal { display: inline-flex; align-items: center; gap: var(--e-2); font-size: var(--t-sm); font-weight: var(--peso-boton); }
+  .escalon__titulo { font-family: var(--f-display); font-stretch: var(--ancho-display); font-weight: var(--peso-display); font-size: var(--t-xl); line-height: 1; text-transform: uppercase; }
+  .escalon__texto { color: var(--texto-suave); max-width: 32ch; }
+
+  .cierre { display: grid; gap: var(--e-5); padding-block: var(--e-8); background: var(--profundo); color: var(--hueso); }
+  .cierre__frase { font-family: var(--f-display); font-stretch: var(--ancho-display); font-weight: var(--peso-display); font-size: var(--t-2xl); line-height: var(--interlinea-titulo); text-transform: uppercase; max-width: 16ch; }
+  .cierre__botones { display: flex; flex-wrap: wrap; gap: var(--e-2); }
+
+  @media (min-width: 900px) {
+    .historia { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+    .historia__texto { padding: var(--e-7); }
+    .escalera__lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .escalon { padding: var(--e-6) var(--e-6) var(--e-7); }
+    .escalon:first-child { padding-left: var(--margen); }
+  }
+</style>

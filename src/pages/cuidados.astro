@@ -1,0 +1,66 @@
+---
+// Cuidados de la joya: 4 reglas cortas y el cuidado de cada metal. Textos en src/data/paginas.json.
+import Tienda from '../layouts/Tienda.astro';
+import CabezaPagina from '../components/base/CabezaPagina.astro';
+import FranjaConfianza from '../components/base/FranjaConfianza.astro';
+import paginas from '../data/paginas.json';
+import sitio from '../data/sitio.json';
+
+const t = paginas.cuidados;
+---
+<Tienda titulo="Cuidados de la joya" descripcion="Cómo cuidar tus joyas en plata 925, oro laminado y rodio para que el brillo se quede.">
+  <CabezaPagina titulo={t.titulo} frase={t.frase} amarilla />
+
+  <section class="reglas" aria-label="El ritual">
+    <ol class="reglas__lista" role="list">
+      {t.reglas.map((r, i) => (
+        <li class="regla">
+          <span class="regla__numero" aria-hidden="true">{i + 1}</span>
+          <h2 class="regla__titulo">{r.titulo}</h2>
+          <p class="regla__texto">{r.texto}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="metales seccion relleno" aria-labelledby="metales-titulo">
+    <h2 class="titulo-seccion" id="metales-titulo">Según tu metal</h2>
+    <dl class="metales__lista">
+      {t.metales.map((m) => (
+        <div class="metal" id={m.metal}>
+          <dt class="metal__nombre"><span class={`punto punto--${m.metal}`} aria-hidden="true"></span>{m.nombre}</dt>
+          <dd class="metal__texto">{m.texto}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="metales__ayuda">¿Tu pieza perdió el brillo o algo se soltó? <a class="enlace" href={`https://wa.me/${sitio.whatsapp}?text=${encodeURIComponent('¡Hola, Perpetuo! Tengo una duda sobre el cuidado de mi joya.')}`} target="_blank" rel="noopener">Escríbenos por WhatsApp</a> y te ayudamos.</p>
+  </section>
+
+  <section aria-label="Compra tranquila"><FranjaConfianza /></section>
+</Tienda>
+
+<style>
+  .reglas__lista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--junta); margin: 0; padding: 0; list-style: none; background: var(--noche); border-bottom: var(--borde-fuerte); }
+  .regla { display: grid; gap: var(--e-2); align-content: start; padding: var(--e-5) var(--e-4) var(--e-6); background: var(--hueso); min-width: 0; }
+  .regla:nth-child(odd) { padding-left: var(--margen); }
+  .regla__numero { font-family: var(--f-display); font-stretch: var(--ancho-display); font-weight: var(--peso-display); font-size: var(--t-2xl); line-height: 0.85; }
+  .regla__titulo { font-family: var(--f-texto); font-stretch: normal; font-weight: var(--peso-boton); font-size: var(--t-md); line-height: 1.2; text-transform: none; letter-spacing: 0; }
+  .regla__texto { font-size: var(--t-sm); color: var(--texto-suave); }
+
+  .metales { display: grid; gap: var(--e-5); }
+  .metales__lista { margin: 0; border-top: var(--borde-fuerte); max-width: 52rem; }
+  .metal { display: grid; gap: var(--e-2); padding: var(--e-4) 0; border-bottom: var(--borde); scroll-margin-top: 120px; }
+  .metal__nombre { display: inline-flex; align-items: center; gap: var(--e-2); font-weight: var(--peso-boton); font-size: var(--t-md); }
+  .metal__texto { margin: 0; color: var(--texto-suave); }
+  .metales__ayuda { max-width: 52rem; }
+
+  @media (min-width: 900px) {
+    .reglas__lista { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .regla { padding: var(--e-6) var(--e-5) var(--e-7); }
+    .regla:nth-child(odd) { padding-left: var(--e-5); }
+    .regla:first-child { padding-left: var(--margen); }
+    .metales { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); align-items: start; }
+    .metales__ayuda { grid-column: 2; }
+    .metal { grid-template-columns: 12rem minmax(0, 1fr); }
+  }
+</style>

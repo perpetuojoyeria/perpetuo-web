@@ -87,6 +87,15 @@
 
   // Todos los botones "Agregar" del sitio (también los que aparecen después, por eso escucha en document)
   document.addEventListener('click', (e) => {
+    const look = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-agregar-look]');
+    if (look) {
+      // Un look completo: agrega cada pieza con su metal
+      const piezas: { slug: string; nombre: string; metal: string; precio: number }[] = JSON.parse(look.dataset.piezas || '[]');
+      piezas.forEach((pz) => agregar({ ...pz, tipo: 'producto' }));
+      mostrarAviso(`${look.dataset.nombre} (${piezas.length} piezas)`);
+      confirmar(look);
+      return;
+    }
     const boton = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-agregar]');
     if (!boton) return;
     const d = boton.dataset;
@@ -101,9 +110,13 @@
       modo: d.modo || undefined,
     });
     mostrarAviso(`${d.nombre} · ${nombres[d.metal] ?? d.metal}${d.modo ? ` · ${d.modo}` : ''}`);
-    // confirmación en el mismo botón
+    confirmar(boton);
+  });
+
+  // confirmación en el mismo botón
+  function confirmar(boton: HTMLButtonElement) {
     if (!boton.dataset.textoOriginal) boton.dataset.textoOriginal = boton.textContent?.trim() || '';
     boton.textContent = '¡Agregado!';
     setTimeout(() => (boton.textContent = boton.dataset.textoOriginal || ''), 1600);
-  });
+  }
 </script>

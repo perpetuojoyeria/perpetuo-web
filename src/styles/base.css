@@ -158,3 +158,9 @@ p { margin: 0; text-wrap: pretty; }
 
 /* Margen lateral simple (para alinear títulos con las fotos de borde a borde) */
 .relleno { padding-left: var(--margen); padding-right: var(--margen-der); }
+
+/* Puntico de metal suelto (al lado del nombre del metal) */
+.punto { display: inline-block; flex: none; width: 12px; height: 12px; border-radius: var(--r-circulo); border: 1px solid var(--noche); }
+.punto--oro { background: var(--metal-oro); }
+.punto--plata { background: var(--metal-plata); }
+.punto--rodio { background: var(--metal-rodio); }

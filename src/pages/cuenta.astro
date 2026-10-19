@@ -1,0 +1,178 @@
+---
+// Mi cuenta / suscripción — MAQUETA con datos de ejemplo (src/data/cuenta.json).
+// Sin backend todavía: cada acción abre WhatsApp con el mensaje listo para que el equipo la haga a mano.
+import Tienda from '../layouts/Tienda.astro';
+import Etiqueta from '../components/base/Etiqueta.astro';
+import Foto from '../components/base/Foto.astro';
+import SelloPrecio from '../components/base/SelloPrecio.astro';
+import cuenta from '../data/cuenta.json';
+import box from '../data/mystery-box.json';
+import metales from '../data/metales.json';
+import sitio from '../data/sitio.json';
+
+type Metal = 'plata' | 'oro' | 'rodio';
+const s = cuenta.suscripcion;
+const version = box.versiones.find((v) => v.metal === s.metal)!;
+const wa = (texto: string) => `https://wa.me/${sitio.whatsapp}?text=${encodeURIComponent(`¡Hola, Perpetuo! Soy ${cuenta.nombre}. ${texto}`)}`;
+const nombreMetal = (m: string) => metales[m as Metal].nombre;
+---
+<Tienda titulo="Mi cuenta" indexar={false} marquesina={false}>
+  {cuenta.ejemplo && (
+    <p class="aviso-maqueta relleno"><strong>Maqueta:</strong> así se verá tu cuenta. Los datos son de ejemplo y, por ahora, cada cambio se hace por WhatsApp.</p>
+  )}
+
+  <header class="cuenta__cabeza relleno">
+    <h1>Hola, {cuenta.nombre}</h1>
+    <nav class="cuenta__menu" aria-label="Mi cuenta">
+      <a href="#suscripcion" aria-current="true">Mi Mystery Box</a>
+      <a href="#historial">Mis cajas</a>
+      <a href="/bolsa">Mi bolsa</a>
+    </nav>
+  </header>
+
+  <!-- Suscripción -->
+  <section class="sus" id="suscripcion" aria-labelledby="sus-titulo">
+    <div class="sus__foto">
+      <Foto src={`/fotos/mystery-box/caja-${s.metal}.jpg`} alt={`Mystery Box ${version.nombre}`} nota="Caja Perpetuo cerrada con lazo." proporcion="1 / 1" />
+      <SelloPrecio valor={version.precio} texto="cada mes" clase="sus__sello" />
+    </div>
+    <div class="sus__info">
+      <p class="sus__estado"><Etiqueta texto={s.estado} variante="oscura" /> <span>Desde {s.desde}</span></p>
+      <h2 class="sus__nombre" id="sus-titulo">{version.nombre}</h2>
+      <p class="sus__metal"><span class={`punto punto--${s.metal}`} aria-hidden="true"></span>Mystery Box en {nombreMetal(s.metal)} · {version.piezas} piezas</p>
+
+      <dl class="sus__fechas">
+        <div><dt>Próximo cobro</dt><dd>{s.proximoCobro}</dd></div>
+        <div><dt>Próximo envío</dt><dd>{s.proximoEnvio}</dd></div>
+        <div class="sus__fechas-ancho"><dt>Llega a</dt><dd>{s.direccion}</dd></div>
+      </dl>
+
+      <!-- Cambiar de metal -->
+      <form class="cambiar" data-cambiar-metal data-actual={s.metal}>
+        <fieldset>
+          <legend>¿La quieres en otro metal?</legend>
+          <div class="cambiar__ops">
+            {box.versiones.map((v) => (
+              <label class="cambiar__op">
+                <input type="radio" name="metal" value={v.metal} checked={v.metal === s.metal} data-nombre={v.nombre} data-metal-nombre={nombreMetal(v.metal)} />
+                <span class={`punto punto--${v.metal}`} aria-hidden="true"></span>
+                <span>{nombreMetal(v.metal)}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <a class="boton boton--chico" href="#" data-guardar-metal hidden target="_blank" rel="noopener">Pedir el cambio</a>
+        <p class="cambiar__nota" data-nota-metal>El cambio aplica desde la caja de {s.proximoCobro.split(' ').pop()} si lo pides antes del [DÍA DE CORTE].</p>
+      </form>
+
+      <!-- Acciones -->
+      <div class="acciones">
+        <a class="boton boton--borde" href={wa(`Quiero pausar mi Mystery Box ${version.nombre}.`)} target="_blank" rel="noopener">Pausar</a>
+        <a class="boton boton--borde" href={wa(`Quiero saltarme la Mystery Box de este mes (${s.proximoCobro.split(' ').pop()}).`)} target="_blank" rel="noopener">Saltar un mes</a>
+        <button class="acciones__cancelar" type="button" data-abrir-cancelar>Cancelar suscripción</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Historial -->
+  <section class="historial seccion relleno" id="historial" aria-labelledby="historial-titulo">
+    <h2 class="titulo-seccion" id="historial-titulo">Mis cajas</h2>
+    <ol class="historial__lista" role="list">
+      {cuenta.historial.map((c) => (
+        <li class:list={['caja-h', { 'caja-h--saltada': c.estado === 'Saltada' }]}>
+          <span class="caja-h__mes">{c.mes}</span>
+          <span class="caja-h__metal"><span class={`punto punto--${c.metal}`} aria-hidden="true"></span>{nombreMetal(c.metal)}</span>
+          <span class="caja-h__estado">{c.estado === 'En camino' ? <Etiqueta texto={c.estado} /> : c.estado}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- Confirmar cancelación -->
+  <dialog class="cancelar" aria-labelledby="cancelar-titulo" data-cancelar>
+    <h2 class="cancelar__titulo" id="cancelar-titulo">{cuenta.cancelar.titulo}</h2>
+    <p>{cuenta.cancelar.texto}</p>
+    <div class="cancelar__botones">
+      <button class="boton boton--oscuro" type="button" data-cerrar-cancelar autofocus>{cuenta.cancelar.no}</button>
+      <a class="boton boton--borde" href={wa(`Quiero cancelar mi Mystery Box ${version.nombre}.`)} target="_blank" rel="noopener">{cuenta.cancelar.si}</a>
+    </div>
+  </dialog>
+</Tienda>
+
+<style>
+  .aviso-maqueta { padding-block: var(--e-3); background: var(--perla); border-bottom: var(--borde-fuerte); font-size: var(--t-sm); }
+  .cuenta__cabeza { display: grid; gap: var(--e-4); padding-block: var(--e-5) var(--e-5); }
+  .cuenta__cabeza h1 { font-size: var(--t-2xl); }
+  .cuenta__menu { display: flex; gap: var(--e-5); overflow-x: auto; font-weight: var(--peso-boton); font-size: var(--t-sm); white-space: nowrap; }
+  .cuenta__menu a { padding-block: var(--e-2); text-decoration: none; }
+  .cuenta__menu a[aria-current] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+
+  .sus { display: grid; border-block: var(--borde-fuerte); scroll-margin-top: 100px; }
+  .sus__foto { position: relative; }
+  .sus__foto :global(.sus__sello) { position: absolute; right: var(--e-4); bottom: var(--e-4); }
+  .sus__info { display: grid; gap: var(--e-3); align-content: start; padding: var(--e-5) var(--margen-der) var(--e-6) var(--margen); min-width: 0; }
+  .sus__estado { display: flex; align-items: center; gap: var(--e-2); font-size: var(--t-sm); color: var(--texto-suave); }
+  .sus__nombre { font-size: var(--t-2xl); overflow-wrap: anywhere; }
+  .sus__metal { display: inline-flex; align-items: center; gap: var(--e-2); font-weight: var(--peso-medio); }
+  .sus__fechas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: var(--e-2) 0 0; border-top: var(--borde-fuerte); }
+  .sus__fechas > div { padding: var(--e-3) var(--e-2) var(--e-3) 0; border-bottom: var(--borde); }
+  .sus__fechas-ancho { grid-column: 1 / -1; }
+  .sus__fechas dt { font-size: 0.6875rem; font-weight: var(--peso-boton); letter-spacing: var(--espaciado-etiqueta); text-transform: uppercase; color: var(--texto-suave); }
+  .sus__fechas dd { margin: var(--e-1) 0 0; font-weight: var(--peso-boton); }
+
+  .cambiar { display: grid; gap: var(--e-3); justify-items: start; margin-top: var(--e-2); }
+  .cambiar fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+  .cambiar legend { margin-bottom: var(--e-2); font-weight: var(--peso-boton); }
+  .cambiar__ops { display: flex; flex-wrap: wrap; gap: var(--e-2); }
+  .cambiar__op { position: relative; display: inline-flex; align-items: center; gap: var(--e-2); min-height: 40px; padding: 0 var(--e-4); border: var(--borde-fuerte); border-radius: var(--r-pildora); font-size: var(--t-sm); font-weight: var(--peso-boton); cursor: pointer; }
+  .cambiar__op input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+  .cambiar__op:has(input:checked) { background: var(--noche); color: var(--hueso); }
+  .cambiar__op:has(input:checked) .punto { border-color: var(--hueso); }
+  .cambiar__op:has(input:focus-visible) { outline: 2px solid var(--noche); outline-offset: 2px; }
+  .cambiar__nota { font-size: var(--t-xs); color: var(--texto-suave); }
+
+  .acciones { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-2) var(--e-3); margin-top: var(--e-3); padding-top: var(--e-4); border-top: var(--borde); }
+  .acciones__cancelar { padding: var(--e-2) 0; border: 0; background: none; color: var(--texto-suave); font: inherit; font-size: var(--t-sm); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .acciones__cancelar:hover { color: var(--noche); }
+
+  .historial { display: grid; gap: var(--e-4); scroll-margin-top: 100px; }
+  .historial__lista { margin: 0; padding: 0; list-style: none; border-top: var(--borde-fuerte); max-width: 52rem; }
+  .caja-h { display: grid; grid-template-columns: minmax(0, 7.5rem) minmax(0, 1fr) 6.5rem; align-items: center; gap: var(--e-3); padding: var(--e-3) 0; border-bottom: var(--borde); }
+  .caja-h__mes { font-weight: var(--peso-boton); }
+  .caja-h__metal { display: inline-flex; align-items: center; gap: var(--e-2); font-size: var(--t-sm); }
+  .caja-h__estado { font-size: var(--t-sm); color: var(--texto-suave); text-align: right; }
+  .caja-h--saltada { color: var(--texto-suave); }
+
+  .cancelar { width: min(30rem, calc(100% - 2 * var(--margen))); padding: var(--e-6) var(--e-5); border: var(--borde-fuerte); background: var(--hueso); color: var(--noche); }
+  .cancelar::backdrop { background: var(--velo); }
+  .cancelar[open] { display: grid; gap: var(--e-3); }
+  .cancelar__titulo { font-size: var(--t-xl); }
+  .cancelar__botones { display: flex; flex-wrap: wrap; gap: var(--e-2); margin-top: var(--e-3); }
+
+  @media (min-width: 900px) {
+    .cuenta__cabeza { grid-template-columns: 1fr auto; align-items: end; padding-top: var(--e-7); }
+    .sus { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+    .sus__info { padding: var(--e-6) var(--e-7); }
+  }
+</style>
+
+<script>
+  // Cambiar de metal: muestra "Pedir el cambio" y arma el mensaje de WhatsApp
+  const form = document.querySelector<HTMLFormElement>('[data-cambiar-metal]');
+  const guardar = form?.querySelector<HTMLAnchorElement>('[data-guardar-metal]');
+  const wa = document.querySelector<HTMLAnchorElement>('.acciones a')?.href.split('?')[0];
+  form?.addEventListener('change', (e) => {
+    const op = e.target as HTMLInputElement;
+    if (!guardar || !wa) return;
+    const cambia = op.value !== form.dataset.actual;
+    guardar.hidden = !cambia;
+    guardar.textContent = `Cambiar a ${op.dataset.metalNombre}`;
+    guardar.href = `${wa}?text=${encodeURIComponent(`¡Hola, Perpetuo! Quiero cambiar mi Mystery Box a ${op.dataset.metalNombre} (${op.dataset.nombre}).`)}`;
+  });
+
+  // Cancelar: primero preguntamos (con cariño)
+  const dialogo = document.querySelector<HTMLDialogElement>('[data-cancelar]');
+  document.querySelector('[data-abrir-cancelar]')?.addEventListener('click', () => dialogo?.showModal());
+  dialogo?.querySelector('[data-cerrar-cancelar]')?.addEventListener('click', () => dialogo.close());
+  dialogo?.addEventListener('click', (e) => { if (e.target === dialogo) dialogo.close(); });
+</script>
