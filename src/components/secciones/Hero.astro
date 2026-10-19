@@ -13,7 +13,7 @@ const hayEscritorio = existe(video.mp4Escritorio);
 const hayPosterEscritorio = existe(video.posterEscritorio);
 const hayPoster = existe(video.poster);
 ---
-<section class="hero sobre-oscuro" aria-labelledby="hero-titulo">
+<section class:list={['hero sobre-oscuro', { 'hero--horizontal': hayEscritorio }]} aria-labelledby="hero-titulo">
   <div class="hero__medio">
     {hayVideo ? (
       <video class="hero__video" muted loop playsinline preload="metadata"
@@ -184,6 +184,15 @@ const hayPoster = existe(video.poster);
     .anillo { left: 66%; top: 34%; width: 50%; --giro: -12deg; }
     .hero__pausa { top: auto; bottom: var(--e-5); right: var(--e-5); }
     .hero__prueba { bottom: var(--e-5); right: auto; left: var(--e-7); }
+
+    /* Con video horizontal (hero-escritorio.mp4): el video es el fondo completo
+       y el título con el anillo van encima, a la izquierda. */
+    .hero--horizontal { grid-template-columns: minmax(0, 1fr); background: var(--profundo); }
+    .hero--horizontal .hero__medio { grid-area: 1 / 1; width: 100%; aspect-ratio: auto; }
+    .hero--horizontal .hero__video { object-position: center 30%; }
+    /* velo plano para que el título se lea sobre la camisa clara */
+    .hero--horizontal .hero__medio::after { display: block; background: rgb(35 42 68 / 0.38); }
+    .hero--horizontal .hero__texto { grid-area: 1 / 1; z-index: 1; padding-left: var(--e-8); }
   }
 </style>
 

@@ -1,6 +1,7 @@
 Videos del Hero (nombres exactos, en minúscula):
   hero.mp4             -> OBLIGATORIO. Celular. Vertical 4:5 (1080 x 1350), 6-8 segundos, SIN sonido.
-  hero-escritorio.mp4  -> Opcional. Computador. Horizontal 16:9 (1920 x 1080), 6-8 segundos, SIN sonido.
-                          Si no existe, el computador usa hero.mp4 recortado.
+  hero-escritorio.mp4  -> Opcional. Computador. Horizontal 16:9 (1920 x 1080), 6-10 segundos, SIN sonido.
+                          Va de fondo completo con el título encima. Si no existe, el computador usa hero.mp4 en columna.
+  hero-poster-escritorio.jpg -> Foto fija del video de computador.
   hero-poster.jpg      -> Recomendado. Foto fija del primer momento del video. Se ve mientras carga.
 Si un archivo pesa mucho (más de 3 MB), súbelo igual y Claude lo comprime.
