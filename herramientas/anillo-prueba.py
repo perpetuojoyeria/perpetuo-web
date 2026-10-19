@@ -1,4 +1,4 @@
-# Render de un anillo de PRUEBA: banda plateada abombada + circón talla brillante con 4 garras.
+# Render de un anillo de PRUEBA: solitario de 6 garras con banda pavé (circones pequeños) y circón talla brillante.
 # Solo para mostrar el efecto del Hero; se reemplaza por la foto real de un anillo Perpetuo.
 # Uso: python3 herramientas/anillo-prueba.py salida.png muestra.png
 import numpy as np, sys
@@ -9,7 +9,7 @@ W = N * S
 xs = np.linspace(-1.4, 1.4, W)
 X, Y = np.meshgrid(xs, -xs)
 R = 1.0
-ancho, grosor = 0.062, 0.03   # banda más fina, como un solitario
+ancho, grosor = 0.08, 0.034   # banda fina, con espacio para la fila de circones
 tilt = np.radians(-26)                       # visto un poco desde arriba: el lado cercano queda abajo
 ct, st = np.cos(tilt), np.sin(tilt)
 
@@ -48,21 +48,36 @@ def sdf_circon(lx, ly, lz):
     d = np.maximum(d, rad - rg)                                  # filetín
     return d
 
-# garras: 4 cápsulas desde la banda hasta el borde de la piedra
+# garras: 6 cápsulas desde la banda hasta el borde de la piedra
 garras = []
 tang = np.array([np.cos(phi), 0.0, -np.sin(phi)])   # dirección a lo largo de la banda
-for k in range(4):
-    a = np.pi / 4 + k * np.pi / 2
+for k in range(6):
+    a = np.pi / 6 + k * np.pi / 3
     lat = np.cos(a) * e1 + np.sin(a) * e2
     pie = u * (R + grosor * 0.5) + np.sign(np.dot(lat, tang) + 1e-6) * tang * rg * 0.45 + lat * rg * 0.15
-    filete = centro + lat * rg * 1.03
-    punta = centro + lat * rg * 0.86 + u * (mesa_h * 0.75)
+    filete = centro + lat * rg * 1.04
+    punta = centro + lat * rg * 0.94 + u * (mesa_h * 0.5)
     garras.append((pie, filete)); garras.append((filete, punta))
 def sdf_capsula(lx, ly, lz, a, b, r):
     pa = np.stack([lx - a[0], ly - a[1], lz - a[2]]); ba = (b - a)[:, None]
     hh = np.clip((pa * ba).sum(0) / (ba * ba).sum(), 0, 1)
     q = pa - ba * hh
     return np.sqrt((q * q).sum(0)) - r
+
+# pavé: una fila de circones pequeños sobre la cara de afuera de la banda, a los dos lados de la piedra
+paso, rp = 0.064, 0.03                     # separación (en radianes) y radio de cada circón
+k_min, k_max = 5, 34                        # dejan libre la zona de la cabeza y llegan casi hasta atrás
+Rp = R + grosor - 0.008
+def indice_pave(lx, lz):
+    rel = (np.arctan2(lx, lz) - phi + np.pi) % (2 * np.pi) - np.pi
+    k = np.clip(np.round(np.abs(rel) / paso), k_min, k_max) * np.sign(rel + 1e-9)
+    return k
+def sdf_pave(lx, ly, lz):
+    th = phi + indice_pave(lx, lz) * paso
+    cx, cz = Rp * np.sin(th), Rp * np.cos(th)
+    esfera = np.sqrt((lx - cx)**2 + ly**2 + (lz - cz)**2) - rp
+    mesa = np.sqrt(lx**2 + lz**2) - (R + grosor + 0.015)   # la piedrita sobresale apenas, con la mesa plana
+    return np.maximum(esfera, mesa)
 
 def sdf_todo(px, py, pz):
     lx, ly, lz = local(px, py, pz)
@@ -71,9 +86,11 @@ def sdf_todo(px, py, pz):
     banda = ((np.abs(q) / grosor)**k + (np.abs(ly) / ancho)**k)**(1 / k) - 1
     banda = banda * min(grosor, ancho) * 0.9
     piedra = sdf_circon(lx, ly, lz)
-    garra = np.min([sdf_capsula(lx, ly, lz, a, b, 0.017) for a, b in garras], axis=0)
+    garra = np.min([sdf_capsula(lx, ly, lz, a, b, 0.019) for a, b in garras], axis=0)
     metal = np.minimum(banda, garra)
-    return np.minimum(metal, piedra), (piedra < metal)
+    pave = sdf_pave(lx, ly, lz)
+    d = np.minimum(np.minimum(metal, piedra), pave)
+    return d, (piedra <= d), (pave <= d) & (piedra > d)
 
 # cámara con perspectiva (como una foto real): rayos que salen de un punto
 D = 7.0
@@ -85,7 +102,7 @@ t = np.full(ox0.shape, D - 1.6); hit = np.zeros(ox0.shape, bool); vivo = np.ones
 for i in range(360):
     idx = np.nonzero(vivo)[0]
     if idx.size == 0: break
-    d, _ = sdf_todo(cam[0] + dx[idx] * t[idx], cam[1] + dy[idx] * t[idx], cam[2] + dz[idx] * t[idx])
+    d, _, _ = sdf_todo(cam[0] + dx[idx] * t[idx], cam[1] + dy[idx] * t[idx], cam[2] + dz[idx] * t[idx])
     t[idx] += d * 0.6
     h = d < 4e-5; hit[idx[h]] = True
     vivo[idx[h | (t[idx] > D + 2)]] = False
@@ -96,7 +113,7 @@ e = 3e-4
 f = lambda a, b, c: sdf_todo(a, b, c)[0]
 nx = f(px + e, py, pz) - f(px - e, py, pz); ny = f(px, py + e, pz) - f(px, py - e, pz); nz = f(px, py, pz + e) - f(px, py, pz - e)
 L = np.sqrt(nx**2 + ny**2 + nz**2) + 1e-12; nx /= L; ny /= L; nz /= L
-_, es_piedra = sdf_todo(px, py, pz)
+_, es_piedra, es_pave = sdf_todo(px, py, pz)
 dn = vx * nx + vy * ny + vz * nz
 rx, ry, rz = vx - 2 * dn * nx, vy - 2 * dn * ny, vz - 2 * dn * nz
 
@@ -118,7 +135,7 @@ cosv = np.abs(nz)[:, None]
 F0 = np.array([0.93, 0.93, 0.95]); F = F0 + (1 - F0) * (1 - cosv)**5
 col = estudio(rx, ry, rz) * F
 lx_, ly_, lz_ = local(px, py, pz)
-interior = (np.sqrt(lx_**2 + lz_**2) < R - grosor * 0.4) & ~es_piedra
+interior = (np.sqrt(lx_**2 + lz_**2) < R - grosor * 0.4) & ~es_piedra & ~es_pave
 col[interior] *= 0.78
 for l, p_, k_ in [((-0.5, 0.7, 0.5), 220, 2.0), ((0.8, 0.2, 0.55), 400, 1.4)]:
     l = np.array(l) / np.linalg.norm(l)
@@ -158,6 +175,28 @@ if g.any():
     base[fuego] = espectro * 0.32 + 0.72                     # fuego sutil, casi pastel
     tinte = np.where(((rnd > 0.9) & (rnd <= 0.955))[:, None], np.array([0.88, 0.92, 1.0])[None, :] * 1.1, 1.0)
     col[g] = base * tinte
+
+# pavé: cada circón pequeño destella distinto según su faceta (de lejos, una línea de brillo)
+gp = es_pave
+if gp.any():
+    plx, ply, plz = local(px[gp], py[gp], pz[gp])
+    kp = indice_pave(plx, plz)
+    refl = estudio(rx[gp], ry[gp], rz[gp]).mean(1)
+    # facetas dentro de cada piedrita: 8 sectores alrededor de su centro y 2 anillos
+    th = phi + kp * paso
+    cx, cz = Rp * np.sin(th), Rp * np.cos(th)
+    tx, tz = np.cos(th), -np.sin(th)                       # a lo largo de la banda
+    qa = (plx - cx) * tx + (plz - cz) * tz; qb = ply
+    rr = np.sqrt(qa**2 + qb**2) / rp
+    sec = np.floor((np.arctan2(qb, qa) / (2 * np.pi) + 0.5) * 8)
+    fid = kp * 7.31 + sec * 3.17 + np.floor(rr * 2.2) * 11.7
+    rnd = (np.sin(fid * 12.9898) * 43758.5453) % 1.0
+    v = (0.12 + 1.15 * rnd**1.4) * (0.75 + 0.5 * refl)
+    v = v * np.clip(1.25 - rr**4 * 0.9, 0.25, 1)           # borde más oscuro: el engaste de metal
+    pv = (np.clip(v, 0, 1.3)[:, None]) * np.array([0.96, 0.98, 1.0])[None, :] + profundo[None, :] * 0.06
+    chispa = rnd > 0.93
+    pv[chispa] = 1.3
+    col[gp] = pv
 
 col = 1 - np.exp(-col * 1.25); col = np.clip(col / (1 - np.exp(-1.25)), 0, 1)
 img = np.zeros((W * W, 4), np.uint8)
