@@ -23,6 +23,13 @@
   "anillo": {
     "_instrucciones": "Anillo que atraviesa el título. Pon la foto real en 'src' (PNG sin fondo, anillo visto un poco desde arriba para que se vea como un óvalo, mínimo 1600 px de ancho). Mientras no exista, se usa el anillo de prueba.",
     "src": "/fotos/hero/anillo.png",
-    "prueba": "/fotos/hero/anillo-prueba.png"
+    "prueba": "/fotos/hero/anillo-prueba.png",
+    "_nota": "Si cambias la foto del anillo, ajusta 'recorteAdelante' y 'recorteAtras' (qué parte va delante y cuál detrás de las letras), 'ancho' y 'giro'. Las del anillo de prueba (acostado) son: adelante 'inset(50% 0 0 0)', atrás 'inset(0 0 50% 0)'.",
+    "recorteAdelante": "polygon(0 0, 100% 0, 0 100%)",
+    "recorteAtras": "polygon(100% 0, 100% 100%, 0 100%)",
+    "ancho": "54%",
+    "anchoEscritorio": "36%",
+    "giro": "28deg",
+    "alt": "Anillo en oro laminado con fila de circones"
   }
 }
