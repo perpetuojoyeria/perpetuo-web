@@ -1008,6 +1008,396 @@
           "nota": "Puesta: Dije cereza en la modelo, encuadre cerrado."
         }
       ]
+    },
+    {
+      "slug": "trio-rosado-rodio",
+      "nombre": "Pulsera trío rosado",
+      "referencia": "Trio rosado",
+      "categoria": "pulseras",
+      "subcategoria": null,
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 30000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para mezclar con las que ya tienes.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/trio-rosado-rodio-1.jpg",
+          "alt": "Pulsera trío rosado en rodio",
+          "nota": "Producto solo: Pulsera trío rosado (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/trio-rosado-rodio-2.jpg",
+          "alt": "Pulsera trío rosado puesto",
+          "nota": "Puesta: Pulsera trío rosado en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "collar-trebol-rodio",
+      "nombre": "Collar trébol",
+      "referencia": "Collar trebol",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 35000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/collar-trebol-rodio-1.jpg",
+          "alt": "Collar trébol en rodio",
+          "nota": "Producto solo: Collar trébol (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/collar-trebol-rodio-2.jpg",
+          "alt": "Collar trébol puesto",
+          "nota": "Puesta: Collar trébol en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "collar-dije-virgen-rodio",
+      "nombre": "Collar dije virgen",
+      "referencia": "Collar dije virgen",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 20000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/collar-dije-virgen-rodio-1.jpg",
+          "alt": "Collar dije virgen en rodio",
+          "nota": "Producto solo: Collar dije virgen (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/collar-dije-virgen-rodio-2.jpg",
+          "alt": "Collar dije virgen puesto",
+          "nota": "Puesta: Collar dije virgen en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "rosario-virgen-rodio",
+      "nombre": "Rosario virgen",
+      "referencia": "Rosario virgen",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 65000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/rosario-virgen-rodio-1.jpg",
+          "alt": "Rosario virgen en rodio",
+          "nota": "Producto solo: Rosario virgen (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/rosario-virgen-rodio-2.jpg",
+          "alt": "Rosario virgen puesto",
+          "nota": "Puesta: Rosario virgen en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "anillo-verde-plata",
+      "nombre": "Anillo verde",
+      "referencia": "Anillo verde",
+      "categoria": "anillos",
+      "subcategoria": null,
+      "metales": [
+        "plata"
+      ],
+      "precios": {
+        "plata": 68000
+      },
+      "medida": "Talla 8",
+      "etiquetas": [],
+      "descripcion": "Para apilar o lucir solo.",
+      "micras": {},
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/anillo-verde-plata-1.jpg",
+          "alt": "Anillo verde en plata",
+          "nota": "Producto solo: Anillo verde (plata) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/anillo-verde-plata-2.jpg",
+          "alt": "Anillo verde puesto",
+          "nota": "Puesta: Anillo verde en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "cadena-lazo-plata",
+      "nombre": "Cadena lazo",
+      "referencia": "Cadena lazo",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "plata"
+      ],
+      "precios": {
+        "plata": 140000
+      },
+      "medida": "60 cm",
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {},
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/cadena-lazo-plata-1.jpg",
+          "alt": "Cadena lazo en plata",
+          "nota": "Producto solo: Cadena lazo (plata) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/cadena-lazo-plata-2.jpg",
+          "alt": "Cadena lazo puesto",
+          "nota": "Puesta: Cadena lazo en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "topos-triangulo-oro",
+      "nombre": "Topos triángulo",
+      "referencia": "Topos Triangulo",
+      "categoria": "aretes",
+      "subcategoria": null,
+      "metales": [
+        "oro"
+      ],
+      "precios": {
+        "oro": 45000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para tu oreja apilada o para usar solos.",
+      "micras": {
+        "oro": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/topos-triangulo-oro-1.jpg",
+          "alt": "Topos triángulo en oro laminado",
+          "nota": "Producto solo: Topos triángulo (oro laminado) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/topos-triangulo-oro-2.jpg",
+          "alt": "Topos triángulo puesto",
+          "nota": "Puesta: Topos triángulo en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "cadena-jaco-plata",
+      "nombre": "Cadena Jaco",
+      "referencia": "Cadena Jaco",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "plata"
+      ],
+      "precios": {
+        "plata": 90000
+      },
+      "medida": "60 cm",
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {},
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/cadena-jaco-plata-1.jpg",
+          "alt": "Cadena Jaco en plata",
+          "nota": "Producto solo: Cadena Jaco (plata) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/cadena-jaco-plata-2.jpg",
+          "alt": "Cadena Jaco puesto",
+          "nota": "Puesta: Cadena Jaco en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "topos-flor-rodio",
+      "nombre": "Topos flor",
+      "referencia": "Topos flor",
+      "categoria": "aretes",
+      "subcategoria": null,
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 15000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para tu oreja apilada o para usar solos.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/topos-flor-rodio-1.jpg",
+          "alt": "Topos flor en rodio",
+          "nota": "Producto solo: Topos flor (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/topos-flor-rodio-2.jpg",
+          "alt": "Topos flor puesto",
+          "nota": "Puesta: Topos flor en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "topos-rayo-rodio",
+      "nombre": "Topos rayo",
+      "referencia": "Topos rayo",
+      "categoria": "aretes",
+      "subcategoria": null,
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 15000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para tu oreja apilada o para usar solos.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/topos-rayo-rodio-1.jpg",
+          "alt": "Topos rayo en rodio",
+          "nota": "Producto solo: Topos rayo (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/topos-rayo-rodio-2.jpg",
+          "alt": "Topos rayo puesto",
+          "nota": "Puesta: Topos rayo en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "collar-555-rodio",
+      "nombre": "Collar 555",
+      "referencia": "Collar 555",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 30000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/collar-555-rodio-1.jpg",
+          "alt": "Collar 555 en rodio",
+          "nota": "Producto solo: Collar 555 (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/collar-555-rodio-2.jpg",
+          "alt": "Collar 555 puesto",
+          "nota": "Puesta: Collar 555 en la modelo, encuadre cerrado."
+        }
+      ]
+    },
+    {
+      "slug": "collar-444-rodio",
+      "nombre": "Collar 444",
+      "referencia": "Collar 444",
+      "categoria": "collares",
+      "subcategoria": "cadenas",
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 30000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para llevar solo o por capas.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/collar-444-rodio-1.jpg",
+          "alt": "Collar 444 en rodio",
+          "nota": "Producto solo: Collar 444 (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/collar-444-rodio-2.jpg",
+          "alt": "Collar 444 puesto",
+          "nota": "Puesta: Collar 444 en la modelo, encuadre cerrado."
+        }
+      ]
     }
   ]
 }
