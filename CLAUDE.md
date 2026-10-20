@@ -74,7 +74,8 @@ Fotos con personalidad, luz natural, fondos lisos en la paleta, la mitad con la 
 5. Bolsa y pago: barra de progreso hacia envío gratis ($250.000), resumen, métodos visibles (PSE, tarjeta, contraentrega, Addi/Sistecrédito, WhatsApp), pedido por WhatsApp con mensaje prellenado.
 6. Mi cuenta / suscripción (maqueta con datos de ejemplo): próximo cobro y envío, metal elegido y cambiarlo, pausar / saltar un mes / cancelar, historial de cajas.
 7. Nosotras, Cuidados de la joya, Envíos y cambios, Contacto.
-- Menú: Aretes · Collares · Anillos · Pulseras · Sets · Looks · Mystery Box.
+- Menú ✔: Aretes · Collares · Anillos · Pulseras · Sets · Personalizados · Looks · Mystery Box.
+8. ✔ Personalizados (/personalizados, textos en personalizados.json): "Arma tu collar" (cadena + hasta 5 dijes del catálogo; se agregan a la bolsa con modo "Para armar") y "Grábalo" (texto + metal + pieza, se cotiza por WhatsApp; precio y tiempo con marcadores).
 
 ## ETAPAS (mostrar cada una y esperar aprobación)
 1. Tokens y componentes base (+ adaptar encabezado y Hero a las reglas nuevas)
@@ -96,3 +97,4 @@ Fotos con personalidad, luz natural, fondos lisos en la paleta, la mitad con la 
 - [x] Etapa 4: Mystery Box (aprobada). Página /mystery-box.
 - [x] Etapa 5: Bolsa (aprobada). Textos en src/data/bolsa.json. Página /bolsa, lógica en src/lib/bolsa.ts y src/lib/checkout.
 - [x] Etapa 6: Cuenta + páginas informativas + SEO + Cloudflare (aprobada). Páginas: /cuenta (maqueta, cuenta.json), /nosotras, /cuidados, /envios-y-cambios, /contacto (paginas.json), /looks, /buscar, 404. Plantilla src/layouts/Tienda.astro. Direcciones sin barra final (build.format file). Guía de publicación: PUBLICAR.md. Imagen para compartir: public/fotos/compartir.jpg.
+- Productos reales ✔: 30 piezas disponibles del inventario de la usuaria (Excel con datos privados: NUNCA publicar precio por mayor, proveedor ni ganancia). "disponible": false oculta una pieza vendida. 5 piezas con código tienen nombre provisional (Collar Luna, Collar Destello, Aretes Brisa, Aretes Capricho, Anillo Para Siempre); el código queda en "referencia". Sets: la usuaria sí tiene, faltan sus datos. Fotos del inicio (5 bloques) puestas.

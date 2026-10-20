@@ -90,7 +90,9 @@
     const look = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-agregar-look]');
     if (look) {
       // Un look completo: agrega cada pieza con su metal
-      const piezas: { slug: string; nombre: string; metal: string; precio: number }[] = JSON.parse(look.dataset.piezas || '[]');
+      // (los collares armados de /personalizados traen modo "Para armar")
+      const piezas: { slug: string; nombre: string; metal: string; precio: number; modo?: string }[] = JSON.parse(look.dataset.piezas || '[]');
+      if (!piezas.length) return;
       piezas.forEach((pz) => agregar({ ...pz, tipo: 'producto' }));
       mostrarAviso(`${look.dataset.nombre} (${piezas.length} piezas)`);
       confirmar(look);

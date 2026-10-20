@@ -1,7 +1,8 @@
 ---
 // Cabeza de las páginas internas: migas, título gigante y frase. Opcional: una franja amarilla de fondo.
-interface Props { titulo: string; frase?: string; amarilla?: boolean; migas?: boolean }
-const { titulo, frase, amarilla = false, migas = true } = Astro.props;
+// tamano: para títulos de una palabra muy larga (ej. "Personalizados"), así caben en una línea
+interface Props { titulo: string; frase?: string; amarilla?: boolean; migas?: boolean; tamano?: string }
+const { titulo, frase, amarilla = false, migas = true, tamano } = Astro.props;
 ---
 <header class:list={['cabeza-pagina', { 'cabeza-pagina--amarilla': amarilla }]}>
   <div class="relleno cabeza-pagina__interior">
@@ -10,7 +11,7 @@ const { titulo, frase, amarilla = false, migas = true } = Astro.props;
         <a href="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">{titulo}</span>
       </nav>
     )}
-    <h1 class="cabeza-pagina__titulo">{titulo}</h1>
+    <h1 class="cabeza-pagina__titulo" style={tamano ? `font-size:${tamano}` : undefined}>{titulo}</h1>
     {frase && <p class="cabeza-pagina__frase">{frase}</p>}
     <slot />
   </div>

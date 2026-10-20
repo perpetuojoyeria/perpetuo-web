@@ -1,13 +1,47 @@
 {
   "_instrucciones": "Menú principal. 'nota' es la frasecita que sale en el menú del celular. 'etiqueta' (opcional) pone un sello amarillo junto a la opción.",
   "menu": [
-    { "texto": "Aretes", "enlace": "/aretes", "nota": "para las que apilan" },
-    { "texto": "Collares", "enlace": "/collares", "nota": "por capas, siempre" },
-    { "texto": "Anillos", "enlace": "/anillos", "nota": "uno nunca es suficiente" },
-    { "texto": "Pulseras", "enlace": "/pulseras", "nota": "el brillo de cada día" },
-    { "texto": "Sets", "enlace": "/sets", "nota": "ya combinados" },
-    { "texto": "Looks", "enlace": "/looks", "nota": "arma tus capas" },
-    { "texto": "Mystery Box", "enlace": "/mystery-box", "nota": "edición del mes", "etiqueta": "Del mes" }
+    {
+      "texto": "Aretes",
+      "enlace": "/aretes",
+      "nota": "para las que apilan"
+    },
+    {
+      "texto": "Collares",
+      "enlace": "/collares",
+      "nota": "por capas, siempre"
+    },
+    {
+      "texto": "Anillos",
+      "enlace": "/anillos",
+      "nota": "uno nunca es suficiente"
+    },
+    {
+      "texto": "Pulseras",
+      "enlace": "/pulseras",
+      "nota": "el brillo de cada día"
+    },
+    {
+      "texto": "Sets",
+      "enlace": "/sets",
+      "nota": "ya combinados"
+    },
+    {
+      "texto": "Personalizados",
+      "enlace": "/personalizados",
+      "nota": "tu collar, tus reglas"
+    },
+    {
+      "texto": "Looks",
+      "enlace": "/looks",
+      "nota": "arma tus capas"
+    },
+    {
+      "texto": "Mystery Box",
+      "enlace": "/mystery-box",
+      "nota": "edición del mes",
+      "etiqueta": "Del mes"
+    }
   ],
   "cuenta": "/cuenta",
   "bolsa": "/bolsa",

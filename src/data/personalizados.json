@@ -1,0 +1,22 @@
+{
+  "_instrucciones": "Página /personalizados. 'cadenas' y 'dijes': deja la lista vacía [] para usar automáticamente todas las cadenas y todos los dijes disponibles del catálogo, o pon los slugs de las piezas que quieras ofrecer para armar. Cambia lo que está entre [CORCHETES] por los datos reales.",
+  "titulo": "Personalizados",
+  "frase": "Tu collar, tus reglas.",
+  "arma": {
+    "titulo": "Arma tu collar",
+    "texto": "Escoge la cadena, súmale los dijes que quieras y nosotras te lo armamos.",
+    "maxDijes": 5,
+    "cadenas": [],
+    "dijes": [],
+    "nota": "Te lo entregamos armado. Si mezclas metales, también se vale."
+  },
+  "graba": {
+    "titulo": "Grábalo",
+    "texto": "Un nombre, una fecha, una inicial o esa palabra que solo ustedes entienden.",
+    "maxLetras": 12,
+    "precio": "[PRECIO DEL GRABADO]",
+    "tiempo": "[TIEMPO DE GRABADO]",
+    "piezas": "[QUÉ PIEZAS SE PUEDEN GRABAR, por ejemplo: placas, medallas y dijes de inicial]",
+    "nota": "Te confirmamos precio y entrega por WhatsApp antes de grabar. [POLÍTICA DE CAMBIO DE PIEZAS GRABADAS]"
+  }
+}

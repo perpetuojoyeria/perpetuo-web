@@ -1,0 +1,262 @@
+---
+// Personalizados: "Arma tu collar" (cadena + dijes del catálogo, se agregan a la bolsa "para armar")
+// y "Grábalo" (se cotiza por WhatsApp). Textos en src/data/personalizados.json.
+import Tienda from '../layouts/Tienda.astro';
+import CabezaPagina from '../components/base/CabezaPagina.astro';
+import Foto from '../components/base/Foto.astro';
+import Estrella from '../components/base/Estrella.astro';
+import FranjaConfianza from '../components/base/FranjaConfianza.astro';
+import datos from '../data/personalizados.json';
+import metales from '../data/metales.json';
+import sitio from '../data/sitio.json';
+import { productos, precioDe, nombreMetal, type Producto } from '../lib/productos';
+import { formatoCOP } from '../lib/precio';
+
+const { arma, graba } = datos;
+const elegir = (slugs: string[], sub: string) =>
+  slugs.length ? productos.filter((p) => slugs.includes(p.slug)) : productos.filter((p) => p.subcategoria === sub);
+const cadenas = elegir(arma.cadenas, 'cadenas');
+const dijes = elegir(arma.dijes, 'dijes');
+const pieza = (p: Producto) => {
+  const m = p.metales[0];
+  return { slug: p.slug, nombre: p.nombre, metal: m, precio: precioDe(p, m), medida: (p as { medida?: string | null }).medida ?? '' };
+};
+---
+<Tienda titulo={datos.titulo} descripcion={`${datos.frase} Arma tu collar con los dijes que quieras o graba tu pieza en plata 925, oro laminado o rodio.`}>
+  <CabezaPagina titulo={datos.titulo} frase={datos.frase} amarilla tamano="min(var(--t-3xl), 7.6vw)">
+    <nav class="saltos" aria-label="En esta página">
+      <a class="boton boton--oscuro" href="#arma">{arma.titulo}</a>
+      <a class="boton" href="#graba">{graba.titulo}</a>
+    </nav>
+  </CabezaPagina>
+
+  <!-- Arma tu collar -->
+  <section class="arma" id="arma" aria-labelledby="arma-titulo" data-arma data-max={arma.maxDijes}>
+    <div class="relleno arma__cabeza">
+      <h2 class="titulo-seccion" id="arma-titulo">{arma.titulo}</h2>
+      <p>{arma.texto}</p>
+    </div>
+
+    <fieldset class="paso">
+      <legend class="paso__titulo relleno"><span class="paso__numero">1</span> Escoge la cadena</legend>
+      {cadenas.length ? (
+        <ul class="opciones" role="list">
+          {cadenas.map((p, i) => {
+            const d = pieza(p);
+            return (
+              <li class="opcion">
+                <label>
+                  <input type="radio" name="cadena" value={d.slug} checked={i === 0} data-pieza={JSON.stringify(d)} />
+                  <span class="opcion__foto"><Foto src={p.fotos[0]?.src} alt="" nota={p.fotos[0]?.nota} proporcion="1 / 1" /></span>
+                  <span class="opcion__info">
+                    <span class="opcion__nombre">{d.nombre}</span>
+                    <span class="opcion__detalle"><span class={`punto punto--${d.metal}`} aria-hidden="true"></span>{nombreMetal(d.metal)}{d.medida && ` · ${d.medida}`}</span>
+                    <span class="opcion__precio">{formatoCOP(d.precio)}</span>
+                  </span>
+                </label>
+              </li>
+            );
+          })}
+        </ul>
+      ) : <p class="relleno vacio">Pronto tendremos cadenas para armar.</p>}
+    </fieldset>
+
+    <fieldset class="paso">
+      <legend class="paso__titulo relleno"><span class="paso__numero">2</span> Súmale dijes <span class="paso__ayuda">hasta {arma.maxDijes}</span></legend>
+      {dijes.length ? (
+        <ul class="opciones opciones--dijes" role="list">
+          {dijes.map((p) => {
+            const d = pieza(p);
+            return (
+              <li class="opcion">
+                <label>
+                  <input type="checkbox" name="dije" value={d.slug} data-pieza={JSON.stringify(d)} />
+                  <span class="opcion__foto"><Foto src={p.fotos[0]?.src} alt="" nota={p.fotos[0]?.nota} proporcion="1 / 1" /><span class="opcion__marca" aria-hidden="true">✓</span></span>
+                  <span class="opcion__info">
+                    <span class="opcion__nombre">{d.nombre}</span>
+                    <span class="opcion__detalle"><span class={`punto punto--${d.metal}`} aria-hidden="true"></span>{nombreMetal(d.metal)}</span>
+                    <span class="opcion__precio">{formatoCOP(d.precio)}</span>
+                  </span>
+                </label>
+              </li>
+            );
+          })}
+        </ul>
+      ) : <p class="relleno vacio">Pronto tendremos dijes para armar.</p>}
+      <p class="relleno arma__aviso" data-aviso-max hidden aria-live="polite">Máximo {arma.maxDijes} dijes por collar. Quita uno para cambiarlo.</p>
+    </fieldset>
+
+    <!-- Resumen (pegado abajo en el celular) -->
+    <div class="resumen-arma sobre-oscuro" aria-live="polite">
+      <div class="resumen-arma__texto">
+        <p class="resumen-arma__lista" data-resumen-lista>Escoge tu cadena</p>
+        <p class="resumen-arma__total"><span>Tu collar</span> <strong data-resumen-total>$0</strong></p>
+      </div>
+      <button class="boton" type="button" data-agregar-look data-nombre="Collar armado" data-piezas="[]" disabled>Agregar a la bolsa</button>
+    </div>
+    <p class="relleno arma__nota"><Estrella tamano="0.75rem" /> {arma.nota}</p>
+  </section>
+
+  <!-- Grábalo -->
+  <section class="graba seccion relleno" id="graba" aria-labelledby="graba-titulo">
+    <div class="graba__intro">
+      <h2 class="titulo-seccion" id="graba-titulo">{graba.titulo}</h2>
+      <p>{graba.texto}</p>
+      <dl class="graba__datos">
+        <div><dt>Qué se graba</dt><dd>{graba.piezas}</dd></div>
+        <div><dt>Precio</dt><dd>{graba.precio}</dd></div>
+        <div><dt>Tiempo</dt><dd>{graba.tiempo}</dd></div>
+      </dl>
+    </div>
+
+    <form class="graba__form" data-graba data-whatsapp={sitio.whatsapp} novalidate>
+      <div class="campo">
+        <label for="graba-texto">¿Qué quieres grabar? <span class="campo__opcional">(máx. {graba.maxLetras} letras)</span></label>
+        <input id="graba-texto" name="texto" type="text" maxlength={graba.maxLetras} autocomplete="off" required aria-describedby="graba-error" placeholder="Sofi · 14.02 · M" />
+        <p class="campo__error" id="graba-error" data-error hidden>Escríbenos el texto que quieres grabar.</p>
+        <p class="graba__vista">Así va: <strong data-vista>…</strong></p>
+      </div>
+      <fieldset class="campo campo--metal">
+        <legend>Metal</legend>
+        <div class="metales">
+          {(['plata', 'oro', 'rodio'] as const).map((m, i) => (
+            <label class="metal-op"><input type="radio" name="metal" value={metales[m].nombre} checked={i === 0} /><span class={`punto punto--${m}`} aria-hidden="true"></span><span>{metales[m].nombre}</span></label>
+          ))}
+        </div>
+      </fieldset>
+      <div class="campo">
+        <label for="graba-pieza">¿En qué pieza? <span class="campo__opcional">(opcional)</span></label>
+        <input id="graba-pieza" name="pieza" type="text" autocomplete="off" placeholder="Por ejemplo: Dije inicial, o una placa" />
+      </div>
+      <button class="boton boton--oscuro" type="submit">Cotizar por WhatsApp</button>
+      <p class="graba__nota">{graba.nota}</p>
+    </form>
+  </section>
+
+  <section aria-label="Compra tranquila"><FranjaConfianza /></section>
+</Tienda>
+
+<style>
+  .saltos { display: flex; flex-wrap: wrap; gap: var(--e-2); margin-top: var(--e-2); }
+  .arma { padding-top: var(--seccion); scroll-margin-top: 100px; }
+  .arma__cabeza { display: grid; gap: var(--e-2); margin-bottom: var(--e-5); }
+
+  .paso { margin: 0 0 var(--e-6); padding: 0; border: 0; min-width: 0; }
+  .paso__titulo { display: flex; align-items: center; gap: var(--e-3); width: 100%; margin-bottom: var(--e-3); font-weight: var(--peso-boton); font-size: var(--t-md); }
+  .paso__numero { display: grid; place-items: center; width: 32px; height: 32px; border-radius: var(--r-circulo); background: var(--noche); color: var(--hueso); font-size: var(--t-sm); }
+  .paso__ayuda { font-weight: var(--peso-texto); font-size: var(--t-sm); color: var(--texto-suave); }
+  .vacio { color: var(--texto-suave); }
+
+  /* Opciones: carril que se desliza en celular, grilla en computador */
+  .opciones { display: grid; grid-auto-flow: column; grid-auto-columns: 44%; gap: 1px; margin: 0; padding: 0 0 var(--e-2); list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-block: 1px solid var(--linea); }
+  .opciones::-webkit-scrollbar { display: none; }
+  .opcion { scroll-snap-align: start; min-width: 0; background: var(--hueso); box-shadow: 0 0 0 1px var(--linea); }
+  .opcion label { position: relative; display: grid; cursor: pointer; height: 100%; }
+  .opcion input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .opcion__foto { position: relative; display: block; }
+  .opcion__info { display: grid; gap: 2px; padding: var(--e-3); }
+  .opcion__nombre { font-weight: var(--peso-boton); line-height: 1.25; }
+  .opcion__detalle { display: inline-flex; align-items: center; gap: var(--e-2); font-size: var(--t-xs); color: var(--texto-suave); }
+  .opcion__precio { font-weight: var(--peso-boton); font-size: var(--t-sm); }
+  .opcion__marca { position: absolute; top: var(--e-2); right: var(--e-2); display: none; place-items: center; width: 30px; height: 30px; border: 1.5px solid var(--noche); border-radius: var(--r-circulo); background: var(--perla); color: var(--noche); font-weight: var(--peso-boton); }
+  .opcion:has(input:checked) { box-shadow: inset 0 0 0 3px var(--noche); z-index: 1; }
+  .opcion:has(input:checked) .opcion__info { background: var(--perla); }
+  .opcion:has(input:checked) .opcion__marca { display: grid; }
+  .opcion:has(input:focus-visible) { outline: 2px solid var(--noche); outline-offset: -5px; }
+  .opcion:has(input:disabled) { opacity: 0.45; }
+  .opcion:has(input:disabled) label { cursor: not-allowed; }
+  .arma__aviso { margin-top: var(--e-2); font-size: var(--t-sm); font-weight: var(--peso-boton); }
+
+  .resumen-arma { position: sticky; bottom: 0; z-index: 6; display: flex; align-items: center; justify-content: space-between; gap: var(--e-3); padding: var(--e-3) var(--margen-der) calc(var(--e-3) + env(safe-area-inset-bottom, 0px)) var(--margen); background: var(--profundo); color: var(--hueso); }
+  .resumen-arma__texto { min-width: 0; }
+  .resumen-arma__lista { font-size: var(--t-xs); color: var(--hueso-70); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .resumen-arma__total { display: flex; align-items: baseline; gap: var(--e-2); font-size: var(--t-sm); }
+  .resumen-arma__total strong { font-size: var(--t-lg); color: var(--perla); }
+  .resumen-arma .boton { flex: none; }
+  .resumen-arma .boton:disabled { opacity: 0.5; cursor: not-allowed; }
+  .arma__nota { display: flex; align-items: center; gap: var(--e-2); padding-block: var(--e-3); font-size: var(--t-sm); color: var(--texto-suave); }
+
+  /* Grábalo */
+  .graba { display: grid; gap: var(--e-6); scroll-margin-top: 100px; border-top: var(--borde-fuerte); }
+  .graba__intro { display: grid; gap: var(--e-3); align-content: start; }
+  .graba__datos { margin: var(--e-2) 0 0; border-top: var(--borde-fuerte); }
+  .graba__datos > div { display: grid; gap: 2px; padding: var(--e-3) 0; border-bottom: var(--borde); }
+  .graba__datos dt { font-size: 0.6875rem; font-weight: var(--peso-boton); letter-spacing: var(--espaciado-etiqueta); text-transform: uppercase; color: var(--texto-suave); }
+  .graba__datos dd { margin: 0; font-weight: var(--peso-medio); }
+  .graba__form { display: grid; gap: var(--e-4); justify-items: start; max-width: 34rem; }
+  .campo { display: grid; gap: var(--e-1); width: 100%; margin: 0; padding: 0; border: 0; min-width: 0; }
+  .campo label, .campo legend { font-size: var(--t-sm); font-weight: var(--peso-boton); margin-bottom: var(--e-1); }
+  .campo__opcional { font-weight: var(--peso-texto); color: var(--texto-suave); }
+  .campo input[type='text'] { width: 100%; min-height: 48px; padding: var(--e-3); border: var(--borde-fuerte); border-radius: var(--r-chico); background: var(--hueso); color: var(--noche); font: inherit; font-size: var(--t-md); }
+  .campo input[type='text']:focus-visible { outline: 2px solid var(--noche); outline-offset: 2px; }
+  .campo input[aria-invalid='true'] { border-width: 2.5px; }
+  .campo__error { font-size: var(--t-xs); font-weight: var(--peso-boton); }
+  .campo__error::before { content: '× '; }
+  .graba__vista { margin-top: var(--e-1); font-size: var(--t-sm); color: var(--texto-suave); }
+  .graba__vista strong { color: var(--noche); font-size: var(--t-md); letter-spacing: 0.04em; }
+  .metales { display: flex; flex-wrap: wrap; gap: var(--e-2); }
+  .metal-op { position: relative; display: inline-flex; align-items: center; gap: var(--e-2); min-height: 40px; padding: 0 var(--e-4); border: var(--borde-fuerte); border-radius: var(--r-pildora); font-size: var(--t-sm); font-weight: var(--peso-boton); cursor: pointer; }
+  .metal-op input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+  .metal-op:has(input:checked) { background: var(--noche); color: var(--hueso); }
+  .metal-op:has(input:checked) .punto { border-color: var(--hueso); }
+  .metal-op:has(input:focus-visible) { outline: 2px solid var(--noche); outline-offset: 2px; }
+  .graba__nota { font-size: var(--t-xs); color: var(--texto-suave); }
+
+  @media (min-width: 900px) {
+    .opciones { grid-auto-flow: row; grid-template-columns: repeat(6, minmax(0, 1fr)); overflow: visible; }
+    .resumen-arma { position: static; margin-inline: var(--margen); }
+    .graba { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: start; }
+  }
+</style>
+
+<script>
+  const formato = (n: number) => '$' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+  // Arma tu collar
+  const arma = document.querySelector<HTMLElement>('[data-arma]');
+  if (arma) {
+    const max = Number(arma.dataset.max) || 5;
+    const lista = arma.querySelector('[data-resumen-lista]')!;
+    const total = arma.querySelector('[data-resumen-total]')!;
+    const boton = arma.querySelector<HTMLButtonElement>('[data-agregar-look]')!;
+    const aviso = arma.querySelector<HTMLElement>('[data-aviso-max]')!;
+    const dijes = Array.from(arma.querySelectorAll<HTMLInputElement>('input[name="dije"]'));
+    const leer = (i: HTMLInputElement) => JSON.parse(i.dataset.pieza || '{}');
+    const pintar = () => {
+      const cadena = arma.querySelector<HTMLInputElement>('input[name="cadena"]:checked');
+      const elegidos = dijes.filter((d) => d.checked);
+      dijes.forEach((d) => (d.disabled = !d.checked && elegidos.length >= max));
+      aviso.hidden = elegidos.length < max;
+      const piezas = [cadena, ...elegidos].filter(Boolean).map((i) => ({ ...leer(i!), modo: 'Para armar' }));
+      piezas.forEach((p) => delete p.medida);
+      const suma = piezas.reduce((n, p) => n + p.precio, 0);
+      lista.textContent = piezas.length ? piezas.map((p) => p.nombre).join(' + ') : 'Escoge tu cadena';
+      total.textContent = formato(suma);
+      boton.dataset.piezas = JSON.stringify(piezas);
+      boton.disabled = !cadena;
+      boton.setAttribute('aria-label', `Agregar a la bolsa: ${lista.textContent}, ${formato(suma)}`);
+    };
+    arma.addEventListener('change', pintar);
+    pintar();
+  }
+
+  // Grábalo: arma el mensaje y abre WhatsApp
+  const form = document.querySelector<HTMLFormElement>('[data-graba]');
+  if (form) {
+    const texto = form.elements.namedItem('texto') as HTMLInputElement;
+    const vista = form.querySelector('[data-vista]')!;
+    const error = form.querySelector<HTMLElement>('[data-error]')!;
+    texto.addEventListener('input', () => (vista.textContent = texto.value.trim() || '…'));
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const t = texto.value.trim();
+      texto.setAttribute('aria-invalid', String(!t));
+      error.hidden = !!t;
+      if (!t) { texto.focus(); return; }
+      const datos = new FormData(form);
+      const pieza = String(datos.get('pieza') || '').trim();
+      const mensaje = ['¡Hola, Perpetuo! Quiero una pieza grabada:', '', `Texto: "${t}"`, `Metal: ${datos.get('metal')}`, pieza ? `Pieza: ${pieza}` : '', '', '¿Me cuentan precio y tiempo de entrega?'].filter((l, i, a) => !(l === '' && a[i - 1] === '')).join('\n');
+      Object.assign(document.createElement('a'), { href: `https://wa.me/${form.dataset.whatsapp}?text=${encodeURIComponent(mensaje)}`, target: '_blank', rel: 'noopener' }).click();
+    });
+  }
+</script>
