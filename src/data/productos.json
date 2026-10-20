@@ -325,6 +325,39 @@
       ]
     },
     {
+      "slug": "pulsera-virgen-rodio",
+      "nombre": "Pulsera virgen",
+      "referencia": "Pulsera virgen",
+      "categoria": "pulseras",
+      "subcategoria": null,
+      "metales": [
+        "rodio"
+      ],
+      "precios": {
+        "rodio": 10000
+      },
+      "medida": null,
+      "etiquetas": [],
+      "descripcion": "Para mezclar con las que ya tienes.",
+      "micras": {
+        "rodio": "[N] micras"
+      },
+      "hipoalergenico": null,
+      "disponible": true,
+      "fotos": [
+        {
+          "src": "/fotos/productos/pulsera-virgen-rodio-1.jpg",
+          "alt": "Pulsera virgen en rodio",
+          "nota": "Producto solo: Pulsera virgen (rodio) sobre fondo liso, luz natural."
+        },
+        {
+          "src": "/fotos/productos/pulsera-virgen-rodio-2.jpg",
+          "alt": "Pulsera virgen puesta",
+          "nota": "Puesta: Pulsera virgen en la muñeca, encuadre cerrado."
+        }
+      ]
+    },
+    {
       "slug": "dije-virgen-moneda-plata",
       "nombre": "Dije virgen moneda",
       "referencia": "Dije virgen moneda",
